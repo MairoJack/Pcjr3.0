@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/list_selector">
+
+
+    <ImageView
+        android:id="@+id/rtv"
+        android:layout_width="@dimen/item_product_rtv_image_width"
+        android:layout_height="@dimen/item_product_rtv_image_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/item_product_kntqhk"
+         />
+
+    <TextView
+        android:id="@+id/goodname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="3dp"
+        tools:text="大城小爱NO.94-2016"
+        android:textColor="@color/item_product_title_text_color"
+        android:textSize="@dimen/item_product_title_text_size"
+        android:fontFamily="微软雅黑"
+        android:layout_above="@+id/layoutc"
+        android:id="@+id/name"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        tools:text="先息后本(月)"
+        android:textColor="@color/item_product_repayment_text_color"
+        android:textSize="@dimen/item_product_repayment_text_size"
+        android:background="@drawable/purple_bg"
+        android:fontFamily="微软雅黑"
+        android:id="@+id/repayment"
+        android:layout_above="@+id/layoutc"
+        android:layout_toRightOf="@+id/name"/>
+
+    <LinearLayout
+        android:id="@+id/layoutc"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/goodname"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/annual_earnings"
+                android:textColor="@color/item_product_text_color_gray" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="6.90"
+                    android:textColor="@color/item_product_text_color"
+                    android:textSize="@dimen/item_product_text_size" />
+
+                <TextView
+                    android:id="@+id/income1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textColor="#FD7C21"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/project_duration"
+                android:textColor="@color/item_product_text_color_gray" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="12"
+                    android:textColor="@color/item_product_text_color"
+                    android:textSize="@dimen/item_product_text_size" />
+
+                <TextView
+                    android:id="@+id/month1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#FD7C21"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/total_amount"
+                android:textColor="@color/item_product_text_color_gray" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                tools:text="2000.00"
+                android:textColor="@color/item_product_text_color"
+                android:textSize="@dimen/item_product_text_size" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="15%"
+                android:textColor="@color/item_product_text_color"
+                android:textSize="@dimen/item_product_rate_text_size"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

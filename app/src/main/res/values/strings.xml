@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Pcjr3.0</string>
+
+    <!-- main  -->
+    <string name="cpyg">产品预告</string>
+    <string name="dcxa">大城小爱</string>
+    <string name="gtma">国泰明安</string>
+    <string name="zlbh">珠联璧合</string>
+    <string name="tzjx">投资精选</string>
+
+    <!-- title -->
+    <string name="title_user_center">个人中心</string>
+    <string name="title_invest_item">投资项目</string>
+    <string name="title_more_setting">更多设置</string>
+
+    <!-- setting -->
+    <string name="setting_platform_bulletin">平台公告</string>
+    <string name="setting_about_us">关于我们</string>
+    <string name="setting_customer_service">客服热线</string>
+
+    <!--item product-->
+    <string name="annual_earnings">年化收益</string>
+    <string name="project_duration">项目期限</string>
+    <string name="total_amount">金额(万元)</string>
+</resources>

@@ -1,0 +1,35 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- common -->
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="icon_right_width">24dp</dimen>
+    <dimen name="icon_right_height">24dp</dimen>
+    <dimen name="title_height">50dp</dimen>
+
+    <!-- main -->
+    <dimen name="main_image_width">50dp</dimen>
+    <dimen name="main_image_height">50dp</dimen>
+    <dimen name="main_marigin_top">8dp</dimen>
+    <dimen name="main_bottom_image_width">40dp</dimen>
+    <dimen name="main_bottom_image_height">40dp</dimen>
+
+    <!-- list -->
+    <dimen name="list_divider_height">5dp</dimen>
+
+    <!-- setting -->
+    <dimen name="setting_item_height">50dp</dimen>
+    <dimen name="setting_image_width">32dp</dimen>
+    <dimen name="setting_image_height">32dp</dimen>
+
+    <!-- product item -->
+    <dimen name="item_product_text_size">20sp</dimen>
+    <dimen name="item_product_title_text_size">15sp</dimen>
+    <dimen name="item_product_repayment_text_size">12sp</dimen>
+    <dimen name="item_product_rate_text_size">12sp</dimen>
+    <dimen name="item_product_rtv_image_width">55dp</dimen>
+    <dimen name="item_product_rtv_image_height">55dp</dimen>
+</resources>

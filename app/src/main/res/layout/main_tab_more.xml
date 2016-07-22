@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/colorPrimary" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/title_more_setting"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/text_size_title" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/news"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/img_plant"
+            android:layout_width="@dimen/setting_image_width"
+            android:layout_height="@dimen/setting_image_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/icon_plant" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/img_plant"
+            android:text="@string/setting_platform_bulletin"
+            android:textColor="@color/color_text_setting"
+            android:textSize="@dimen/text_size_16sp" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_right_width"
+            android:layout_height="@dimen/icon_right_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_right" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/aboutus"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/img_aboutus"
+            android:layout_width="@dimen/setting_image_width"
+            android:layout_height="@dimen/setting_image_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/icon_aboutus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/img_aboutus"
+            android:text="@string/setting_about_us"
+            android:textColor="@color/color_text_setting"
+            android:textSize="@dimen/text_size_16sp" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_right_width"
+            android:layout_height="@dimen/icon_right_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_right" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/kefu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/img_kefu"
+            android:layout_width="@dimen/setting_image_width"
+            android:layout_height="@dimen/setting_image_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/icon_chatphone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/img_kefu"
+            android:text="@string/setting_customer_service"
+            android:textColor="@color/color_text_setting"
+            android:textSize="@dimen/text_size_16sp" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_right_width"
+            android:layout_height="@dimen/icon_right_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_right" />
+    </RelativeLayout>
+
+</LinearLayout>

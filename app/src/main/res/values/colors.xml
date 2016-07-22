@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF6602</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- common -->
+    <color name="color_title">#FFFFFF</color>
+
+    <!-- background color -->
+    <color name="color_background">#EEEEEE</color>
+    <color name="color_content_background">#FFFFFF</color>
+
+    <!-- list color -->
+    <color name="color_list_divider">#EEEEEE</color>
+
+    <!-- text color -->
+    <color name="color_text">#333333</color>
+    <color name="color_text_tag">#8F8F8F</color>
+    <color name="color_text_setting">#000000</color>
+
+    <!-- color-->
+    <color name="white">#FFF</color>
+    <color name="light_white">#EEEEEE</color>
+
+    <!-- tab color-->
+    <color name="tab_text_color">#666666</color>
+    <color name="tab_indicator_color">#FF6602</color>
+    <color name="tab_selected_text_color">#FF6602</color>
+
+    <!-- item product-->
+    <color name="item_product_text_color">#FD7C21</color>
+    <color name="item_product_title_text_color">#6F6F6F</color>
+    <color name="item_product_repayment_text_color">#FFFFFF</color>
+    <color name="item_product_text_color_gray">#8F8F8F</color>
+</resources>
