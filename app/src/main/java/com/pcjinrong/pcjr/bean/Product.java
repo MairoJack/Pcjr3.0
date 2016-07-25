@@ -3,11 +3,14 @@ package com.pcjinrong.pcjr.bean;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 产品类
  */
-public class Product implements Serializable{
+public class Product implements Serializable {
+
     @Expose
     private String id;
     @Expose
@@ -278,4 +281,5 @@ public class Product implements Serializable{
     public void setPreview_repayment_date(long preview_repayment_date) {
         this.preview_repayment_date = preview_repayment_date;
     }
+
 }

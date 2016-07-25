@@ -11,6 +11,7 @@ import com.pcjinrong.pcjr.bean.Product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,13 +22,13 @@ import butterknife.ButterKnife;
  */
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.RepoViewHolder> {
 
-    private ArrayList<Product> list;
+    private List<Product> list;
 
     public ProductListAdapter(){
         list =  new ArrayList<>();
     }
 
-    public void setReops(ArrayList<Product> list){
+    public void setData(List<Product> list){
         this.list = list;
         notifyItemChanged(list.size() - 1);
     }

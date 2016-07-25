@@ -201,16 +201,14 @@
                 </LinearLayout>
 
 
-                <ListView
-                    android:id="@+id/list"
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="8dp"
-                    android:divider="@color/color_list_divider"
-                    android:dividerHeight="@dimen/list_divider_height" />
+                  />
 
                 <LinearLayout
                     android:id="@+id/all_invest"

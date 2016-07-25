@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.pcjinrong.pcjr.utils.ToastUtils;
 
+import butterknife.ButterKnife;
+
 /**
  * 基础Fragment
  * Created by Mario on 2016/7/21.
