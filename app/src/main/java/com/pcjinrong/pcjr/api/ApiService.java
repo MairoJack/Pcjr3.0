@@ -2,6 +2,7 @@ package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public interface ApiService {
      * @return
      */
     @GET("index_focus_info")
-    Call<JsonObject> getIndexFocusInfo();
+    Observable<IndexFocusInfo> getIndexFocusInfo();
 
     /**
      * 获取首页产品信息

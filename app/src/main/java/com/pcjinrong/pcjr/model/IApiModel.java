@@ -1,6 +1,7 @@
 package com.pcjinrong.pcjr.model;
 
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 
 import java.util.ArrayList;
@@ -13,4 +14,5 @@ import rx.Observable;
  */
 public interface IApiModel {
     Observable<BaseBean<List<Product>>> getIndexProductList();
+    Observable<IndexFocusInfo> getIndexFocusInfo();
 }

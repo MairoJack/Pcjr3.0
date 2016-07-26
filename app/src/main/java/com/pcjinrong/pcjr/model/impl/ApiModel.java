@@ -2,6 +2,7 @@ package com.pcjinrong.pcjr.model.impl;
 
 import com.pcjinrong.pcjr.api.RetrofitManager;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.model.IApiModel;
 
@@ -29,5 +30,10 @@ public class ApiModel implements IApiModel {
     @Override
     public Observable<BaseBean<List<Product>>> getIndexProductList() {
         return RetrofitManager.getInstance().getApiService().getIndexProductList();
+    }
+
+    @Override
+    public Observable<IndexFocusInfo> getIndexFocusInfo() {
+        return RetrofitManager.getInstance().getApiService().getIndexFocusInfo();
     }
 }

@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * 产品列表适配器
  * Created by Mario on 2016/7/22.
  */
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.RepoViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private List<Product> list;
 
@@ -33,14 +33,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         notifyItemChanged(list.size() - 1);
     }
     @Override
-    public RepoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_product,parent,false);
-        return new RepoViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RepoViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindTo((list.get(position)));
     }
 
@@ -49,7 +49,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return list.size();
     }
 
-    public static class RepoViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name) TextView mIvName;
         @BindView(R.id.repayment) TextView mIvRepayment;
         @BindView(R.id.income) TextView mIvIncome;
@@ -57,7 +57,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         @BindView(R.id.month) TextView mIvMonth;
         @BindView(R.id.rate) TextView mIvRate;
 
-        public RepoViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

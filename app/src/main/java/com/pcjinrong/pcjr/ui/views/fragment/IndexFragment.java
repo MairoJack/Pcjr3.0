@@ -1,19 +1,37 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-
+import android.view.animation.AnimationUtils;
+import android.widget.ScrollView;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.Announce;
+import com.pcjinrong.pcjr.bean.FocusImg;
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
-import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
+import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
+import com.pcjinrong.pcjr.ui.views.activity.MainActivity;
+import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
+import com.pcjinrong.pcjr.widget.NetworkImageHolderView;
 import com.pcjinrong.pcjr.widget.RecycleViewDivider;
 
 import java.util.List;
@@ -21,25 +39,84 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 
 /**
  * 首页Fragment
  * Created by Mario on 2016/7/21.
  */
-public class IndexFragment extends BaseFragment implements MvpView<List<Product>>{
+public class IndexFragment extends BaseFragment implements MainView {
 
     public static final String TAG = IndexFragment.class.getSimpleName();
 
-    @BindView(R.id.rv_list) RecyclerView rv_list;
-    @BindView(R.id.img_cpyg)
-    ImageView img_cpyg;
+    @BindView(R.id.rv_list)
+    RecyclerView rv_list;
+    @BindView(R.id.slider)
+    ConvenientBanner sliderLayout;
+    @BindView(R.id.slider_small)
+    ConvenientBanner sliderLayoutSmall;
+    @BindView(R.id.ptr_frame)
+    PtrClassicFrameLayout mPtrFrame;
+    @BindView(R.id.scroll_view)
+    ScrollView scrollView;
+    @BindView(R.id.text_switcher)
+    TextSwitcher textSwitcher;
     private MainPresenter presenter;
     private ProductListAdapter adapter;
 
-    @OnClick(R.id.cpyg) void refresh(){
-        refreshData();
+    private List<FocusImg> focusImgs;
+    private List<FocusImg> midFocusImgs;
+    private List<Announce> announces;
+    private int mCounter;
+
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            if (announces != null && announces.size() > 0) {
+                handler.postDelayed(this, 3000);
+                textSwitcher.setInAnimation(AnimationUtils.loadAnimation(
+                        getContext(), R.anim.slide_up_in));
+                textSwitcher.setOutAnimation(AnimationUtils.loadAnimation(
+                        getContext(), R.anim.slide_up_out));
+                mCounter = mCounter >= announces.size() - 1 ? 0 : mCounter + 1;
+                textSwitcher.setText(announces.get(mCounter).getTitle());
+            }
+        }
+    };
+
+    @OnClick(R.id.cpyg) void cpyg() {
+        Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        intent.putExtra("title", Constant.PRODUCT_NOTICE);
+        intent.putExtra("url",Constant.PRODUCT_NOTICE_URL);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
     }
+
+    @OnClick(R.id.dcxa) void dcxa() {
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.onTabSelected(1);
+    }
+
+    @OnClick(R.id.gtma) void gtma() {
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.onTabSelected(1);
+    }
+
+    @OnClick(R.id.zlbh) void zlbh() {
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.onTabSelected(1);
+    }
+
+    @OnClick(R.id.all_invest) void allInvest() {
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.onTabSelected(1);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.main_tab_index;
@@ -47,16 +124,25 @@ public class IndexFragment extends BaseFragment implements MvpView<List<Product>
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        ButterKnife.bind(this,self);
+        ButterKnife.bind(this, self);
         LinearLayoutManager manager = new LinearLayoutManager(self.getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(manager);
-        rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(),LinearLayoutManager.HORIZONTAL,(int)getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(),R.color.color_background)));
+        rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
+        textSwitcher.setFactory(() -> new TextView(getContext()));
     }
 
     @Override
     protected void initListeners() {
-
+        textSwitcher.setOnClickListener((v) -> {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            String url = announces.get(mCounter).getUrl();
+            if (url != null && !url.equals("")) {
+                intent.putExtra("url", announces.get(mCounter).getUrl());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
     }
 
     @Override
@@ -65,6 +151,21 @@ public class IndexFragment extends BaseFragment implements MvpView<List<Product>
         this.presenter.attachView(this);
         this.adapter = new ProductListAdapter();
         this.rv_list.setAdapter(this.adapter);
+
+        mPtrFrame.disableWhenHorizontalMove(true);
+        mPtrFrame.setLastUpdateTimeRelateObject(this);
+        mPtrFrame.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, scrollView, header);
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                refreshData();
+            }
+        });
+
         refreshData();
     }
 
@@ -80,16 +181,124 @@ public class IndexFragment extends BaseFragment implements MvpView<List<Product>
 
     @Override
     public void onFailure(Throwable e) {
-
+        showToast("网络异常");
     }
 
     @Override
-    public void onSuccess(List<Product> data) {
-        adapter.setData(data);
+    public void onSuccess(Object data) {
+
     }
 
+
     private void refreshData() {
-        this.presenter.getData();
+        this.presenter.getIndexProductList();
+        this.presenter.getIndexFocusInfo();
+    }
+
+
+    /**
+     * 初始化图片轮播
+     *
+     * @param focusImgs
+     * @param midFocusImgs
+     */
+    public void initSlider(List<FocusImg> focusImgs, List<FocusImg> midFocusImgs) {
+
+        initImageLoader();
+        sliderLayout.setPages(() -> new NetworkImageHolderView(), focusImgs)
+                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
+                .setOnItemClickListener(new SliderLayoutOnItemClick(focusImgs));
+
+
+        sliderLayoutSmall.setPages(() -> new NetworkImageHolderView(), midFocusImgs)
+                .setPageIndicator(new int[]{R.mipmap.ic_page_red_indicator_focused, R.mipmap.ic_page_red_indicator})
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
+                .setOnItemClickListener(new SliderLayoutSmallOnItemClick(midFocusImgs));
+    }
+
+    private void initImageLoader() {
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_default_adimage)
+                .showImageOnFail(R.mipmap.ic_default_adimage)
+                .showImageForEmptyUri(R.mipmap.ic_default_adimage)
+                .cacheInMemory(true).cacheOnDisk(true).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getActivity().getApplicationContext()).defaultDisplayImageOptions(defaultOptions)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO).build();
+        ImageLoader.getInstance().init(config);
+    }
+
+    @Override
+    public void onGetIndexListSuccess(List<Product> list) {
+        mPtrFrame.refreshComplete();
+        adapter.setData(list);
+    }
+
+    @Override
+    public void onGetIndexFocusSuccess(IndexFocusInfo data) {
+        mPtrFrame.refreshComplete();
+        initSlider(data.getTop_focus_img(), data.getMiddle_focus_img());
+        announces = data.getAnnounce();
+        mCounter = announces.size();
+    }
+
+    class SliderLayoutOnItemClick implements OnItemClickListener {
+        private List<FocusImg> focusImgs;
+
+        public SliderLayoutOnItemClick(List<FocusImg> focusImgs) {
+            this.focusImgs = focusImgs;
+        }
+
+        @Override
+        public void onItemClick(int position) {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            String url = focusImgs.get(position).getUrl();
+            if (url != null && !url.equals("")) {
+                intent.putExtra("url", url);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        }
+    }
+
+    class SliderLayoutSmallOnItemClick implements OnItemClickListener {
+        private List<FocusImg> focusImgs;
+
+        public SliderLayoutSmallOnItemClick(List<FocusImg> focusImgs) {
+            this.focusImgs = focusImgs;
+        }
+
+        @Override
+        public void onItemClick(int position) {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            String url = focusImgs.get(position).getUrl();
+            if (url != null && !url.equals("")) {
+                intent.putExtra("url", url);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        handler.post(runnable);
+        sliderLayout.startTurning(5000);
+        sliderLayoutSmall.startTurning(5000);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
+        sliderLayout.stopTurning();
+        sliderLayoutSmall.stopTurning();
     }
 
     @Override

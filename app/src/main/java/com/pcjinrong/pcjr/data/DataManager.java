@@ -2,6 +2,7 @@ package com.pcjinrong.pcjr.data;
 
 
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
@@ -31,6 +32,12 @@ public class DataManager {
         return this.apiModel.getIndexProductList()
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
+
+    public Observable<IndexFocusInfo> getIndexFocusInfo() {
+        return this.apiModel.getIndexFocusInfo()
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
     private DataManager(){
         this.apiModel = ApiModel.getInstance();
     }
