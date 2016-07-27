@@ -38,6 +38,11 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
+    public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
+        return this.apiModel.getInvestProductList(type,page,page_size)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
     private DataManager(){
         this.apiModel = ApiModel.getInstance();
     }

@@ -40,9 +40,9 @@ public class MainPresenter extends BasePresenter<MainView> {
                     }
 
                     @Override
-                    public void onNext(BaseBean<List<Product>> list) {
+                    public void onNext(BaseBean<List<Product>> data) {
                         if (MainPresenter.this.getMvpView() != null)
-                            MainPresenter.this.getMvpView().onGetIndexListSuccess(list.getData());
+                            MainPresenter.this.getMvpView().onGetIndexListSuccess(data.getData(),data.getCurrent_time());
                     }
                 }));
     }

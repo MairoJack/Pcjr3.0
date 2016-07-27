@@ -12,7 +12,7 @@ import java.util.List;
 public interface MainView extends MvpView {
 
 
-    void onGetIndexListSuccess(List<Product> list);
+    void onGetIndexListSuccess(List<Product> list,long current_time);
 
 
     void onGetIndexFocusSuccess(IndexFocusInfo data);

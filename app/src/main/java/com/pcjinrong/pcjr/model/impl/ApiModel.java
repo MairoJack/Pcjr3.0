@@ -5,10 +5,7 @@ import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.model.IApiModel;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import rx.Observable;
 
 /**
@@ -35,5 +32,10 @@ public class ApiModel implements IApiModel {
     @Override
     public Observable<IndexFocusInfo> getIndexFocusInfo() {
         return RetrofitManager.getInstance().getApiService().getIndexFocusInfo();
+    }
+
+    @Override
+    public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
+        return RetrofitManager.getInstance().getApiService().getInvestProductList(type,page,page_size);
     }
 }

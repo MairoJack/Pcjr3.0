@@ -76,7 +76,7 @@ public interface ApiService {
      * @return
      */
     @GET("invest_product_list")
-    Call<JsonObject> getInvestProductList(@Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<Product>>> getInvestProductList(@Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
 
     /**
      * 获取产品详情

@@ -53,18 +53,12 @@ public class IndexFragment extends BaseFragment implements MainView {
 
     public static final String TAG = IndexFragment.class.getSimpleName();
 
-    @BindView(R.id.rv_list)
-    RecyclerView rv_list;
-    @BindView(R.id.slider)
-    ConvenientBanner sliderLayout;
-    @BindView(R.id.slider_small)
-    ConvenientBanner sliderLayoutSmall;
-    @BindView(R.id.ptr_frame)
-    PtrClassicFrameLayout mPtrFrame;
-    @BindView(R.id.scroll_view)
-    ScrollView scrollView;
-    @BindView(R.id.text_switcher)
-    TextSwitcher textSwitcher;
+    @BindView(R.id.rv_list) RecyclerView rv_list;
+    @BindView(R.id.slider) ConvenientBanner sliderLayout;
+    @BindView(R.id.slider_small) ConvenientBanner sliderLayoutSmall;
+    @BindView(R.id.ptr_frame) PtrClassicFrameLayout mPtrFrame;
+    @BindView(R.id.scroll_view) ScrollView scrollView;
+    @BindView(R.id.text_switcher) TextSwitcher textSwitcher;
     private MainPresenter presenter;
     private ProductListAdapter adapter;
 
@@ -72,7 +66,6 @@ public class IndexFragment extends BaseFragment implements MainView {
     private List<FocusImg> midFocusImgs;
     private List<Announce> announces;
     private int mCounter;
-
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         public void run() {
@@ -175,8 +168,7 @@ public class IndexFragment extends BaseFragment implements MainView {
     }
 
     public static Fragment newInstance(String content) {
-        IndexFragment fragment = new IndexFragment();
-        return fragment;
+        return new IndexFragment();
     }
 
     @Override
@@ -191,6 +183,10 @@ public class IndexFragment extends BaseFragment implements MainView {
 
 
     private void refreshData() {
+        handler.removeCallbacks(runnable);
+        sliderLayout.stopTurning();
+        sliderLayoutSmall.stopTurning();
+
         this.presenter.getIndexProductList();
         this.presenter.getIndexFocusInfo();
     }
@@ -234,9 +230,9 @@ public class IndexFragment extends BaseFragment implements MainView {
     }
 
     @Override
-    public void onGetIndexListSuccess(List<Product> list) {
+    public void onGetIndexListSuccess(List<Product> list,long current_time) {
         mPtrFrame.refreshComplete();
-        adapter.setData(list);
+        adapter.setData(list,current_time);
     }
 
     @Override
@@ -245,6 +241,7 @@ public class IndexFragment extends BaseFragment implements MainView {
         initSlider(data.getTop_focus_img(), data.getMiddle_focus_img());
         announces = data.getAnnounce();
         mCounter = announces.size();
+        handler.post(runnable);
     }
 
     class SliderLayoutOnItemClick implements OnItemClickListener {

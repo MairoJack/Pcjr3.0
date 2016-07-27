@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 
@@ -21,6 +22,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayoutId());
+        getSupportActionBar().hide();
         ButterKnife.bind(this);
 
         this.initToolbar(savedInstanceState);

@@ -15,4 +15,5 @@ import rx.Observable;
 public interface IApiModel {
     Observable<BaseBean<List<Product>>> getIndexProductList();
     Observable<IndexFocusInfo> getIndexFocusInfo();
+    Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size);
 }
