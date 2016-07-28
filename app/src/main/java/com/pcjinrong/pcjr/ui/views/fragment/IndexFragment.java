@@ -29,6 +29,7 @@ import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
+import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.MainActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
 import com.pcjinrong.pcjr.widget.NetworkImageHolderView;
@@ -101,8 +102,10 @@ public class IndexFragment extends BaseFragment implements MainView {
     }
 
     @OnClick(R.id.zlbh) void zlbh() {
-        MainActivity mainActivity  = (MainActivity) getContext();
-        mainActivity.onTabSelected(1);
+        /*MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.onTabSelected(1);*/
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+
     }
 
     @OnClick(R.id.all_invest) void allInvest() {
@@ -123,6 +126,11 @@ public class IndexFragment extends BaseFragment implements MainView {
         rv_list.setLayoutManager(manager);
         rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
         textSwitcher.setFactory(() -> new TextView(getContext()));
+
+        this.presenter = new MainPresenter();
+        this.presenter.attachView(this);
+        mPtrFrame.disableWhenHorizontalMove(true);
+        mPtrFrame.setLastUpdateTimeRelateObject(this);
     }
 
     @Override
@@ -140,13 +148,8 @@ public class IndexFragment extends BaseFragment implements MainView {
 
     @Override
     protected void initData() {
-        this.presenter = new MainPresenter();
-        this.presenter.attachView(this);
         this.adapter = new ProductListAdapter();
         this.rv_list.setAdapter(this.adapter);
-
-        mPtrFrame.disableWhenHorizontalMove(true);
-        mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {

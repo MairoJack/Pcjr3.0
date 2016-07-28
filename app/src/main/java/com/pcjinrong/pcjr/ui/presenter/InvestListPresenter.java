@@ -23,7 +23,7 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
         this.page = 1;
     }
 
-    public void getInvestProductList(int type, int page, int page_size) {
+    public void getInvestProductList(int type,int page_size) {
         this.mCompositeSubscription.add(this.mDataManager.getInvestProductList(type,page,page_size)
                 .subscribe(new Subscriber<BaseBean<List<Product>>>() {
                     @Override
@@ -35,7 +35,7 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.d(e.getMessage());
+                        Logger.e(e.getMessage());
                         InvestListPresenter.this.getMvpView().onFailure(e);
                     }
 

@@ -31,7 +31,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public void setData(List<Product> list, long current_time) {
+        this.list.clear();
         this.list = list;
+        this.current_time = current_time;
+        notifyItemChanged(list.size() - 1);
+    }
+
+    public void addAll(List<Product> list, long current_time) {
+        this.list.addAll(list);
         this.current_time = current_time;
         notifyItemChanged(list.size() - 1);
     }

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("oauth/access_token")
-    Call<JsonObject> getAccessToken(@Field("grant_type") String grant_type, @Field("username") String username, @Field("password") String password, @Field("client_id") String client_id, @Field("client_secret") String client_secret);
+    Observable<Token> getAccessToken(@Field("grant_type") String grant_type, @Field("username") String username, @Field("password") String password, @Field("client_id") String client_id, @Field("client_secret") String client_secret);
 
 
     /**
@@ -48,7 +49,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("oauth/access_token")
-    Call<JsonObject> refreshToken(@Field("grant_type") String grant_type, @Field("refresh_token") String refresh_token, @Field("client_id") String client_id, @Field("client_secret") String client_secret);
+    Observable<Token> refreshToken(@Field("grant_type") String grant_type, @Field("refresh_token") String refresh_token, @Field("client_id") String client_id, @Field("client_secret") String client_secret);
 
 
     /**

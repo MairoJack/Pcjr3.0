@@ -1,6 +1,8 @@
 package com.pcjinrong.pcjr;
 
 import android.app.Application;
+import android.content.Context;
+
 import com.orhanobut.logger.Logger;
 
 
@@ -10,7 +12,7 @@ import com.orhanobut.logger.Logger;
 public class App extends Application {
 
     private static App mInstance = new App();
-    public boolean log = true;
+    private static Context context;
 
     public static final long ONE_KB = 1024L;
     public static final long ONE_MB = ONE_KB * 1024L;
@@ -24,7 +26,10 @@ public class App extends Application {
         super.onCreate();
         mInstance = this;
         Logger.init();
-
+        context=getApplicationContext();
+    }
+    public static Context getContext(){
+        return context;
     }
 
 

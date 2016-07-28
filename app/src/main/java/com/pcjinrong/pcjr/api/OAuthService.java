@@ -2,6 +2,7 @@ package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
+import com.pcjinrong.pcjr.bean.MemberIndex;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -10,12 +11,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * 需要auth认证 api
  * Created by Mario on 2016/7/25.
  */
-public interface AuthService {
+public interface OAuthService {
     /**
      * 用户登出
      *
@@ -32,7 +34,7 @@ public interface AuthService {
      * @return
      */
     @GET("member/index_data")
-    Call<JsonObject> getMemberIndex(@Query("access_token") String access_token);
+    Observable<MemberIndex> getMemberIndex(@Query("access_token") String access_token);
 
 
     /**

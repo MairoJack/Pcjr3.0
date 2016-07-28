@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -62,6 +63,9 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
 
     private int type;
     private int page = 1;
+    private int emptyCount = 0;
+    private static final int EMPTY_LIMIT = 2;
+    private boolean refresh;
     private List<Product> list = new ArrayList<>();
 
     private boolean isPrepared;
@@ -82,11 +86,12 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(manager);
         rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
-
+        rv_list.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
     protected void initListeners() {
+        this.rv_list.addOnScrollListener(this.getRecyclerViewOnScrollListener());
     }
 
     @Override
@@ -143,11 +148,18 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
     }
 
     public void refresh() {
-        this.presenter.getInvestProductList(type, page, ApiConstant.DEFAULT_PAGE_SIZE);
+        refresh = true;
+        emptyCount = 0;
+        this.presenter.setPage(1);
+        this.presenter.getInvestProductList(type, ApiConstant.DEFAULT_PAGE_SIZE);
     }
 
     public void loadMore() {
-        this.presenter.getInvestProductList(type, page, ApiConstant.DEFAULT_PAGE_SIZE);
+        if(emptyCount < EMPTY_LIMIT && !mPtrFrame.isRefreshing()) {
+            refresh = false;
+            this.presenter.setPage(this.presenter.getPage() + 1);
+            this.presenter.getInvestProductList(type, ApiConstant.DEFAULT_PAGE_SIZE);
+        }
     }
 
     public static Fragment newInstance(int type) {
@@ -177,6 +189,12 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
     public void onSuccess(BaseBean<List<Product>> data) {
         mHasLoadedOnce = true;
         mPtrFrame.refreshComplete();
-        adapter.setData(data.getData(), data.getCurrent_time());
+        if(refresh){
+            adapter.setData(data.getData(), data.getCurrent_time());
+        }else{
+            adapter.addAll(data.getData(), data.getCurrent_time());
+        }
+
+        if(data.getData().size() == 0 ) emptyCount++;
     }
 }

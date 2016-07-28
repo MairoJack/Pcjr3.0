@@ -16,7 +16,7 @@ public class RetrofitManager {
     private static RetrofitManager mInstance;
 
     private ApiService apiService;
-    private AuthService authService;
+    private OAuthService authService;
 
     public static RetrofitManager getInstance() {
         if (mInstance == null) mInstance = new RetrofitManager();
@@ -43,14 +43,14 @@ public class RetrofitManager {
                 .build();
 
         this.apiService = apiRetrofit.create(ApiService.class);
-        this.authService = authRetrofit.create(AuthService.class);
+        this.authService = authRetrofit.create(OAuthService.class);
     }
 
     public ApiService getApiService() {
         return apiService;
     }
 
-    public AuthService getAuthService() {
+    public OAuthService getAuthService() {
         return authService;
     }
 }
