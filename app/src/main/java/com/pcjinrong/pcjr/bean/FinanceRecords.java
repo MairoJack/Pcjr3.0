@@ -2,11 +2,13 @@ package com.pcjinrong.pcjr.bean;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  * 资金记录实体类
  * Created by Mario on 2016/7/25.
  */
-public class FinanceRecords {
+public class FinanceRecords implements Serializable{
     @Expose
     private String available_balance;
     @Expose

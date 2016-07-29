@@ -1,20 +1,22 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.core.BaseFragment;
-import com.pcjinrong.pcjr.core.mvp.MvpView;
-import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
 import com.pcjinrong.pcjr.ui.presenter.MemberPresenter;
-import com.pcjinrong.pcjr.utils.SPUtils;
+import com.pcjinrong.pcjr.ui.presenter.ivview.MemberView;
+import com.pcjinrong.pcjr.ui.views.activity.FinancialRecordsActivity;
+import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +30,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 用户中心Fragment
  * Created by Mario on 2016/7/21.
  */
-public class MemberFragment extends BaseFragment implements MvpView<MemberIndex>{
+public class MemberFragment extends BaseFragment implements MemberView{
 
     public static final String TAG = MemberFragment.class.getSimpleName();
 
@@ -50,6 +52,7 @@ public class MemberFragment extends BaseFragment implements MvpView<MemberIndex>
 
 
     private MemberPresenter presenter;
+    private ProgressDialog dialog;
 
     @Override
     protected int getLayoutId() {
@@ -59,6 +62,7 @@ public class MemberFragment extends BaseFragment implements MvpView<MemberIndex>
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
         ButterKnife.bind(this, self);
+        dialog = new ProgressDialog(self.getContext(), ProgressDialog.STYLE_SPINNER);
         this.presenter = new MemberPresenter();
         this.presenter.attachView(this);
         mPtrFrame.disableWhenHorizontalMove(true);
@@ -67,7 +71,11 @@ public class MemberFragment extends BaseFragment implements MvpView<MemberIndex>
 
     @Override
     protected void initListeners() {
-        financial_records.setOnClickListener(v->{});
+        financial_records.setOnClickListener(v->{
+            dialog.setMessage("正在加载...");
+            dialog.show();
+            presenter.getMemberFinanceData();
+        });
         invest_records.setOnClickListener(v->{});
         trade_records.setOnClickListener(v->{});
         safe_setting.setOnClickListener(v->{});
@@ -111,16 +119,32 @@ public class MemberFragment extends BaseFragment implements MvpView<MemberIndex>
 
     @Override
     public void onFailure(Throwable e) {
+        if(dialog.isShowing()) dialog.dismiss();
         mPtrFrame.refreshComplete();
         showToast("网络异常");
     }
 
     @Override
-    public void onSuccess(MemberIndex data) {
+    public void onMemberIndexSuccess(MemberIndex data) {
         mPtrFrame.refreshComplete();
         username.setText(data.getUser_name());
         available_balance.setText(data.getAvailable_balance());
         sum_assets.setText(data.getTotal());
         uncollected_interest_sum.setText(data.getInterest());
+    }
+
+    @Override
+    public void onFinancialRecordsSuccess(FinanceRecords data) {
+        dialog.dismiss();
+        Intent intent = new Intent(getActivity(), FinancialRecordsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data",data);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+
     }
 }

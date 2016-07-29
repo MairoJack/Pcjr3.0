@@ -1,71 +1,34 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.R;
-
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Product;
-import com.pcjinrong.pcjr.constant.Constant;
-import com.pcjinrong.pcjr.core.BaseFragment;
+import com.pcjinrong.pcjr.core.BaseSwipeFragment;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
-import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
-import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
-import com.pcjinrong.pcjr.widget.RecycleViewDivider;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import in.srain.cube.views.loadmore.LoadMoreContainer;
-import in.srain.cube.views.loadmore.LoadMoreHandler;
-import in.srain.cube.views.loadmore.LoadMoreListViewContainer;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 投资列表Fragment
  * Created by Mario on 2016/5/12.
  */
-public class InvestListFragment extends BaseFragment implements MvpView<BaseBean<List<Product>>> {
-    @BindView(R.id.ptr_frame) PtrClassicFrameLayout mPtrFrame;
-    @BindView(R.id.empty) LinearLayout empty;
-    @BindView(R.id.rv_list) RecyclerView rv_list;
+public class InvestListFragment extends BaseSwipeFragment implements MvpView<BaseBean<List<Product>>> {
 
     private InvestListPresenter presenter;
     private ProductListAdapter adapter;
 
     private int type;
-    private int page = 1;
     private int emptyCount = 0;
     private static final int EMPTY_LIMIT = 2;
-    private boolean refresh;
     private List<Product> list = new ArrayList<>();
 
     private boolean isPrepared;
@@ -81,17 +44,12 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        ButterKnife.bind(this, self);
-        LinearLayoutManager manager = new LinearLayoutManager(self.getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv_list.setLayoutManager(manager);
-        rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
-        rv_list.setItemAnimator(new DefaultItemAnimator());
+
     }
 
     @Override
     protected void initListeners() {
-        this.rv_list.addOnScrollListener(this.getRecyclerViewOnScrollListener());
+
     }
 
     @Override
@@ -99,54 +57,13 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
         this.presenter = new InvestListPresenter();
         this.presenter.attachView(this);
         this.adapter = new ProductListAdapter();
-        this.rv_list.setAdapter(this.adapter);
-
-        mPtrFrame.disableWhenHorizontalMove(true);
-        mPtrFrame.setLastUpdateTimeRelateObject(this);
-        mPtrFrame.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rv_list, header);
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                page = 1;
-                refresh();
-            }
-        });
+        rv_list.setAdapter(this.adapter);
 
         isPrepared = true;
         lazyLoad();
     }
 
-
-
-
-    public RecyclerView.OnScrollListener getRecyclerViewOnScrollListener() {
-        return new RecyclerView.OnScrollListener() {
-            private boolean toLast = false;
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                toLast = dy > 0 ? true : false;
-            }
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        if (toLast && manager.findLastCompletelyVisibleItemPosition() ==
-                                (manager.getItemCount() - 1)) {
-                            loadMore();
-                        }
-                    }
-                }
-            }
-        };
-    }
-
+    @Override
     public void refresh() {
         refresh = true;
         emptyCount = 0;
@@ -154,6 +71,7 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
         this.presenter.getInvestProductList(type, ApiConstant.DEFAULT_PAGE_SIZE);
     }
 
+    @Override
     public void loadMore() {
         if(emptyCount < EMPTY_LIMIT && !mPtrFrame.isRefreshing()) {
             refresh = false;
@@ -176,7 +94,6 @@ public class InvestListFragment extends BaseFragment implements MvpView<BaseBean
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        //自动刷新
         mPtrFrame.post(() -> mPtrFrame.autoRefresh());
     }
 

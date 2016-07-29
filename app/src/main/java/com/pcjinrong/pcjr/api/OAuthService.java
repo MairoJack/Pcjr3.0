@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -30,11 +32,10 @@ public interface OAuthService {
     /**
      * 获取用户中心首页数据
      *
-     * @param access_token
      * @return
      */
     @GET("member/index_data")
-    Observable<MemberIndex> getMemberIndex(@Query("access_token") String access_token);
+    Observable<MemberIndex> getMemberIndex();
 
 
     /**
@@ -59,7 +60,7 @@ public interface OAuthService {
      * @return
      */
     @GET("member/finance_data")
-    Call<FinanceRecords> getMemberFinanceData(@Query("access_token") String access_token);
+    Observable<FinanceRecords> getMemberFinanceData();
 
     /**
      * 获取用户回款计划

@@ -27,7 +27,6 @@ public class RetrofitManager {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         client.connectTimeout(5, TimeUnit.SECONDS);
         client.readTimeout(5, TimeUnit.SECONDS);
-
         Retrofit apiRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
                 .addCallAdapterFactory(
                         RxJavaCallAdapterFactory.create())
@@ -35,6 +34,7 @@ public class RetrofitManager {
                 .client(client.build())
                 .build();
 
+        client.addInterceptor(new RequestInterceptor());
         Retrofit authRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
                 .addCallAdapterFactory(
                         RxJavaCallAdapterFactory.create())

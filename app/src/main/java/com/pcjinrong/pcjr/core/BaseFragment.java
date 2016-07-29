@@ -33,6 +33,7 @@ public abstract class BaseFragment extends Fragment {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
+        ButterKnife.bind(this, self);
         this.initViews(this.self, savedInstanceState);
         this.initData();
         this.initListeners();

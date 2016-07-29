@@ -22,7 +22,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayoutId());
-        getSupportActionBar().hide();
+
         ButterKnife.bind(this);
 
         this.initToolbar(savedInstanceState);

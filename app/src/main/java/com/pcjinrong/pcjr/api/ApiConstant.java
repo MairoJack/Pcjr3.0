@@ -11,7 +11,7 @@ public class ApiConstant {
     public final static String BEARER = "Bearer";
 
     public static final int DEFAULT_PAGE_SIZE = 10;
-
+    public static final int RETRY_COUNT = 2;
     public static final String DEFAULT_DATA_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
 
