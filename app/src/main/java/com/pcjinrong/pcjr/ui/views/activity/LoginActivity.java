@@ -136,6 +136,6 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
     public void onSuccess(Token data) {
         dialog.dismiss();
         Dialog.show("登陆成功",this);
-        Logger.d(data);
+        finish();
     }
 }

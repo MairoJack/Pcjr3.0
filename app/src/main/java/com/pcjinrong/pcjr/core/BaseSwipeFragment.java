@@ -28,6 +28,8 @@ public abstract class BaseSwipeFragment extends BaseFragment {
     @BindView(R.id.rv_list) protected RecyclerView rv_list;
 
     protected boolean refresh;
+    protected int emptyCount = 0;
+    protected static final int EMPTY_LIMIT = 2;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

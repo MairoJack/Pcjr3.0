@@ -1,8 +1,11 @@
 package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
+import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
+import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
+import com.pcjinrong.pcjr.bean.TradeRecords;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public interface OAuthService {
      * @return
      */
     @GET("member/log_data")
-    Call<JsonObject> getMemberLogData(@Query("access_token") String access_token, @Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<TradeRecords>>> getMemberLogData(@Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
 
     /**
      * 获取用户投资记录
@@ -52,7 +55,7 @@ public interface OAuthService {
      * @return
      */
     @GET("member/invest_data")
-    Call<JsonObject> getMemberInvestData(@Query("access_token") String access_token, @Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<InvestRecords>>> getMemberInvestData(@Query("type") int type, @Query("page") int page, @Query("page_size") int page_size);
 
     /**
      * 获取用户资金记录

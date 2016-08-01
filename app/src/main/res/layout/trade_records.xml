@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <com.jayfang.dropdownmenu.DropDownMenu
+        android:id="@+id/lv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_content_background"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="交易详情/金额"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="时间/手续费/余额"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/empty_view" />
+
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/ptr_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+    </RelativeLayout>
+</LinearLayout>

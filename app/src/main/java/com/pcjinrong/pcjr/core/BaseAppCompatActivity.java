@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 
+import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.utils.ToastUtils;
 
 import butterknife.ButterKnife;
@@ -79,12 +80,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
 
     @Override
     public void startActivity(Intent intent, Bundle options) {
         super.startActivity(intent, options);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
 
@@ -102,6 +105,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         super.finish();
     }
 

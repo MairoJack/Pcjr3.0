@@ -15,15 +15,16 @@ import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.MemberPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MemberView;
 import com.pcjinrong.pcjr.ui.views.activity.FinancialRecordsActivity;
-import java.io.Serializable;
-import java.util.List;
-
+import com.pcjinrong.pcjr.ui.views.activity.InvestRecordsActivity;
+import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
+import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -71,13 +72,13 @@ public class MemberFragment extends BaseFragment implements MemberView{
 
     @Override
     protected void initListeners() {
-        financial_records.setOnClickListener(v->{
+        financial_records.setOnClickListener(v -> {
             dialog.setMessage("正在加载...");
             dialog.show();
             presenter.getMemberFinanceData();
         });
-        invest_records.setOnClickListener(v->{});
-        trade_records.setOnClickListener(v->{});
+        invest_records.setOnClickListener(v -> startActivity(new Intent(getActivity(), InvestRecordsActivity.class)));
+        trade_records.setOnClickListener(v->startActivity(new Intent(getActivity(), TradeRecordsActivity.class)));
         safe_setting.setOnClickListener(v->{});
         bank_card.setOnClickListener(v->{});
         msg_center.setOnClickListener(v->{});
@@ -120,8 +121,13 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @Override
     public void onFailure(Throwable e) {
         if(dialog.isShowing()) dialog.dismiss();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            return;
+        }
         mPtrFrame.refreshComplete();
-        showToast("网络异常");
+        showToast(getString(R.string.network_anomaly));
     }
 
     @Override

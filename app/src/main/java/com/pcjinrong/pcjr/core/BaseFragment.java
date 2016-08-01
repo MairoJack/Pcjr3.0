@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.core;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.utils.ToastUtils;
 
 import butterknife.ButterKnife;
@@ -19,17 +21,17 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected View self;
-    protected  boolean isVisible;
+    protected boolean isVisible;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        if(this.self == null){
-            this.self = inflater.inflate(this.getLayoutId(),container,false);
+        if (this.self == null) {
+            this.self = inflater.inflate(this.getLayoutId(), container, false);
         }
-        if(this.self.getParent() != null){
+        if (this.self.getParent() != null) {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
@@ -50,6 +52,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected <V extends View> V findView(int id) {
         return (V) this.self.findViewById(id);
+    }
+
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
 
@@ -80,10 +89,11 @@ public abstract class BaseFragment extends Fragment {
             ToastUtils.show(this.getActivity(), resId, ToastUtils.LENGTH_SHORT);
         }
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             isVisible = true;
             onVisible();
         } else {
@@ -91,6 +101,7 @@ public abstract class BaseFragment extends Fragment {
             onInvisible();
         }
     }
+
 
     /**
      * 可见

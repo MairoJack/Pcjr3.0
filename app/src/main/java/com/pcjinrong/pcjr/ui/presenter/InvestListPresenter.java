@@ -40,9 +40,9 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
                     }
 
                     @Override
-                    public void onNext(BaseBean<List<Product>> list) {
+                    public void onNext(BaseBean<List<Product>> data) {
                         if (InvestListPresenter.this.getMvpView() != null)
-                            InvestListPresenter.this.getMvpView().onSuccess(list);
+                            InvestListPresenter.this.getMvpView().onSuccess(data);
                     }
                 }));
     }

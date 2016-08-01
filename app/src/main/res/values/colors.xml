@@ -18,6 +18,7 @@
     <!-- text color -->
     <color name="color_text">#333333</color>
     <color name="color_text_tag">#8F8F8F</color>
+    <color name="color_text_light">#ABABAB</color>
     <color name="color_text_setting">#000000</color>
 
     <!-- color-->

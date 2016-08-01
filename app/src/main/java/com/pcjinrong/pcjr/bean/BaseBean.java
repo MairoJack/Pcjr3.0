@@ -14,6 +14,9 @@ public class BaseBean<T> implements Serializable {
     @Expose
     private T data;
 
+    @Expose
+    private Pager pager;
+
     public long getCurrent_time() {
         return current_time;
     }
@@ -28,5 +31,13 @@ public class BaseBean<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public Pager getPager() {
+        return pager;
+    }
+
+    public void setPager(Pager pager) {
+        this.pager = pager;
     }
 }

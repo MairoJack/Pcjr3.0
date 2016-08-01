@@ -12,15 +12,17 @@
         android:theme="@style/AppTheme"
         android:name=".App">
 
-        <activity android:name=".ui.views.activity.MainActivity">
+        <activity android:name=".ui.views.activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.views.activity.LoginActivity"/>
-        <activity android:name=".ui.views.activity.FinancialRecordsActivity"/>
-        <activity android:name=".ui.views.activity.WebViewActivity"/>
+        <activity android:name=".ui.views.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.FinancialRecordsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InvestRecordsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.TradeRecordsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

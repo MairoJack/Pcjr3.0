@@ -21,17 +21,18 @@ import in.srain.cube.views.ptr.PtrHandler;
 /**
  * Created by Mario on 2016/7/29.
  */
-public abstract class BaseSwipeActivity extends BaseAppCompatActivity {
+public abstract class BaseSwipeActivity extends BaseToolbarActivity {
 
     @BindView(R.id.ptr_frame) protected PtrClassicFrameLayout mPtrFrame;
     @BindView(R.id.empty) protected LinearLayout empty;
     @BindView(R.id.rv_list) protected RecyclerView rv_list;
 
     protected boolean refresh;
+    protected int emptyCount = 0;
+    protected static final int EMPTY_LIMIT = 2;
 
-    @Override
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
+    @Override protected void onPostCreate(Bundle savedInstanceState){
+        super.onPostCreate(savedInstanceState);
         initRefreshLayout();
         initRefreshListeners();
         initLoadMoreListeners();

@@ -11,9 +11,6 @@ import com.pcjinrong.pcjr.core.BaseSwipeFragment;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,9 +24,6 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
     private ProductListAdapter adapter;
 
     private int type;
-    private int emptyCount = 0;
-    private static final int EMPTY_LIMIT = 2;
-    private List<Product> list = new ArrayList<>();
 
     private boolean isPrepared;
     private boolean mHasLoadedOnce;
@@ -99,7 +93,8 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
 
     @Override
     public void onFailure(Throwable e) {
-        showToast("网络异常");
+        mPtrFrame.refreshComplete();
+        showToast(getString(R.string.network_anomaly));
     }
 
     @Override

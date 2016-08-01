@@ -3,12 +3,15 @@ package com.pcjinrong.pcjr.data;
 
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.App;
+import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
+import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Token;
+import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.model.impl.OAuthModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
@@ -77,14 +80,28 @@ public class DataManager {
     public Observable<MemberIndex> getMemberIndex() {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getMemberIndex())
-                .retryWhen(new RetryWithUnAuth(2))
+                .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
     public Observable<FinanceRecords> getMemberFinanceData() {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getMemberFinanceData())
-                .retryWhen(new RetryWithUnAuth(2))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<InvestRecords>>> getInvestRecords(int type, int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getInvestRecords(type,page,page_size))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<TradeRecords>>> getTradeRecords(int type, int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getTradeRecords(type,page,page_size))
+                .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
     /*
@@ -98,23 +115,21 @@ public class DataManager {
 
     public class RetryWithUnAuth implements Func1<Observable<? extends Throwable>, Observable<?>> {
 
-        private final int maxRetries;
         private int retryCount;
-
-        public RetryWithUnAuth(int maxRetries) {
-            this.maxRetries = maxRetries;
-        }
 
         @Override
         public Observable<?> call(Observable<? extends Throwable> observable) {
             return observable.flatMap(throwable -> {
-                        if (throwable instanceof HttpException && ++retryCount <= maxRetries) {
+                        if (throwable instanceof HttpException && ++retryCount <= ApiConstant.MAX_RETRY_COUNT) {
                             return apiModel.refreshToken(SPUtils.getToken(App.getContext()).getRefresh_token())
                                     .doOnNext(token -> {
                                         Logger.d("refreshToken:" + token);
                                         SPUtils.putToken(App.getContext(), token);
                                     })
-                                    .doOnError(e -> Logger.d("refreshToken:" + e.getMessage()));
+                                    .doOnError(e -> {
+                                        SPUtils.clear(App.getContext());
+                                        Logger.d("refreshToken:" + e.getMessage());
+                                    });
                         }
                         return Observable.error(throwable);
                     });

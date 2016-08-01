@@ -22,4 +22,8 @@
     <string name="annual_earnings">年化收益</string>
     <string name="project_duration">项目期限</string>
     <string name="total_amount">金额(万元)</string>
+
+    <!-- error info -->
+    <string name="login_expired">登陆过期,请重新登陆</string>
+    <string name="network_anomaly">网络异常</string>
 </resources>

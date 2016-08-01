@@ -2,8 +2,11 @@ package com.pcjinrong.pcjr.model.impl;
 
 import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.api.RetrofitManager;
+import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
+import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
+import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.model.IOAuthModel;
 import com.pcjinrong.pcjr.utils.SPUtils;
 
@@ -35,6 +38,16 @@ public class OAuthModel implements IOAuthModel {
     @Override
     public Observable<FinanceRecords> getMemberFinanceData() {
         return RetrofitManager.getInstance().getAuthService().getMemberFinanceData();
+    }
+
+    @Override
+    public Observable<BaseBean<List<InvestRecords>>> getInvestRecords(int type,int page,int page_size) {
+        return RetrofitManager.getInstance().getAuthService().getMemberInvestData(type, page, page_size);
+    }
+
+    @Override
+    public Observable<BaseBean<List<TradeRecords>>> getTradeRecords(int type, int page, int page_size) {
+        return RetrofitManager.getInstance().getAuthService().getMemberLogData(type, page, page_size);
     }
 
 }

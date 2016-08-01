@@ -176,6 +176,7 @@ public class IndexFragment extends BaseFragment implements MainView {
 
     @Override
     public void onFailure(Throwable e) {
+        mPtrFrame.refreshComplete();
         showToast("网络异常");
     }
 

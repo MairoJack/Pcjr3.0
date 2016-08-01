@@ -6,43 +6,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.bean.InvestRecords;
+import com.pcjinrong.pcjr.utils.DateUtils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 产品列表适配器
- * Created by Mario on 2016/7/22.
+ * 投资记录适配器
+ * Created by Mario on 2016/8/1.
  */
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
+public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecordsListAdapter.ViewHolder> {
 
-    private List<Product> list;
-    private long current_time;
+    private List<InvestRecords> list;
 
-    public ProductListAdapter() {
+    public InvestRecordsListAdapter() {
         list = new ArrayList<>();
     }
 
-    public void setData(List<Product> list, long current_time) {
+    public void setData(List<InvestRecords> list) {
         this.list.clear();
         this.list = list;
-        this.current_time = current_time;
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Product> list, long current_time) {
+    public void addAll(List<InvestRecords> list) {
         this.list.addAll(list);
-        this.current_time = current_time;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_product, parent, false);
+                .inflate(R.layout.item_invest_records, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,23 +56,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.name) TextView mIvName;
+        @BindView(R.id.product_name) TextView mIvProductName;
         @BindView(R.id.repayment) TextView mIvRepayment;
-        @BindView(R.id.income) TextView mIvIncome;
         @BindView(R.id.amount) TextView mIvAmount;
-        @BindView(R.id.month) TextView mIvMonth;
-        @BindView(R.id.rate) TextView mIvRate;
+        @BindView(R.id.year_income) TextView mIvYearIncome;
+        @BindView(R.id.income) TextView mIvIncome;
+        @BindView(R.id.date) TextView mIvDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> {
-
-            });
         }
 
-        public void bindTo(Product object) {
-            mIvName.setText(object.getName());
+        public void bindTo(InvestRecords object) {
+            mIvProductName.setText(object.getProduct_name());
             int repayment = object.getRepayment();
             switch (repayment) {
                 case 0:
@@ -89,12 +85,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     mIvRepayment.setText("先息后本(按季付息)");
                     break;
             }
-            mIvIncome.setText(String.valueOf(object.getYear_income()));
-            BigDecimal amount = new BigDecimal(object.getAmount());
-            BigDecimal tenThousand = new BigDecimal(10000);
-            mIvAmount.setText(String.format("%.2f", amount.divide(tenThousand)));
-            mIvMonth.setText(object.getMonth());
-            mIvRate.setText(object.getRate() + "%");
+
+            String joinDate = DateUtils.dateTimeToStr(new Date(object.getJoin_date()*1000),"yyyy年MM月dd日");
+            String deadline = DateUtils.dateTimeToStr(new Date(object.getDeadline()*1000),"yyyy年MM月dd日");
+
+            String amount = object.getAmount();
+            String interestTotal = object.getInterest_total();
+
+            mIvAmount.setText(amount);
+            mIvYearIncome.setText(object.getYear_income());
+            BigDecimal bd_amount = new BigDecimal(amount);
+            BigDecimal bd_interestTotal = new BigDecimal(interestTotal);
+            mIvIncome.setText(String.valueOf(bd_amount.add(bd_interestTotal)));
+            mIvDate.setText(joinDate+"起投-"+deadline+"到期");
         }
     }
 
