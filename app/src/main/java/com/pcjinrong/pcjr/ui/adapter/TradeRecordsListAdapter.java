@@ -69,8 +69,7 @@ public class TradeRecordsListAdapter extends RecyclerView.Adapter<TradeRecordsLi
 
         public void bindTo(TradeRecords object) {
             mIvRemark.setText(object.getRemark());
-            mIvAmount.setText(object.getAmount());
-            mIvBalance.setText(object.getBalance());
+            mIvBalance.setText(object.getBalance() + "元");
             mIvDate.setText(DateUtils.dateTimeToStr(new Date(object.getJoin_date() * 1000), "yyyy年MM月dd日"));
             if (object.getDirection() == 0) {
                 mIvAmount.setTextColor(Color.parseColor("#fd4c4a"));

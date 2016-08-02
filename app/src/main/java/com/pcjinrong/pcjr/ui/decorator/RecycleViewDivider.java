@@ -1,4 +1,4 @@
-package com.pcjinrong.pcjr.widget;
+package com.pcjinrong.pcjr.ui.decorator;
 
 import android.content.Context;
 import android.content.res.TypedArray;

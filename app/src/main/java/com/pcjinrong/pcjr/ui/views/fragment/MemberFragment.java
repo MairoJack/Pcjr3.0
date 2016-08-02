@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
+import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.MemberPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MemberView;
 import com.pcjinrong.pcjr.ui.views.activity.FinancialRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.InvestRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
+import com.pcjinrong.pcjr.ui.views.activity.PaymentPlanActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,10 +81,10 @@ public class MemberFragment extends BaseFragment implements MemberView{
         });
         invest_records.setOnClickListener(v -> startActivity(new Intent(getActivity(), InvestRecordsActivity.class)));
         trade_records.setOnClickListener(v->startActivity(new Intent(getActivity(), TradeRecordsActivity.class)));
-        safe_setting.setOnClickListener(v->{});
+        safe_setting.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
         bank_card.setOnClickListener(v->{});
         msg_center.setOnClickListener(v->{});
-        payment_plan.setOnClickListener(v->{});
+        payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
         withdraw_recharge.setOnClickListener(v->{});
         coupon.setOnClickListener(v->{});
     }

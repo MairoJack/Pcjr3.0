@@ -27,13 +27,13 @@ import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
+import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.MainActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
 import com.pcjinrong.pcjr.widget.NetworkImageHolderView;
-import com.pcjinrong.pcjr.widget.RecycleViewDivider;
 
 import java.util.List;
 

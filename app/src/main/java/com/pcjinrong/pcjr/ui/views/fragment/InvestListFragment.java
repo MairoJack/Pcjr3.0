@@ -38,7 +38,7 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-
+        dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height);
     }
 
     @Override

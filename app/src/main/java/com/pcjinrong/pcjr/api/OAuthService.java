@@ -5,6 +5,7 @@ import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
+import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 
 import java.util.List;
@@ -68,13 +69,12 @@ public interface OAuthService {
     /**
      * 获取用户回款计划
      *
-     * @param access_token
      * @param year         年
      * @param month        月
      * @return
      */
     @GET("member/current_month_repayment_data")
-    Call<JsonObject> getMemberRepaymentData(@Query("access_token") String access_token, @Query("year") int year, @Query("month") int month, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<PaymentPlan>>> getMemberRepaymentData(@Query("year") int year, @Query("month") int month);
 
     /**
      * 实名认证

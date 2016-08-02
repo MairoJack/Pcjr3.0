@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
@@ -7,12 +8,20 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <com.jayfang.dropdownmenu.DropDownMenu
-        android:id="@+id/lv_menu"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/color_content_background"
-        android:orientation="horizontal" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:mcv_arrowColor="@color/colorPrimary"
+        app:mcv_selectionColor="@color/colorPrimary"
+        app:mcv_showOtherDates="defaults"
+        app:mcv_tileHeight="35dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:text="交易详情/金额"
+            android:layout_marginLeft="20dp"
+            android:text="交易详情/时间"
             android:textColor="@color/color_text"
             android:textSize="@dimen/text_size_12sp" />
 
@@ -33,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:text="时间/手续费/余额"
+            android:layout_marginRight="20dp"
+            android:text="余额/状态"
             android:textColor="@color/color_text"
             android:textSize="@dimen/text_size_12sp" />
     </RelativeLayout>
@@ -50,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"
@@ -57,4 +67,5 @@
 
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>
     </RelativeLayout>
+
 </LinearLayout>

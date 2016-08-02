@@ -13,6 +13,7 @@ import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.TradeRecordsListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.TradeRecordsPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +33,14 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
 
     @Override
     protected int getLayoutId() {
-        return R.layout.trade_records;
+        return R.layout.member_trade_records;
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.showBack();
         this.setTitle("交易记录");
+        dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height_1dp);
         initMenu();
     }
 

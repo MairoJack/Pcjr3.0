@@ -1,7 +1,6 @@
 package com.pcjinrong.pcjr.core;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.widget.RecycleViewDivider;
+import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 
 import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -30,6 +29,7 @@ public abstract class BaseSwipeActivity extends BaseToolbarActivity {
     protected boolean refresh;
     protected int emptyCount = 0;
     protected static final int EMPTY_LIMIT = 2;
+    protected int dividerHeight;
 
     @Override protected void onPostCreate(Bundle savedInstanceState){
         super.onPostCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public abstract class BaseSwipeActivity extends BaseToolbarActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(manager);
-        rv_list.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(this, R.color.color_background)));
+        rv_list.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, dividerHeight, ContextCompat.getColor(this, R.color.color_background)));
         rv_list.setItemAnimator(new DefaultItemAnimator());
     }
 

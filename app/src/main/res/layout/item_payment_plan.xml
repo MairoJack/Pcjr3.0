@@ -7,31 +7,30 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/remark"
+        android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="申请提现"
+        tools:text="推荐红包NO.3-2016"
         android:textColor="@color/color_text"
-        android:textSize="@dimen/text_size_14sp" />
-
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="-1000000.000元"
-        android:layout_marginTop="7dp"
-        android:textColor="@color/color_text_light"
         android:textSize="@dimen/text_size_14sp" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        tools:text="2016-08-23 23:59"
+        android:textColor="@color/color_text_light"
+        android:textSize="@dimen/text_size_14sp" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        tools:text="2015-08-18"
+        tools:text="15891.78元"
         android:textColor="@color/color_text_light"
         android:textSize="@dimen/text_size_14sp" />
 
@@ -42,26 +41,19 @@
         android:layout_alignParentRight="true"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/fee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+10000.00元"
-            android:textColor="@color/color_text_light"
-            android:textSize="@dimen/text_size_14sp" />
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            />
 
         <TextView
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/"
-            android:textColor="@color/color_text"
-            android:textSize="@dimen/text_size_14sp" />
-
-        <TextView
-            android:id="@+id/balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="999999.00元"
+            tools:text="未回款"
             android:textColor="@color/color_text"
             android:textSize="@dimen/text_size_14sp" />
     </LinearLayout>

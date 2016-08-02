@@ -55,4 +55,5 @@ dependencies {
     compile 'eu.unicate.android:retroauth:1.0.3'
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.github.JayFang1993:DropDownMenu:v0.9'
+    compile 'com.prolificinteractive:material-calendarview:1.4.0'
 }

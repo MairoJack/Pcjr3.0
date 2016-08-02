@@ -22,6 +22,7 @@
         <activity android:name=".ui.views.activity.FinancialRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.TradeRecordsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.PaymentPlanActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
     </application>
 

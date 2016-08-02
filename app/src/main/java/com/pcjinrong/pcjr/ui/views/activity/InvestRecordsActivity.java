@@ -31,13 +31,14 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<
 
     @Override
     protected int getLayoutId() {
-        return R.layout.invest_records;
+        return R.layout.member_invest_records;
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.showBack();
         this.setTitle("投资记录");
+        dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height);
         initMenu();
     }
 

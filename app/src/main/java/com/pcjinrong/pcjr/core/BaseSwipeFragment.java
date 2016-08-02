@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.widget.RecycleViewDivider;
+import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 
 import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -30,6 +30,7 @@ public abstract class BaseSwipeFragment extends BaseFragment {
     protected boolean refresh;
     protected int emptyCount = 0;
     protected static final int EMPTY_LIMIT = 2;
+    protected int dividerHeight;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public abstract class BaseSwipeFragment extends BaseFragment {
         LinearLayoutManager manager = new LinearLayoutManager(self.getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(manager);
-        rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
+        rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, dividerHeight, ContextCompat.getColor(self.getContext(), R.color.color_background)));
         rv_list.setItemAnimator(new DefaultItemAnimator());
     }
 
