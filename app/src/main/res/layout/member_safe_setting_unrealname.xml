@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_content_background" >
+
+        <TextView
+            android:id="@+id/realname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="真实姓名"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <EditText
+            android:id="@+id/txt_realname"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/realname"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="#FFFFFF" >
+
+        <TextView
+            android:id="@+id/idcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="身份证号"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <EditText
+            android:id="@+id/txt_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/idcard"
+            android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="温馨提示："
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/text_size_14sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="3dp"
+        android:text="一个身份信息（一张身份证）只能绑定一个账号；\n每个账户最多提交三次身份信息验证申请,如果超过三次您的账户将被锁定,请联系在线客服或拨打400-101-3339解绑."
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/text_size_14sp" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_primary"
+        android:padding="10dp"
+        android:text="确认"
+        android:textColor="@color/color_button" />
+
+</LinearLayout>

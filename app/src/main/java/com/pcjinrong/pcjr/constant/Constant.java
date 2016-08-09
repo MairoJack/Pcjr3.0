@@ -2,6 +2,8 @@ package com.pcjinrong.pcjr.constant;
 
 public class Constant {
 
+    public static final int REQUSET = 0;
+
     public static final String DEFAULT_TITLE = "活动";
 
     public static final String PRODUCT_NOTICE = "产品预告";

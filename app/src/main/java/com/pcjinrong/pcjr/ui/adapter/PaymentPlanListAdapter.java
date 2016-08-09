@@ -6,17 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.utils.DateUtils;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,17 +29,11 @@ public class PaymentPlanListAdapter extends RecyclerView.Adapter<PaymentPlanList
     }
 
     public void setData(List<PaymentPlan> lists) {
-        Logger.d("lists:size: "+ lists.size());
         this.list.clear();
-        this.list = lists;
-        Logger.d("lists:size222: "+ lists.size());
+        this.list.addAll(lists);
         notifyDataSetChanged();
     }
 
-    public void addAll(List<PaymentPlan> list) {
-        this.list.addAll(list);
-        notifyDataSetChanged();
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

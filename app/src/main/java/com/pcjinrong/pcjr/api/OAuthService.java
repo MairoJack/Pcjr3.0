@@ -1,10 +1,13 @@
 package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
+import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
+import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
+import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 
@@ -27,11 +30,10 @@ public interface OAuthService {
     /**
      * 用户登出
      *
-     * @param header
      * @return
      */
     @POST("oauth/revoke_access_token")
-    Call<JsonObject> revoke(@Header("Authorization") String header);
+    Observable<BaseBean> revoke_access_token();
 
     /**
      * 获取用户中心首页数据
@@ -79,35 +81,31 @@ public interface OAuthService {
     /**
      * 实名认证
      *
-     * @param header
      * @return
      */
     @FormUrlEncoded
     @POST("member/verify_identity")
-    Call<JsonObject> verifyIdentity(@Header("Authorization") String header, @Field("real_name") String real_name, @Field("identity") String identity);
+    Observable<BaseBean> verifyIdentity(@Field("real_name") String real_name, @Field("identity") String identity);
 
     /**
      * 获取实名认证信息
      *
-     * @param access_token
      * @return
      */
     @GET("member/identity_info")
-    Call<JsonObject> getMemberIdentityInfo(@Query("access_token") String access_token);
+    Observable<BaseBean<IdentityInfo>> getMemberIdentityInfo();
 
     /**
      * 获取用户银行卡信息
      *
-     * @param access_token
      */
     @GET("member/bank_card_info")
-    Call<JsonObject> getMemberBankCardInfo(@Query("access_token") String access_token);
+    Observable<BaseBean<List<BankCard>>> getMemberBankCardInfo();
 
 
     /**
      * 添加银行卡
      *
-     * @param header
      * @param bank_id   银行ID
      * @param card_no   银行卡号
      * @param real_name 真实姓名
@@ -115,82 +113,75 @@ public interface OAuthService {
      */
     @FormUrlEncoded
     @POST("member/add_bank_card")
-    Call<JsonObject> addBankCard(@Header("Authorization") String header, @Field("bank_id") String bank_id, @Field("card_no") String card_no, @Field("real_name") String real_name);
+    Observable<BaseBean> addBankCard(@Field("bank_id") String bank_id, @Field("card_no") String card_no, @Field("real_name") String real_name);
 
     /**
      * 删除银行卡
      *
-     * @param header
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("member/del_bank_card")
-    Call<JsonObject> delBankCard(@Header("Authorization") String header, @Field("id") String id);
+    Observable<BaseBean> delBankCard(@Field("id") String id);
 
     /**
      * 发送绑定验证码
      *
-     * @param header
      * @param mobile
      * @return
      */
     @FormUrlEncoded
     @POST("api/bind_mobile_verify")
-    Call<JsonObject> bindMobileVerify(@Header("Authorization") String header, @Field("mobile") String mobile);
+    Observable<BaseBean> bindMobileVerify( @Field("mobile") String mobile);
 
     /**
      * 发送解绑验证码
      *
-     * @param header
      * @return
      */
     @POST("api/unbind_mobile_verify")
-    Call<JsonObject> unbindMobileVerify(@Header("Authorization") String header);
+    Observable<BaseBean> unBindMobileVerify();
 
     /**
      * 绑定手机
      *
-     * @param header
      * @param mobile
      * @param verify
      * @return
      */
     @FormUrlEncoded
     @POST("member/bind_mobile")
-    Call<JsonObject> bindMobile(@Header("Authorization") String header, @Field("mobile") String mobile, @Field("verify") String verify);
+    Observable<BaseBean> bindMobile(@Field("mobile") String mobile, @Field("verify") String verify);
 
     /**
      * 解绑手机
      *
-     * @param header
      * @param verify
      * @return
      */
     @FormUrlEncoded
     @POST("member/unbind_mobile")
-    Call<JsonObject> unbind_mobile(@Header("Authorization") String header, @Field("verify") String verify);
+    Observable<BaseBean> unBindMobile(@Field("verify") String verify);
 
     /**
      * 获取用户手机信息
      *
-     * @param access_token
      * @return
      */
     @GET("member/mobile_info")
-    Call<JsonObject> getMobileInfo(@Query("access_token") String access_token);
+    Observable<BaseBean<MobileInfo>> getMobileInfo();
 
     /**
      * 修改密码
      *
-     * @param header
      * @param old_password
      * @param new_password
      * @return
      */
     @FormUrlEncoded
     @POST("member/change_password")
-    Call<JsonObject> changePassword(@Header("Authorization") String header, @Field("old_password") String old_password, @Field("new_password") String new_password);
+    Observable<BaseBean> changePassword(@Field("old_password") String old_password, @Field("new_password") String new_password);
 
     /**
      * 获取站内信列表

@@ -9,8 +9,13 @@ import java.io.Serializable;
  */
 public class BaseBean<T> implements Serializable {
     @Expose
+    private boolean success;
+    @Expose
+    private String message;
+    @Expose
     private long current_time;
-
+    @Expose
+    private long realName;
     @Expose
     private T data;
 
@@ -39,5 +44,29 @@ public class BaseBean<T> implements Serializable {
 
     public void setPager(Pager pager) {
         this.pager = pager;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public long getRealName() {
+        return realName;
+    }
+
+    public void setRealName(long realName) {
+        this.realName = realName;
     }
 }

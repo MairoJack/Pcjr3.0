@@ -6,8 +6,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- common -->
+    <color name="color_button">#FFFFFF</color>
     <color name="color_title">#FFFFFF</color>
     <color name="color_line">#E8E8E8</color>
+
     <!-- background color -->
     <color name="color_background">#EEEEEE</color>
     <color name="color_content_background">#FFFFFF</color>

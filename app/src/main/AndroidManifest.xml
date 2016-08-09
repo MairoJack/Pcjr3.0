@@ -23,6 +23,12 @@
         <activity android:name=".ui.views.activity.InvestRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.TradeRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.PaymentPlanActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.SafeSettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.BindMobileActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.UnbindMobileActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.RealNameVerifiedActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.UnRealNameVerifiedActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.ChangePasswordActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
     </application>
 

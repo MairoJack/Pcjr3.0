@@ -19,6 +19,7 @@ import com.pcjinrong.pcjr.ui.views.activity.FinancialRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.InvestRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.PaymentPlanActivity;
+import com.pcjinrong.pcjr.ui.views.activity.SafeSettingActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +82,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
         });
         invest_records.setOnClickListener(v -> startActivity(new Intent(getActivity(), InvestRecordsActivity.class)));
         trade_records.setOnClickListener(v->startActivity(new Intent(getActivity(), TradeRecordsActivity.class)));
-        safe_setting.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
+        safe_setting.setOnClickListener(v->startActivity(new Intent(getActivity(), SafeSettingActivity.class)));
         bank_card.setOnClickListener(v->{});
         msg_center.setOnClickListener(v->{});
         payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));

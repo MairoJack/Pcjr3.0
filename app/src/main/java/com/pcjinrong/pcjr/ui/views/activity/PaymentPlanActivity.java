@@ -80,13 +80,7 @@ public class PaymentPlanActivity extends BaseSwipeActivity implements MvpView<Ba
 
 
     public void loadData(int day) {
-        day_list.clear();
-        for (PaymentPlan pp : list) {
-            Date date = new Date(pp.getEstimated_time() * 1000);
-            if (DateUtils.getDayOfDate(date) == day) {
-                day_list.add(pp);
-            }
-        }
+        day_list =  this.presenter.getPaymentPlanByDay(day,list);
         if (day_list.isEmpty()) {
             empty.setVisibility(View.VISIBLE);
             rv_list.setVisibility(View.INVISIBLE);
@@ -134,14 +128,16 @@ public class PaymentPlanActivity extends BaseSwipeActivity implements MvpView<Ba
             empty.setVisibility(View.VISIBLE);
             rv_list.setVisibility(View.INVISIBLE);
         } else {
+            list.clear();
+            day_list.clear();
             list.addAll(data.getData());
             day_list.addAll(data.getData());
 
-            /*for (PaymentPlan pp : list) {
+            for (PaymentPlan pp : list) {
                 DotDecorator dot = new DotDecorator();
                 dot.setDate(new Date(pp.getEstimated_time() * 1000));
                 calendarView.addDecorator(dot);
-            }*/
+            }
 
             empty.setVisibility(View.INVISIBLE);
             rv_list.setVisibility(View.VISIBLE);
