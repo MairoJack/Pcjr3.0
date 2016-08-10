@@ -2,6 +2,7 @@ package com.pcjinrong.pcjr.model.impl;
 
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
+import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
@@ -49,6 +50,11 @@ public class ApiModel implements IApiModel {
     @Override
     public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
         return RetrofitManager.getInstance().getApiService().getInvestProductList(type,page,page_size);
+    }
+
+    @Override
+    public Observable<BaseBean<List<BankCard>>> getBankCardList() {
+        return RetrofitManager.getInstance().getApiService().getBankCardList();
     }
 
 

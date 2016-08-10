@@ -3,13 +3,18 @@ package com.pcjinrong.pcjr.api;
 import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
+import com.pcjinrong.pcjr.bean.InvestTicket;
+import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.TradeRecords;
+import com.pcjinrong.pcjr.bean.Withdraw;
 
 import java.util.List;
 
@@ -186,75 +191,68 @@ public interface OAuthService {
     /**
      * 获取站内信列表
      *
-     * @param access_token
      * @param page
      * @return
      */
     @GET("member/letter_list")
-    Call<JsonObject> getLetterList(@Query("access_token") String access_token, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<Letter>>> getLetterList(@Query("page") int page, @Query("page_size") int page_size);
 
     /**
      * 获取站内信详情
      *
-     * @param access_token
      * @param id
      * @return
      */
     @GET("member/letter_detail")
-    Call<JsonObject> getLetterDetail(@Query("access_token") String access_token, @Query("id") String id);
+    Observable<BaseBean<Letter>> getLetterDetail(@Query("id") String id);
 
     /**
      * 获取用户未使用的优惠券数量
      *
-     * @param access_token
      * @return
      */
     @GET("member/unused_coupons_num")
-    Call<JsonObject> getUnusedCouponsNum(@Query("access_token") String access_token);
+    Observable<Coupon> getUnusedCouponsNum();
 
     /**
      * 获取用户投资券列表
      *
-     * @param access_token
      * @param type         0 未使用; 1 已使用; 2 已过期;
      * @param page
      * @return
      */
     @GET("member/invest_ticket_list")
-    Call<JsonObject> getInvestTicketList(@Query("access_token") String access_token, @Query("type") int type, @Query("page") int page, @Query("page_size") int pageSize);
+    Observable<BaseBean<List<InvestTicket>>> getInvestTicketList(@Query("type") int type, @Query("page") int page, @Query("page_size") int pageSize);
 
     /**
      * 获取用户投资券详情
      *
-     * @param access_token
      * @param id
      * @return
      */
     @GET("member/invest_ticket_detail")
-    Call<JsonObject> getInvestTicketDetail(@Query("access_token") String access_token, @Query("id") String id);
+    Observable<BaseBean<InvestTicket>> getInvestTicketDetail(@Query("id") String id);
 
     /**
-     * @param access_token
-     * @param type         0 未领取; 1 已领取;
+     * 获取红包信息
+     * @param type     0 未领取; 1 已领取;
      * @param page
      * @return
      */
     @GET("member/red_packet_list")
-    Call<JsonObject> getRedPacketList(@Query("access_token") String access_token, @Query("type") int type, @Query("page") int page, @Query("page_size") int pageSize);
+    Observable<BaseBean<List<RedPacket>>> getRedPacketList(@Query("type") int type, @Query("page") int page, @Query("page_size") int pageSize);
 
     /**
      * 获取用户提现/投资信息
      *
-     * @param access_token
      * @return
      */
     @GET("member/withdraw_invest_info")
-    Call<JsonObject> getWithdrawInvestInfo(@Query("access_token") String access_token);
+    Observable<BaseBean<Withdraw>> getWithdrawInvestInfo();
 
     /**
      * 用户提现
      *
-     * @param header
      * @param amount  提现金额
      * @param bank_id 银行ID
      * @param verify  验证码
@@ -262,21 +260,19 @@ public interface OAuthService {
      */
     @FormUrlEncoded
     @POST("member/withdraw")
-    Call<JsonObject> withdraw(@Header("Authorization") String header, @Field("amount") String amount, @Field("bank_id") String bank_id, @Field("verify") String verify);
+    Observable<BaseBean> withdraw(@Field("amount") String amount, @Field("bank_id") String bank_id, @Field("verify") String verify);
 
     /**
      * 发送提现验证码
      *
-     * @param header
      * @return
      */
     @POST("api/withdraw_verify")
-    Call<JsonObject> withdrawVerify(@Header("Authorization") String header);
+    Observable<BaseBean> withdrawVerify();
 
     /**
      * 投资
      *
-     * @param access_token
      * @param amount       投资金额
      * @param id           产品ID
      * @param password     密码
@@ -284,27 +280,25 @@ public interface OAuthService {
      */
     @FormUrlEncoded
     @POST("member/invest_product")
-    Call<JsonObject> investProduct(@Header("Authorization") String header, @Field("access_token") String access_token, @Field("amount") String amount, @Field("id") String id, @Field("password") String password);
+    Observable<BaseBean> investProduct(@Field("amount") String amount, @Field("id") String id, @Field("password") String password);
 
     /**
      * 领取红包
      *
-     * @param header
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST("member/get_red_packet_reward")
-    Call<JsonObject> getRedPacketReward(@Header("Authorization") String header, @Field("id") String id);
+    Observable<BaseBean> getRedPacketReward(@Field("id") String id);
 
     /**
      * 绑定设备
      *
-     * @param header
      * @param device_token 设备号
      * @return
      */
     @FormUrlEncoded
     @POST("member/refresh_device_token")
-    Call<JsonObject> refreshDeviceToken(@Header("Authorization") String header, @Field("device_token") String device_token);
+    Observable<BaseBean> refreshDeviceToken(@Field("device_token") String device_token);
 }

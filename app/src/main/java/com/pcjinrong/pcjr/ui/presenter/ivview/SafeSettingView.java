@@ -15,4 +15,6 @@ public interface SafeSettingView extends MvpView {
     void onLogoutSuccess(BaseBean data);
 
     void onIdentityInfoSuccess(BaseBean<IdentityInfo> data);
+
+
 }

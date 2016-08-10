@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Created by Mario on 2016/7/26.
  */
-public interface BankCardView extends MvpView {
+public interface AddBankCardView extends MvpView {
 
-    void onBankCardInfoSuccess(List<BankCard> list,String realname);
+    void onBankCardListSuccess(List<BankCard> list);
 
-    void onDelBankCardSuccess(BaseBean data);
+    void onAddBankCardSuccess(BaseBean data);
 
 }

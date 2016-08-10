@@ -29,6 +29,15 @@
         <activity android:name=".ui.views.activity.RealNameVerifiedActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.UnRealNameVerifiedActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.ChangePasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.BankCardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.AddBankCardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.MsgCenterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.MsgDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.WithdrawActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.CouponActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InvestTicketActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InvestTicketDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.RedPacketActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
     </application>
 

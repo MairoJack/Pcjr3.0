@@ -1,14 +1,20 @@
 package com.pcjinrong.pcjr.model;
 
+import com.nostra13.universalimageloader.utils.L;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
+import com.pcjinrong.pcjr.bean.InvestTicket;
+import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.TradeRecords;
+import com.pcjinrong.pcjr.bean.Withdraw;
 
 import java.util.List;
 
@@ -50,5 +56,29 @@ public interface IOAuthModel {
 
     Observable<BaseBean> delBankCard(String bank_id);
 
+    Observable<BaseBean<List<Letter>>> getLetterList(int page, int page_size);
+
+    Observable<BaseBean<Letter>> getLetterDetail(String id);
+
+    Observable<BaseBean<Withdraw>> getWithdrawInvestInfo();
+
+    Observable<BaseBean> withdrawVerify();
+
+    Observable<Coupon> getUnusedCouponsNum();
+
+    Observable<BaseBean<List<InvestTicket>>> getInvestTicketList(int type, int page, int page_size);
+
+    Observable<BaseBean<InvestTicket>> getInvestTicketDetail(String id);
+
+    Observable<BaseBean<List<RedPacket>>> getRedPacketList(int type, int page, int page_size);
+
+    Observable<BaseBean> getRedPacketReward(String id);
+
+    Observable<BaseBean> withdraw(String amount, String bank_id,String verify);
+
+    Observable<BaseBean> investProduct(String amount, String id,String password);
+
     Observable<BaseBean> revoke_access_token();
+
+    Observable<BaseBean> refreshDeviceToken(String device_token);
 }

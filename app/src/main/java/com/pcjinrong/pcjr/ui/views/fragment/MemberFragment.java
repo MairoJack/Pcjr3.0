@@ -9,18 +9,26 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
-import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.MemberPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MemberView;
+import com.pcjinrong.pcjr.ui.views.activity.BankCardActivity;
+import com.pcjinrong.pcjr.ui.views.activity.CouponActivity;
 import com.pcjinrong.pcjr.ui.views.activity.FinancialRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.InvestRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
+import com.pcjinrong.pcjr.ui.views.activity.MsgCenterActivity;
 import com.pcjinrong.pcjr.ui.views.activity.PaymentPlanActivity;
 import com.pcjinrong.pcjr.ui.views.activity.SafeSettingActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
+import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
+import com.pcjinrong.pcjr.widget.Dialog;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -83,11 +91,19 @@ public class MemberFragment extends BaseFragment implements MemberView{
         invest_records.setOnClickListener(v -> startActivity(new Intent(getActivity(), InvestRecordsActivity.class)));
         trade_records.setOnClickListener(v->startActivity(new Intent(getActivity(), TradeRecordsActivity.class)));
         safe_setting.setOnClickListener(v->startActivity(new Intent(getActivity(), SafeSettingActivity.class)));
-        bank_card.setOnClickListener(v->{});
-        msg_center.setOnClickListener(v->{});
+        bank_card.setOnClickListener(v->startActivity(new Intent(getActivity(), BankCardActivity.class)));
+        msg_center.setOnClickListener(v->startActivity(new Intent(getActivity(), MsgCenterActivity.class)));
         payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
-        withdraw_recharge.setOnClickListener(v->{});
-        coupon.setOnClickListener(v->{});
+        withdraw_recharge.setOnClickListener(v->{
+            dialog.setMessage("正在加载...");
+            dialog.show();
+            presenter.getWithdrawInvestInfo();
+        });
+        coupon.setOnClickListener(v->{
+            dialog.setMessage("正在加载...");
+            dialog.show();
+            presenter.getUnusedCouponsNum();
+        });
     }
 
     @Override
@@ -148,6 +164,30 @@ public class MemberFragment extends BaseFragment implements MemberView{
         Intent intent = new Intent(getActivity(), FinancialRecordsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data",data);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onWithdrawInfoSuccess(BaseBean<Withdraw> data) {
+        dialog.dismiss();
+        if(data.isSuccess()) {
+            Intent intent = new Intent(getActivity(), WithdrawActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }else{
+            Dialog.show(data.getMessage(),getContext());
+        }
+    }
+
+    @Override
+    public void onCouponNumSuccess(Coupon data) {
+        dialog.dismiss();
+        Intent intent = new Intent(getActivity(), CouponActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", data);
         intent.putExtras(bundle);
         startActivity(intent);
     }

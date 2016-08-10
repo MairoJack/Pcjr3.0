@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
@@ -32,7 +31,7 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
 
     @Override
     protected int getLayoutId() {
-        return R.layout.member_safe_setting_bank_card;
+        return R.layout.member_bank_card;
     }
 
     @Override
@@ -42,12 +41,11 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
         dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height);
     }
 
-
     @Override
     protected void initListeners() {
         btn_addbankcard.setOnClickListener(v-> {
             if(ViewUtil.isFastDoubleClick())return;
-            //startActivityForResult(new Intent(BankCardActivity.this, AddBankCardActivity.class), Constant.REQUSET);
+            startActivityForResult(new Intent(BankCardActivity.this, AddBankCardActivity.class), Constant.REQUSET);
         });
     }
 
@@ -61,8 +59,6 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
         mPtrFrame.post(()->mPtrFrame.autoRefresh());
     }
 
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -73,10 +69,9 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
 
     }
 
-
     @Override
     protected void refresh() {
-        this.presenter.getBankCardList();
+        this.presenter.getBankCardInfo();
     }
 
     @Override
@@ -95,11 +90,10 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
 
     }
 
-
-
     @Override
-    public void onBankCardListSuccess(List<BankCard> list,String realname) {
+    public void onBankCardInfoSuccess(List<BankCard> list,String realname) {
         mPtrFrame.refreshComplete();
+        Constant.REALNAME = realname;
         if(list.size() == 0) {
             empty.setVisibility(View.VISIBLE);
             rv_list.setVisibility(View.INVISIBLE);
@@ -111,12 +105,15 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     }
 
     @Override
-    public void onAddBankCardSuccess(BaseBean data) {
+    public void onDelBankCardSuccess(BaseBean data) {
 
     }
 
     @Override
-    public void onDelBankCardSuccess(BaseBean data) {
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Constant.REQUSET && resultCode == RESULT_OK){
+            refresh();
+        }
     }
 }

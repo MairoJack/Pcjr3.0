@@ -15,7 +15,10 @@ public class BaseBean<T> implements Serializable {
     @Expose
     private long current_time;
     @Expose
-    private long realName;
+    private String realName;
+    @Expose
+    private int invest_ticket_num;
+
     @Expose
     private T data;
 
@@ -62,11 +65,19 @@ public class BaseBean<T> implements Serializable {
         this.message = message;
     }
 
-    public long getRealName() {
+    public String getRealName() {
         return realName;
     }
 
-    public void setRealName(long realName) {
+    public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public int getInvest_ticket_num() {
+        return invest_ticket_num;
+    }
+
+    public void setInvest_ticket_num(int invest_ticket_num) {
+        this.invest_ticket_num = invest_ticket_num;
     }
 }

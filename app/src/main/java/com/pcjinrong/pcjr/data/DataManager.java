@@ -5,16 +5,21 @@ import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
+import com.pcjinrong.pcjr.bean.InvestTicket;
+import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
+import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.model.impl.OAuthModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
@@ -69,6 +74,11 @@ public class DataManager {
 
     public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
         return this.apiModel.getInvestProductList(type, page, page_size)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<BankCard>>> getBankCardList() {
+        return this.apiModel.getBankCardList()
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
     /*
@@ -169,16 +179,16 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
-    public Observable<BaseBean<List<BankCard>>> getBankCardList() {
+    public Observable<BaseBean<List<BankCard>>> getBankCardInfo() {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getMemberBankCardInfo())
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
-    public Observable<BaseBean> addBankCard(String bank_id,String card_no,String real_name) {
+    public Observable<BaseBean> addBankCard(String bank_id, String card_no, String real_name) {
         return Observable.just(null)
-                .flatMap(o -> oAuthModel.addBankCard(bank_id, card_no,real_name))
+                .flatMap(o -> oAuthModel.addBankCard(bank_id, card_no, real_name))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
@@ -196,6 +206,91 @@ public class DataManager {
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
+
+    public Observable<BaseBean<List<Letter>>> getLetterList(int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getLetterList(page, page_size))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<Letter>> getLetterDetail(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getLetterDetail(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> withdraw(String amount, String bank_id, String verify) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.withdraw(amount, bank_id, verify))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<Withdraw>> getWithdrawInvestInfo() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getWithdrawInvestInfo())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<Coupon> getUnusedCouponsNum() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getUnusedCouponsNum())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<RedPacket>>> getRedPacketList(int type, int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getRedPacketList(type,page,page_size))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> getRedPacketReward(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getRedPacketReward(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<InvestTicket>>> getInvestTicketList(int type, int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getInvestTicketList(type,page,page_size))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<InvestTicket>> getInvestTicketDetail(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getInvestTicketDetail(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> investProduct(String amount, String id, String password) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.investProduct(amount,id,password))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> withdrawVerify() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.withdrawVerify())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> refreshDeviceToken(String device_token) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.refreshDeviceToken(device_token))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
     /*
      * -------------------------- OAuthModel Over ------------------------------
      */

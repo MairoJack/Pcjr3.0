@@ -1,6 +1,7 @@
 package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
+import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
@@ -114,7 +115,7 @@ public interface ApiService {
      * 获取银行卡信息
      */
     @GET("bank_card_list")
-    Call<JsonObject> getBankCardList();
+    Observable<BaseBean<List<BankCard>>> getBankCardList();
 
 
 }

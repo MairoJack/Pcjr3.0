@@ -8,6 +8,7 @@
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_14sp">14sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
     <dimen name="icon_right_width">24dp</dimen>
     <dimen name="icon_right_height">24dp</dimen>
     <dimen name="title_height">50dp</dimen>
