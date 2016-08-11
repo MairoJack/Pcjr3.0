@@ -2,11 +2,13 @@ package com.pcjinrong.pcjr.bean;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  * 投资券详情
  * Created by Mario on 2016/6/2.
  */
-public class InvestTicketDetail {
+public class InvestTicketDetail implements Serializable{
     @Expose
     private String id;
     @Expose

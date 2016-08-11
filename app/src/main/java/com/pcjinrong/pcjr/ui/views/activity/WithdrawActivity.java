@@ -127,6 +127,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
         presenter = new WithdrawPresenter();
         presenter.attachView(this);
+
+        presenter.getBankCardList();
     }
 
     public void apply() {

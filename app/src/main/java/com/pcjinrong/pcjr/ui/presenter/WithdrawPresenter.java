@@ -69,7 +69,7 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
     }
 
     public void getBankCardList() {
-        this.mCompositeSubscription.add(this.mDataManager.getBankCardList()
+        this.mCompositeSubscription.add(this.mDataManager.getBankCardInfo()
                 .subscribe(new Subscriber<BaseBean<List<BankCard>>>() {
                     @Override
                     public void onCompleted() {

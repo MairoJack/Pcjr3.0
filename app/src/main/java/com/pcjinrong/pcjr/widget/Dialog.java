@@ -3,6 +3,8 @@ package com.pcjinrong.pcjr.widget;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
+import com.pcjinrong.pcjr.R;
+
 /**
  * Created by Mario on 2016/6/20.
  */

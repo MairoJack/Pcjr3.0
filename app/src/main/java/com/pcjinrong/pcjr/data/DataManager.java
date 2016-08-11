@@ -16,6 +16,7 @@ import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
@@ -57,6 +58,11 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
+    public Observable<BaseBean> register(String name, String password, String recommend_person) {
+        return this.apiModel.register(name, password, recommend_person)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
     public Observable<Token> refreshToken(String refresh_token) {
         return this.apiModel.refreshToken(refresh_token)
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
@@ -74,6 +80,16 @@ public class DataManager {
 
     public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
         return this.apiModel.getInvestProductList(type, page, page_size)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<Product>> getProductDetail(String id) {
+        return this.apiModel.getProductDetail(id)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<ProductTradingRecord>>> getProductTradingRecordList(String id, int page, int page_size) {
+        return this.apiModel.getProductTradingRecordList(id, page, page_size)
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
@@ -244,7 +260,7 @@ public class DataManager {
 
     public Observable<BaseBean<List<RedPacket>>> getRedPacketList(int type, int page, int page_size) {
         return Observable.just(null)
-                .flatMap(o -> oAuthModel.getRedPacketList(type,page,page_size))
+                .flatMap(o -> oAuthModel.getRedPacketList(type, page, page_size))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
@@ -258,7 +274,7 @@ public class DataManager {
 
     public Observable<BaseBean<List<InvestTicket>>> getInvestTicketList(int type, int page, int page_size) {
         return Observable.just(null)
-                .flatMap(o -> oAuthModel.getInvestTicketList(type,page,page_size))
+                .flatMap(o -> oAuthModel.getInvestTicketList(type, page, page_size))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
@@ -272,7 +288,7 @@ public class DataManager {
 
     public Observable<BaseBean> investProduct(String amount, String id, String password) {
         return Observable.just(null)
-                .flatMap(o -> oAuthModel.investProduct(amount,id,password))
+                .flatMap(o -> oAuthModel.investProduct(amount, id, password))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }

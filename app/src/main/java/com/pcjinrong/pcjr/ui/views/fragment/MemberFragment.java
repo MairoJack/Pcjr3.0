@@ -174,7 +174,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
         if(data.isSuccess()) {
             Intent intent = new Intent(getActivity(), WithdrawActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data);
+            bundle.putSerializable("data", data.getData());
             intent.putExtras(bundle);
             startActivity(intent);
         }else{

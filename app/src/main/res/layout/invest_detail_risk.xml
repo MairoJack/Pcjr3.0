@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_content_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="风控措施"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/text_size_16sp" />
+
+    <TextView
+        android:id="@+id/risk_control"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/text_size_12sp"
+        android:text="1、海宁皮革城担保有限公司对借款人位于皮革城的商铺拥有唯一处置权，根据设定权利标的物的品种和市场价值，为借款人提供担保，采用动态监管，标的物实时跟踪。 2、海宁皮革城担保有限公司设定的标的物暨借款人的海宁中国皮革城的多处商铺，其租赁权具有较大的市场价值。 3、借款人从事皮革行业十多年，自身具有较好经济实力。其配偶对债务的偿还承担个人无限连带责任。" />
+
+</LinearLayout>

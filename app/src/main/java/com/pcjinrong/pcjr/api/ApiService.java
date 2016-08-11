@@ -1,16 +1,14 @@
 package com.pcjinrong.pcjr.api;
 
-import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
+import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.Token;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -87,7 +85,7 @@ public interface ApiService {
      * @return
      */
     @GET("product_detail")
-    Call<JsonObject> getProductDetail(@Query("id") String id);
+    Observable<BaseBean<Product>> getProductDetail(@Query("id") String id);
 
     /**
      * 获取产品投资记录
@@ -96,7 +94,7 @@ public interface ApiService {
      * @return
      */
     @GET("product_trading_record_list")
-    Call<JsonObject> getProductTradingRecordList(@Query("id") String id, @Query("page") int page, @Query("page_size") int page_size);
+    Observable<BaseBean<List<ProductTradingRecord>>> getProductTradingRecordList(@Query("id") String id, @Query("page") int page, @Query("page_size") int page_size);
 
     /**
      * 用户注册
@@ -108,7 +106,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("register")
-    Call<JsonObject> register(@Field("name") String name, @Field("password") String password, @Field("recommend_person") String recommend_person);
+    Observable<BaseBean> register(@Field("name") String name, @Field("password") String password, @Field("recommend_person") String recommend_person);
 
 
     /**

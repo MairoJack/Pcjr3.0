@@ -26,11 +26,13 @@ import butterknife.ButterKnife;
 public class InvestTicketListAdapter extends RecyclerView.Adapter<InvestTicketListAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<InvestTicket> list;
+    private int type;
 
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
-    public InvestTicketListAdapter() {
+    public InvestTicketListAdapter(int type) {
         list = new ArrayList<>();
+        this.type = type;
     }
 
     public void setData(List<InvestTicket> list) {
@@ -46,8 +48,14 @@ public class InvestTicketListAdapter extends RecyclerView.Adapter<InvestTicketLi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_invest_ticket, parent, false);
+        View view;
+        if(type == 0){
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_invest_ticket, parent, false);
+        }else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_invest_ticket_gray, parent, false);
+        }
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }

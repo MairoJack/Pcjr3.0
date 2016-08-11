@@ -1,7 +1,9 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import com.pcjinrong.pcjr.ui.adapter.BankCardListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.BankCardPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.BankCardView;
 import com.pcjinrong.pcjr.utils.ViewUtil;
+import com.pcjinrong.pcjr.widget.Dialog;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     private BankCardPresenter presenter;
     private BankCardListAdapter adapter;
 
+    private BankCard bankCard;
     @Override
     protected int getLayoutId() {
         return R.layout.member_bank_card;
@@ -46,6 +50,19 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
         btn_addbankcard.setOnClickListener(v-> {
             if(ViewUtil.isFastDoubleClick())return;
             startActivityForResult(new Intent(BankCardActivity.this, AddBankCardActivity.class), Constant.REQUSET);
+        });
+
+        adapter.setOnDeleteClickListener((view,data)-> {
+            if(ViewUtil.isFastDoubleClick())return;
+            bankCard = data;
+            new AlertDialog.Builder(this)
+                    .setTitle("确认删除尾号为" + bankCard.getCard_no().substring(bankCard.getCard_no().length() - 4) + "的银行卡吗?")
+                    .setPositiveButton("确认", (dialog, which) -> {
+                        presenter.delBankCard(bankCard.getId());
+                    })
+                    .setNegativeButton("取消", (dialog, which) -> {
+                        dialog.dismiss();
+                    }).create().show();
         });
     }
 
@@ -106,7 +123,11 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
 
     @Override
     public void onDelBankCardSuccess(BaseBean data) {
-
+        if(data.isSuccess()) {
+            adapter.delete(bankCard);
+        }else{
+            Dialog.show(data.getMessage(),this);
+        }
     }
 
     @Override

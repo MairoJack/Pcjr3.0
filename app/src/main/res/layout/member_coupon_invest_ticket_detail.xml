@@ -27,7 +27,7 @@
                 android:lineSpacingExtra="4dp"
                 tools:text="满 1000.00 元返16.00元"
                 android:textColor="@color/color_text"
-                tools:textSize="@dimen/text_size_18sp" />
+                tools:textSize="@dimen/text_size_title" />
 
             <TextView
                 android:id="@+id/title"
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/color_text"/>
+                android:background="@color/color_text_tag"/>
             <TextView
                 android:id="@+id/introduction"
                 android:layout_width="match_parent"

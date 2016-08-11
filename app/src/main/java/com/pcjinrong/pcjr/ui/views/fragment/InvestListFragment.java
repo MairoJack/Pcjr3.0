@@ -48,6 +48,8 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
 
     @Override
     protected void initData() {
+        type = getArguments().getInt("type");
+
         this.presenter = new InvestListPresenter();
         this.presenter.attachView(this);
         this.adapter = new ProductListAdapter();

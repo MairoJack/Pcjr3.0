@@ -4,10 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.bean.Letter;
+
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.utils.DateUtils;
 
@@ -22,14 +23,16 @@ import butterknife.ButterKnife;
  * 红包适配器
  * Created by Mario on 2016/8/1.
  */
-public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdapter.ViewHolder> implements View.OnClickListener {
+public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdapter.ViewHolder>{
 
     private List<RedPacket> list;
+    private int type;
 
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnDeleteClickListener listener;
 
-    public RedPacketListAdapter() {
+    public RedPacketListAdapter(int type) {
         list = new ArrayList<>();
+        this.type = type;
     }
 
     public void setData(List<RedPacket> list) {
@@ -43,18 +46,35 @@ public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdap
         notifyDataSetChanged();
     }
 
+    public void delete(RedPacket data) {
+        this.list.remove(data);
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_red_packet, parent, false);
-        view.setOnClickListener(this);
-        return new ViewHolder(view);
+        View view;
+        if(type == 0){
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_red_packet, parent, false);
+            return new ViewHolderFirst(view);
+        }else{
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_red_packet_gray, parent, false);
+            return new ViewHolderSecond(view);
+        }
+
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindTo((list.get(position)));
-        holder.itemView.setTag(list.get(position));
+        if(holder instanceof ViewHolderFirst){
+            ViewHolderFirst holderFirst = (ViewHolderFirst) holder;
+            holderFirst.bindTo((list.get(position)));
+            holderFirst.mIvBtnGetRedPacket.setOnClickListener(v-> listener.onDeleteClick(v,list.get(position)));
+        }else if(holder instanceof ViewHolderSecond){
+            holder.bindTo((list.get(position)));
+        }
     }
 
     @Override
@@ -62,14 +82,8 @@ public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdap
         return list.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        if (mOnItemClickListener != null) {
-            mOnItemClickListener.onItemClick(v, (RedPacket) v.getTag());
-        }
-    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.amount) TextView mIvAmount;
         @BindView(R.id.title) TextView mIvTitle;
         @BindView(R.id.join_date) TextView mIvJoinDate;
@@ -80,20 +94,32 @@ public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdap
         }
 
         public void bindTo(RedPacket object) {
-
             mIvAmount.setText("￥" + object.getAmount());
             mIvTitle.setText("来源:" + object.getTitle());
             mIvJoinDate.setText("红包获得时间:" + DateUtils.dateTimeToStr(new Date(object.getJoin_date() * 1000), "yyyy-MM-dd"));
-
         }
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
-        this.mOnItemClickListener = listener;
+    public static class ViewHolderFirst extends ViewHolder {
+        @BindView(R.id.btn_get_red_packet) Button mIvBtnGetRedPacket;
+
+        public ViewHolderFirst(View itemView) {
+            super(itemView);
+        }
     }
 
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, RedPacket data);
+    public static class ViewHolderSecond extends ViewHolder {
+
+        public ViewHolderSecond(View itemView) {
+            super(itemView);
+        }
     }
 
+    public void setOnDeleteClickListener(OnDeleteClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnDeleteClickListener{
+        void onDeleteClick(View view , RedPacket data);
+    }
 }

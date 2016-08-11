@@ -19,10 +19,12 @@ import butterknife.ButterKnife;
  * 银行卡适配器
  * Created by Mario on 2016/8/1.
  */
-public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapter.ViewHolder> {
+public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapter.ViewHolder>{
 
     private List<BankCard> list;
     private String realname;
+
+    private OnDeleteClickListener listener;
 
     public BankCardListAdapter() {
         list = new ArrayList<>();
@@ -35,6 +37,10 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
         notifyDataSetChanged();
     }
 
+    public void delete(BankCard data) {
+        this.list.remove(data);
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,6 +52,9 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindTo((list.get(position)), realname);
+        holder.mIvDelete.setOnClickListener(v->{
+            listener.onDeleteClick(v,list.get(position));
+        });
     }
 
     @Override
@@ -53,7 +62,9 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
         return list.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.bank) TextView mIvBank;
         @BindView(R.id.card_no) TextView mIvCardNo;
         @BindView(R.id.status) TextView mIvStatus;
@@ -70,7 +81,16 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
             mIvCardNo.setText(object.getCard_no());
             mIvStatus.setText("已认证");
             mIvRealname.setText(realname);
+
         }
+    }
+
+    public void setOnDeleteClickListener(OnDeleteClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnDeleteClickListener{
+        void onDeleteClick(View view , BankCard data);
     }
 
 }

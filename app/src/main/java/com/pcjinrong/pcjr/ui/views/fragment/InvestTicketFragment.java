@@ -18,6 +18,7 @@ import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
 import com.pcjinrong.pcjr.ui.presenter.InvestTicketPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestTicketView;
+import com.pcjinrong.pcjr.ui.views.activity.InvestTicketDetailActivity;
 import com.pcjinrong.pcjr.ui.views.activity.MsgDetailActivity;
 
 import java.util.List;
@@ -62,9 +63,11 @@ public class InvestTicketFragment extends BaseSwipeFragment implements InvestTic
 
     @Override
     protected void initData() {
+        type = getArguments().getInt("type");
+
         this.presenter = new InvestTicketPresenter();
         this.presenter.attachView(this);
-        this.adapter = new InvestTicketListAdapter();
+        this.adapter = new InvestTicketListAdapter(type);
         rv_list.setAdapter(this.adapter);
 
         isPrepared = true;
@@ -141,7 +144,7 @@ public class InvestTicketFragment extends BaseSwipeFragment implements InvestTic
     @Override
     public void onInvestTicketDetailSuccess(InvestTicket data) {
         dialog.dismiss();
-        Intent intent = new  Intent(getActivity(), MsgDetailActivity.class);
+        Intent intent = new  Intent(getActivity(), InvestTicketDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
         intent.putExtras(bundle);

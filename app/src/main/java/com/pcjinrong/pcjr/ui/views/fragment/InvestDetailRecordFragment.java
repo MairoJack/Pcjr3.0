@@ -2,15 +2,18 @@ package com.pcjinrong.pcjr.ui.views.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.core.BaseSwipeFragment;
+import com.pcjinrong.pcjr.core.mvp.MvpView;
+import com.pcjinrong.pcjr.ui.adapter.ProductTradingRecordListAdapter;
 import com.pcjinrong.pcjr.ui.adapter.RedPacketListAdapter;
+import com.pcjinrong.pcjr.ui.presenter.ProductTradingRecordPresenter;
 import com.pcjinrong.pcjr.ui.presenter.RedPacketPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RedPacketView;
 import com.pcjinrong.pcjr.utils.ViewUtil;
@@ -20,48 +23,39 @@ import java.util.List;
 
 
 /**
- * 红包Fragment
+ * 投资项目详情-投资记录
  * Created by Mario on 2016/5/12.
  */
-public class RedPacketFragment extends BaseSwipeFragment implements RedPacketView {
+public class InvestDetailRecordFragment extends BaseSwipeFragment implements MvpView<BaseBean<List<ProductTradingRecord>>> {
 
-    private RedPacketPresenter presenter;
-    private RedPacketListAdapter adapter;
-
-    private int type;
+    private ProductTradingRecordPresenter presenter;
+    private ProductTradingRecordListAdapter adapter;
 
     private boolean isPrepared;
     private boolean mHasLoadedOnce;
 
-    private RedPacket redPacket;
-
 
     @Override
     protected int getLayoutId() {
-        return R.layout.invest_list;
+        return R.layout.invest_detail_record;
     }
 
     @Override
     protected void initViews(View self, Bundle savedInstanceState) {
-        dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height);
+        dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height_1dp);
     }
 
     @Override
     protected void initListeners() {
-        adapter.setOnDeleteClickListener((view,data)-> {
-            if(ViewUtil.isFastDoubleClick())return;
-            redPacket = data;
-            presenter.getRedPacketReward(data.getId());
-        });
+
     }
 
     @Override
     protected void initData() {
-        type = getArguments().getInt("type");
 
-        this.presenter = new RedPacketPresenter();
+        this.presenter = new ProductTradingRecordPresenter();
         this.presenter.attachView(this);
-        this.adapter = new RedPacketListAdapter(type);
+        this.adapter = new ProductTradingRecordListAdapter();
         rv_list.setAdapter(this.adapter);
 
         isPrepared = true;
@@ -73,7 +67,7 @@ public class RedPacketFragment extends BaseSwipeFragment implements RedPacketVie
         refresh = true;
         emptyCount = 0;
         this.presenter.setPage(1);
-        this.presenter.getRedPacketList(type, ApiConstant.DEFAULT_PAGE_SIZE);
+        this.presenter.getProductTradingRecordList(type, ApiConstant.DEFAULT_PAGE_SIZE);
     }
 
     @Override
@@ -86,10 +80,7 @@ public class RedPacketFragment extends BaseSwipeFragment implements RedPacketVie
     }
 
     public static Fragment newInstance(int type) {
-        RedPacketFragment fragment = new RedPacketFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        fragment.setArguments(bundle);
+        InvestDetailRecordFragment fragment = new InvestDetailRecordFragment();
         return fragment;
     }
 
@@ -106,6 +97,11 @@ public class RedPacketFragment extends BaseSwipeFragment implements RedPacketVie
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
         showToast(getString(R.string.network_anomaly));
+    }
+
+    @Override
+    public void onSuccess(BaseBean data) {
+
     }
 
     @Override
