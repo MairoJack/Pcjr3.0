@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textView1"
-            android:text="23"
+            android:text="0"
             android:textColor="#EE0000"
             android:textSize="@dimen/text_size_16sp" />
 
@@ -77,8 +77,7 @@
         <in.srain.cube.views.ptr.PtrClassicFrameLayout
             android:id="@+id/ptr_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="42dp">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list"

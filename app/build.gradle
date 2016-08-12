@@ -56,4 +56,6 @@ dependencies {
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.github.JayFang1993:DropDownMenu:v0.9'
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
+    compile 'com.github.iwgang:countdownview:2.1.1'
 }

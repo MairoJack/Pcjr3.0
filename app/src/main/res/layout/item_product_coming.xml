@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/list_selector">
 
 
@@ -12,8 +11,7 @@
         android:layout_width="@dimen/item_product_rtv_image_width"
         android:layout_height="@dimen/item_product_rtv_image_height"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-         />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/goodname"
@@ -178,29 +176,27 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
 
-            <com.pcjinrong.pcjr.widget.ProgressWheel
-                android:id="@+id/pw_spinner"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerInParent="true"
-                ProgressWheel:pwRimColor="#D3D3D3"
-                ProgressWheel:pwBarLength="60dp"
-                ProgressWheel:pwBarColor="#FD5A4A"
-                ProgressWheel:pwBarWidth="4dp"
-                ProgressWheel:pwRimWidth="4dp"
-                ProgressWheel:pwSpinSpeed="3dp"
-                ProgressWheel:pwContourColor="#D3D3D3"/>
-
             <TextView
-                android:id="@+id/rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="15%"
-                android:textColor="@color/item_product_text_color"
-                android:textSize="@dimen/item_product_rate_text_size"
-                />
+                android:layout_marginBottom="10dp"
+                android:text="开售时间"
+                android:textColor="@color/item_product_text_color_gray" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:paddingLeft="13dp"
+                tools:text="06-15 10:00"
+                android:background="@mipmap/ic_clock"
+                android:textColor="#FFBF00"
+                android:textSize="11.5dp" />
         </RelativeLayout>
     </LinearLayout>
 

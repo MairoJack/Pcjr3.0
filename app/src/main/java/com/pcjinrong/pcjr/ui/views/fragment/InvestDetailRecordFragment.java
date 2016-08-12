@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.ui.views.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.api.ApiConstant;
@@ -21,6 +22,8 @@ import com.pcjinrong.pcjr.widget.Dialog;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 
 /**
  * 投资项目详情-投资记录
@@ -28,12 +31,14 @@ import java.util.List;
  */
 public class InvestDetailRecordFragment extends BaseSwipeFragment implements MvpView<BaseBean<List<ProductTradingRecord>>> {
 
+    @BindView(R.id.total) TextView total;
+
     private ProductTradingRecordPresenter presenter;
     private ProductTradingRecordListAdapter adapter;
 
     private boolean isPrepared;
     private boolean mHasLoadedOnce;
-
+    private String id;
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +57,8 @@ public class InvestDetailRecordFragment extends BaseSwipeFragment implements Mvp
 
     @Override
     protected void initData() {
+        Bundle bundle = getArguments();
+        id = bundle.getString("id");
 
         this.presenter = new ProductTradingRecordPresenter();
         this.presenter.attachView(this);
@@ -67,7 +74,7 @@ public class InvestDetailRecordFragment extends BaseSwipeFragment implements Mvp
         refresh = true;
         emptyCount = 0;
         this.presenter.setPage(1);
-        this.presenter.getProductTradingRecordList(type, ApiConstant.DEFAULT_PAGE_SIZE);
+        this.presenter.getProductTradingRecordList(id, ApiConstant.DEFAULT_PAGE_SIZE);
     }
 
     @Override
@@ -75,12 +82,15 @@ public class InvestDetailRecordFragment extends BaseSwipeFragment implements Mvp
         if(emptyCount < EMPTY_LIMIT && !mPtrFrame.isRefreshing()) {
             refresh = false;
             this.presenter.setPage(this.presenter.getPage() + 1);
-            this.presenter.getRedPacketList(type, ApiConstant.DEFAULT_PAGE_SIZE);
+            this.presenter.getProductTradingRecordList(id, ApiConstant.DEFAULT_PAGE_SIZE);
         }
     }
 
-    public static Fragment newInstance(int type) {
+    public static Fragment newInstance(String id) {
         InvestDetailRecordFragment fragment = new InvestDetailRecordFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -100,19 +110,11 @@ public class InvestDetailRecordFragment extends BaseSwipeFragment implements Mvp
     }
 
     @Override
-    public void onSuccess(BaseBean data) {
-
-    }
-
-    @Override
-    public void onSuccess(Object data) {
-
-    }
-
-    @Override
-    public void onRedPacketListSuccess(List<RedPacket> list) {
+    public void onSuccess(BaseBean<List<ProductTradingRecord>> data) {
         mHasLoadedOnce = true;
         mPtrFrame.refreshComplete();
+        total.setText(String.valueOf(data.getPager().getTotal()));
+        List<ProductTradingRecord> list = data.getData();
         if(refresh){
             if (list.size() == 0) {
                 empty.setVisibility(View.VISIBLE);
@@ -129,14 +131,4 @@ public class InvestDetailRecordFragment extends BaseSwipeFragment implements Mvp
         if(list.size() == 0 ) emptyCount++;
     }
 
-    @Override
-    public void onRedPacketRewardSuccess(BaseBean data) {
-        if(data.isSuccess()) {
-            Dialog.show("领取成功","红包金额已转入您的账户余额内",getContext());
-            isPrepared = false;
-            adapter.delete(redPacket);
-        }else{
-            Dialog.show(data.getMessage(),getContext());
-        }
-    }
 }

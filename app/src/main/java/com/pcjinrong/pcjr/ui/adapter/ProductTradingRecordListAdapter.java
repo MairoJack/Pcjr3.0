@@ -43,7 +43,7 @@ public class ProductTradingRecordListAdapter extends RecyclerView.Adapter<Produc
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_msg_center, parent, false);
+                .inflate(R.layout.item_trading_record, parent, false);
         return new ViewHolder(view);
     }
 

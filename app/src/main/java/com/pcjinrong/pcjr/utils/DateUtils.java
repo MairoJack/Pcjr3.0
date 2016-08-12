@@ -399,7 +399,7 @@ public class DateUtils {
 	 * @Date: 2006-10-31
 	 */
 	public final static boolean isStartDateBeforeEndDate(Date p_startDate,
-			Date p_endDate) throws ParseException {
+			Date p_endDate) {
 		long l_startTime = getMillisOfDate(p_startDate);
 		long l_endTime = getMillisOfDate(p_endDate);
 		return (l_startTime - l_endTime < (long) 0) ? true : false;
@@ -436,7 +436,7 @@ public class DateUtils {
 	 * @Date: 2006-10-31
 	 */
 	public final static long getHoursOfTowDiffDate(Date p_startDate,
-												   Date p_endDate) throws ParseException {
+												   Date p_endDate){
 
 		long l_startTime = getMillisOfDate(p_startDate);
 		long l_endTime = getMillisOfDate(p_endDate);

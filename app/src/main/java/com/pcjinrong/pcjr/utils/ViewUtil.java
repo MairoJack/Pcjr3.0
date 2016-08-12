@@ -2,6 +2,9 @@ package com.pcjinrong.pcjr.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 
 /**
  * Created by Mario on 2016/6/15.
@@ -27,6 +30,22 @@ public class ViewUtil {
     public int getScreenHeight(Context context) {
         Resources res = context.getResources();
         return res.getDisplayMetrics().heightPixels;
+    }
+
+    /**
+     * 获取屏幕分辨率
+     * @param context
+     * @return
+     */
+    public static int[] getScreenDispaly(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        int result[] = { width, height };
+        return result;
     }
 
     /**

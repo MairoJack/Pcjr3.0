@@ -6,20 +6,17 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
+import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+
 import butterknife.BindView;
 
 /**
  * WebView
  * Created by Mario on 2016/5/24.
  */
-public class WebViewActivity extends BaseAppCompatActivity {
-    @BindView(R.id.web_view)
-    WebView webView;
-    @BindView(R.id.title)
-    TextView title;
+public class WebViewActivity extends BaseToolbarActivity {
+    @BindView(R.id.web_view) WebView webView;
     private ProgressDialog dialog;
     private String url;
 
@@ -30,14 +27,10 @@ public class WebViewActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        showBack();
         dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("正在加载...");
         dialog.show();
-    }
-
-    @Override
-    protected void initToolbar(Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -69,7 +62,7 @@ public class WebViewActivity extends BaseAppCompatActivity {
             }
         });
         url = intent.getStringExtra("url");
-        title.setText(intent.getStringExtra("title"));
+        setTitle(intent.getStringExtra("title"));
         webView.loadUrl(url);
     }
 }

@@ -140,12 +140,12 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @Override
     public void onFailure(Throwable e) {
         if(dialog.isShowing()) dialog.dismiss();
+        if(mPtrFrame.isRefreshing()) mPtrFrame.refreshComplete();
         if(e instanceof HttpException){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(getActivity(), LoginActivity.class));
             return;
         }
-        mPtrFrame.refreshComplete();
         showToast(getString(R.string.network_anomaly));
     }
 

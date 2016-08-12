@@ -3,8 +3,20 @@ package com.pcjinrong.pcjr.constant;
 public class Constant {
 
     public static String REALNAME = "";
+    public static boolean IS_LOGIN = false;
+    public static boolean IS_GESTURE_LOGIN = false;
 
     public static final int REQUSET = 0;
+
+    public static final int TYPE_ONGOING = 0;       //正在募集
+    public static final int TYPE_SUCCESS = 1;       //募集成功
+    public static final int TYPE_COMING = 2;        //即将开始
+    public static final int TYPE_COUNTDOWN = 3;     //倒计时
+
+    //手势密码点的状态
+    public static final int POINT_STATE_NORMAL = 0;     // 正常状态
+    public static final int POINT_STATE_SELECTED = 1;   // 按下状态
+    public static final int POINT_STATE_WRONG = 2;      // 错误状态
 
     public static final String DEFAULT_TITLE = "活动";
 

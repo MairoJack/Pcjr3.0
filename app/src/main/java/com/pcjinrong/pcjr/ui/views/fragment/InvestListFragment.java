@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.pcjinrong.pcjr.core.BaseSwipeFragment;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
+import com.pcjinrong.pcjr.ui.views.activity.InvestDetailActivity;
+
 import java.util.List;
 
 
@@ -43,7 +46,11 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
 
     @Override
     protected void initListeners() {
-
+        adapter.setOnItemClickListener((view, id) -> {
+            Intent intent = new Intent(getActivity(), InvestDetailActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -104,9 +111,9 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
         mHasLoadedOnce = true;
         mPtrFrame.refreshComplete();
         if(refresh){
-            adapter.setData(data.getData(), data.getCurrent_time());
+            adapter.setData(data.getData(), data.getCurrent_time(),System.currentTimeMillis());
         }else{
-            adapter.addAll(data.getData(), data.getCurrent_time());
+            adapter.addAll(data.getData(), data.getCurrent_time(),System.currentTimeMillis());
         }
 
         if(data.getData().size() == 0 ) emptyCount++;

@@ -30,6 +30,7 @@ import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
 import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 import com.pcjinrong.pcjr.ui.presenter.MainPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
+import com.pcjinrong.pcjr.ui.views.activity.InvestDetailActivity;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.MainActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
@@ -144,6 +145,12 @@ public class IndexFragment extends BaseFragment implements MainView {
                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        adapter.setOnItemClickListener((view, id) -> {
+            Intent intent = new Intent(getActivity(), InvestDetailActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -236,7 +243,7 @@ public class IndexFragment extends BaseFragment implements MainView {
     @Override
     public void onGetIndexListSuccess(List<Product> list,long current_time) {
         mPtrFrame.refreshComplete();
-        adapter.setData(list,current_time);
+        adapter.setData(list,current_time,System.currentTimeMillis());
     }
 
     @Override

@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="6.90"
-                    android:textColor="@color/item_product_text_color"
+                    android:textColor="@color/color_text"
                     android:textSize="@dimen/item_product_text_size" />
 
                 <TextView
@@ -96,14 +96,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="%"
-                    android:textColor="#FD7C21"
+                    android:textColor="@color/color_text"
                     android:textSize="16dp" />
             </LinearLayout>
-
-
         </RelativeLayout>
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -132,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="12"
-                    android:textColor="@color/item_product_text_color"
+                    android:textColor="@color/color_text"
                     android:textSize="@dimen/item_product_text_size" />
 
                 <TextView
@@ -168,7 +164,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 tools:text="2000.00"
-                android:textColor="@color/item_product_text_color"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/item_product_text_size" />
 
 
@@ -190,16 +186,15 @@
                 ProgressWheel:pwRimWidth="4dp"
                 ProgressWheel:pwSpinSpeed="3dp"
                 ProgressWheel:pwContourColor="#D3D3D3"/>
-
             <TextView
                 android:id="@+id/rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="15%"
-                android:textColor="@color/item_product_text_color"
-                android:textSize="@dimen/item_product_rate_text_size"
+                tools:text="项目结束"
+                android:textColor="@color/color_text_light"
+                android:textSize="@dimen/text_size_12sp"
                 />
         </RelativeLayout>
     </LinearLayout>
