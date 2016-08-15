@@ -14,6 +14,7 @@ import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.MemberPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MemberView;
@@ -90,7 +91,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
         });
         invest_records.setOnClickListener(v -> startActivity(new Intent(getActivity(), InvestRecordsActivity.class)));
         trade_records.setOnClickListener(v->startActivity(new Intent(getActivity(), TradeRecordsActivity.class)));
-        safe_setting.setOnClickListener(v->startActivity(new Intent(getActivity(), SafeSettingActivity.class)));
+        safe_setting.setOnClickListener(v->getActivity().startActivityForResult(new Intent(getActivity(), SafeSettingActivity.class), Constant.LOGOUT));
         bank_card.setOnClickListener(v->startActivity(new Intent(getActivity(), BankCardActivity.class)));
         msg_center.setOnClickListener(v->startActivity(new Intent(getActivity(), MsgCenterActivity.class)));
         payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));

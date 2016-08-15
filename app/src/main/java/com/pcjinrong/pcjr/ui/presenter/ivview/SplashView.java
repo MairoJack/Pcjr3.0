@@ -10,12 +10,10 @@ import java.util.List;
 /**
  * Created by Mario on 2016/7/26.
  */
-public interface MainView extends MvpView {
-
-
-    void onGetIndexListSuccess(List<Product> list,long current_time);
-
+public interface SplashView extends MvpView {
 
     void onGetIndexFocusSuccess(IndexFocusInfo data);
+
+    void onRefeshTokenSuccess(Token data);
 
 }

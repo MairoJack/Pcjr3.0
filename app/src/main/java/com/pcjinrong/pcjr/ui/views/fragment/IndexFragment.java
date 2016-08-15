@@ -169,7 +169,14 @@ public class IndexFragment extends BaseFragment implements MainView {
             }
         });
 
-        refreshData();
+        if(Constant.INDEX_FOCUS_INFO != null){
+            onGetIndexFocusSuccess(Constant.INDEX_FOCUS_INFO);
+            this.presenter.getIndexProductList();
+        }else{
+            refreshData();
+        }
+
+
     }
 
     @Override
@@ -198,8 +205,8 @@ public class IndexFragment extends BaseFragment implements MainView {
         sliderLayout.stopTurning();
         sliderLayoutSmall.stopTurning();
 
-        this.presenter.getIndexProductList();
         this.presenter.getIndexFocusInfo();
+        this.presenter.getIndexProductList();
     }
 
 
@@ -242,13 +249,13 @@ public class IndexFragment extends BaseFragment implements MainView {
 
     @Override
     public void onGetIndexListSuccess(List<Product> list,long current_time) {
-        mPtrFrame.refreshComplete();
+        if(mPtrFrame.isRefreshing()) mPtrFrame.refreshComplete();
         adapter.setData(list,current_time,System.currentTimeMillis());
     }
 
     @Override
     public void onGetIndexFocusSuccess(IndexFocusInfo data) {
-        mPtrFrame.refreshComplete();
+        if(mPtrFrame.isRefreshing()) mPtrFrame.refreshComplete();
         initSlider(data.getTop_focus_img(), data.getMiddle_focus_img());
         announces = data.getAnnounce();
         mCounter = announces.size();
@@ -269,7 +276,6 @@ public class IndexFragment extends BaseFragment implements MainView {
             if (url != null && !url.equals("")) {
                 intent.putExtra("url", url);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         }
     }
@@ -288,7 +294,6 @@ public class IndexFragment extends BaseFragment implements MainView {
             if (url != null && !url.equals("")) {
                 intent.putExtra("url", url);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         }
     }

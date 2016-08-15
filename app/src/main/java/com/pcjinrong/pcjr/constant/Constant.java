@@ -1,12 +1,17 @@
 package com.pcjinrong.pcjr.constant;
 
+import com.pcjinrong.pcjr.bean.IndexFocusInfo;
+
 public class Constant {
 
-    public static String REALNAME = "";
     public static boolean IS_LOGIN = false;
     public static boolean IS_GESTURE_LOGIN = false;
 
+    public static String REALNAME = "";
+    public static IndexFocusInfo INDEX_FOCUS_INFO = null;
+
     public static final int REQUSET = 0;
+    public static final int LOGOUT = 1;
 
     public static final int TYPE_ONGOING = 0;       //正在募集
     public static final int TYPE_SUCCESS = 1;       //募集成功

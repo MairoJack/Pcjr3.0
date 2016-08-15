@@ -18,6 +18,7 @@ import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * 解绑手机
@@ -119,6 +120,11 @@ public class UnbindMobileActivity extends BaseToolbarActivity implements BindMob
 
     @Override
     public void onFailure(Throwable e) {
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(UnbindMobileActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

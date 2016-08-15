@@ -198,11 +198,12 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     }
 
     @Override
-    public void onProductInfoSuccess(BaseBean<Product> data) {
+    public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
         mPtrFrame.refreshComplete();
         bindData(data.getData());
         if(getActivity()!=null) {
-            ((InvestDetailActivity) getActivity()).refreshButton(product, data.getCurrent_time() * 1000);
+            long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+            ((InvestDetailActivity) getActivity()).refreshButton(data.getData(), server_time);
         }
     }
 

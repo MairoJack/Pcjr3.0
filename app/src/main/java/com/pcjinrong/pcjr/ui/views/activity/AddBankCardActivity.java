@@ -1,6 +1,7 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.pcjinrong.pcjr.widget.Dialog;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -113,6 +115,11 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(AddBankCardActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

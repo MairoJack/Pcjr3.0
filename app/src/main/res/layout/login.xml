@@ -21,7 +21,7 @@
             android:paddingRight="10dp"
             android:text="首页"
             android:background="@drawable/back_selector"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/color_content_background"
             android:textSize="16dp" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="用户登录"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/color_content_background"
             android:textSize="20dp" />
 
         <TextView
@@ -44,15 +44,15 @@
             android:paddingRight="10dp"
             android:background="@drawable/back_selector"
             android:text="注册"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/color_content_background"
             android:textSize="16dp" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:background="#FFFFFF" >
+        android:background="@color/color_content_background" >
 
         <ImageView
             android:id="@+id/username_img"
@@ -66,8 +66,8 @@
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp"
@@ -82,10 +82,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
-        android:background="#FFFFFF" >
+        android:background="@color/color_content_background" >
 
         <ImageView
             android:id="@+id/pswd_img"
@@ -99,8 +99,8 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp"
@@ -117,18 +117,18 @@
 
     <Button
         android:id="@+id/loginbtn"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/btn_primary"
         android:text="立即登录"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/color_content_background"
         android:textSize="20dp" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"

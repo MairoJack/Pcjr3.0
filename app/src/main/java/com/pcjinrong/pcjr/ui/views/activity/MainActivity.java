@@ -1,11 +1,14 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
 import com.pcjinrong.pcjr.ui.adapter.FragmentAdapter;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.widget.FragmentNavigator;
 
 import butterknife.BindView;
@@ -14,7 +17,7 @@ import butterknife.BindView;
  * 主Activity
  * Created by Mario on 2016/7/21.
  */
-public class MainActivity extends BaseAppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
+public class MainActivity extends BaseAppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
 
     @BindView(R.id.bottom_navigation_bar) BottomNavigationBar bottomNavigationBar;
     private FragmentNavigator mNavigator;
@@ -66,6 +69,16 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
 
     @Override
     public void onTabSelected(int position) {
+        if(position == 2){
+            if(!Constant.IS_LOGIN){
+                startActivityForResult(new Intent(MainActivity.this,LoginActivity.class),Constant.REQUSET);
+                return;
+            }
+            if((boolean)SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
+                startActivityForResult(new Intent(MainActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
+                return;
+            }
+        }
         mNavigator.showFragment(position);
     }
 
@@ -77,5 +90,21 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
     @Override
     public void onTabReselected(int position) {
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
+            bottomNavigationBar.selectTab(2);
+            mNavigator.showFragment(2);
+        }else if(requestCode == Constant.LOGOUT && resultCode == RESULT_OK){
+            bottomNavigationBar.selectTab(0);
+            mNavigator.showFragment(0);
+        }else if(requestCode == Constant.REQUSET && resultCode == RESULT_CANCELED){
+            bottomNavigationBar.selectTab(0);
+            mNavigator.showFragment(0);
+        }
     }
 }

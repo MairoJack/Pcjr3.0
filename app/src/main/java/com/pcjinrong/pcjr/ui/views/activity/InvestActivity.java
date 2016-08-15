@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -211,6 +212,11 @@ public class InvestActivity extends BaseToolbarActivity implements MvpView<BaseB
 
     @Override
     public void onFailure(Throwable e) {
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(InvestActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

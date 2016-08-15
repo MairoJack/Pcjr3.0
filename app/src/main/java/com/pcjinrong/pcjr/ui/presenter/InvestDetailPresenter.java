@@ -14,14 +14,19 @@ import rx.Subscriber;
  * Created by Mario on 2016/7/25.
  */
 public class InvestDetailPresenter extends BasePresenter<InvestDetailView> {
-
+    private long sys_time;
     public InvestDetailPresenter() {
-        long time = System.currentTimeMillis();
+
     }
 
     public void getProductDetail(String id) {
         this.mCompositeSubscription.add(this.mDataManager.getProductDetail(id)
                 .subscribe(new Subscriber<BaseBean<Product>>() {
+                    @Override
+                    public void onStart() {
+                        sys_time = System.currentTimeMillis();
+                    }
+
                     @Override
                     public void onCompleted() {
                         if (InvestDetailPresenter.this.mCompositeSubscription != null) {
@@ -38,7 +43,7 @@ public class InvestDetailPresenter extends BasePresenter<InvestDetailView> {
                     @Override
                     public void onNext(BaseBean<Product> data) {
                         if (InvestDetailPresenter.this.getMvpView() != null)
-                            InvestDetailPresenter.this.getMvpView().onProductInfoSuccess(data);
+                            InvestDetailPresenter.this.getMvpView().onProductInfoSuccess(data,sys_time);
                     }
                 }));
     }

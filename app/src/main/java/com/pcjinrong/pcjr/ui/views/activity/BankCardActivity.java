@@ -21,6 +21,7 @@ import com.pcjinrong.pcjr.widget.Dialog;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -99,6 +100,11 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(BankCardActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(getString(R.string.network_anomaly));
     }
 

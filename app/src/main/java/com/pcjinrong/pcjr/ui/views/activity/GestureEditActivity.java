@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.widget.GestureContentView;
 import com.pcjinrong.pcjr.widget.GestureDrawline;
 import com.pcjinrong.pcjr.widget.LockIndicator;
@@ -63,6 +64,7 @@ public class GestureEditActivity extends BaseToolbarActivity{
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
 
+		setTitle("设置手势密码");
 		// 初始化一个显示各个点的viewGroup
 		mGestureContentView = new GestureContentView(this, false, "", new GestureDrawline.GestureCallBack() {
 			@Override
@@ -80,9 +82,7 @@ public class GestureEditActivity extends BaseToolbarActivity{
 					mTextReset.setText(getString(R.string.reset_gesture_code));
 				} else {
 					if (inputCode.equals(mFirstPassword)) {
-						//// TODO: 2016/8/12
-						/*SharedPreferenceUtil spu = new SharedPreferenceUtil(GestureEditActivity.this, Constant.FILE);
-                        spu.setGesture(inputCode);*/
+						SPUtils.put(GestureEditActivity.this, "gesture", inputCode);
                         Toast.makeText(GestureEditActivity.this, "设置成功", Toast.LENGTH_SHORT).show();
 						mGestureContentView.clearDrawlineState(0L);
 						setResult(RESULT_OK);

@@ -36,7 +36,6 @@ public class LoginPresenter extends BasePresenter<MvpView<Token>> {
 
                     @Override
                     public void onNext(Token token) {
-                        SPUtils.putToken(App.getContext(),token);
                         if (LoginPresenter.this.getMvpView() != null)
                             LoginPresenter.this.getMvpView().onSuccess(token);
                     }

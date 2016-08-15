@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -118,6 +120,11 @@ public class PaymentPlanActivity extends BaseSwipeActivity implements MvpView<Ba
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(PaymentPlanActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(getString(R.string.network_anomaly));
     }
 

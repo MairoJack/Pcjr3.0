@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 
+import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.MobileInfo;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.ui.presenter.SafeSettingPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.SafeSettingView;
@@ -21,6 +23,7 @@ import com.pcjinrong.pcjr.utils.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -73,23 +76,21 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
         });
 
         btn_switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (ViewUtil.isFastDoubleClick()) return;
             if (isChecked) {
-                if ((Boolean) SPUtils.get(this, "isFirstGesture", false)) {
-                    //startActivityForResult(new Intent(SafeSettingActivity.this, GestureEditActivity.class),1);
+                if ((Boolean) SPUtils.get(this, "isFirstGesture", true)) {
+                    startActivityForResult(new Intent(SafeSettingActivity.this, GestureEditActivity.class),Constant.REQUSET);
                 } else {
-                    SPUtils.put(this, "isFirstGesture", true);
                     gesture.setVisibility(View.VISIBLE);
                 }
             } else {
-                SPUtils.put(this, "isFirstGesture", false);
+                SPUtils.put(this, "isOpenGesture", false);
                 gesture.setVisibility(View.GONE);
             }
         });
 
         gesture.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            //startActivity(new Intent(SafeSettingActivity.this, GestureEditActivity.class));
+            startActivityForResult(new Intent(SafeSettingActivity.this, GestureEditActivity.class),Constant.REQUSET);
         });
     }
 
@@ -158,7 +159,11 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
         dialog.dismiss();
         if (data.isSuccess()) {
             showToast("注销成功");
+            setResult(RESULT_OK);
+            Constant.IS_LOGIN = false;
+            Constant.IS_GESTURE_LOGIN = false;
             SPUtils.clear(this);
+            finish();
         } else {
             showToast("注销失败:" + data.getMessage());
         }
@@ -183,11 +188,30 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(SafeSettingActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 
     @Override
     public void onSuccess(Object data) {
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
+            btn_switch.setChecked(true);
+            SPUtils.put(this, "isFirstGesture", false);
+            SPUtils.put(this, "isOpenGesture", true);
+            gesture.setVisibility(View.VISIBLE);
+        }else if(requestCode == Constant.REQUSET && resultCode == RESULT_CANCELED){
+            btn_switch.setChecked(false);
+        }
     }
 }

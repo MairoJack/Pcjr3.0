@@ -17,15 +17,21 @@ import rx.Subscriber;
  */
 public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Product>>>> {
     private int page;
+    private long sys_time;
 
     public InvestListPresenter() {
-        long time = System.currentTimeMillis();
         this.page = 1;
     }
 
     public void getInvestProductList(int type,int page_size) {
         this.mCompositeSubscription.add(this.mDataManager.getInvestProductList(type,page,page_size)
                 .subscribe(new Subscriber<BaseBean<List<Product>>>() {
+
+                    @Override
+                    public void onStart() {
+                        sys_time = System.currentTimeMillis();
+                    }
+
                     @Override
                     public void onCompleted() {
                         if (InvestListPresenter.this.mCompositeSubscription != null) {
@@ -41,8 +47,10 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
 
                     @Override
                     public void onNext(BaseBean<List<Product>> data) {
-                        if (InvestListPresenter.this.getMvpView() != null)
+                        if (InvestListPresenter.this.getMvpView() != null) {
+                            data.setCurrent_time(data.getCurrent_time() + System.currentTimeMillis() - sys_time);
                             InvestListPresenter.this.getMvpView().onSuccess(data);
+                        }
                     }
                 }));
     }

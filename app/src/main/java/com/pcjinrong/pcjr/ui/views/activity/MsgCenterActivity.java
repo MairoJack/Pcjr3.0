@@ -16,6 +16,8 @@ import com.pcjinrong.pcjr.ui.presenter.ivview.MsgCenterView;
 
 import java.util.List;
 
+import retrofit2.adapter.rxjava.HttpException;
+
 
 /**
  * 消息中心
@@ -95,6 +97,11 @@ public class MsgCenterActivity extends BaseSwipeActivity implements MsgCenterVie
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(MsgCenterActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(getString(R.string.network_anomaly));
     }
 

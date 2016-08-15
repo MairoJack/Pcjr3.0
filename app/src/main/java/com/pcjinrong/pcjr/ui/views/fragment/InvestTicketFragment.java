@@ -19,9 +19,12 @@ import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
 import com.pcjinrong.pcjr.ui.presenter.InvestTicketPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestTicketView;
 import com.pcjinrong.pcjr.ui.views.activity.InvestTicketDetailActivity;
+import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.MsgDetailActivity;
 
 import java.util.List;
+
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -112,6 +115,11 @@ public class InvestTicketFragment extends BaseSwipeFragment implements InvestTic
     public void onFailure(Throwable e) {
         if(dialog.isShowing())dialog.dismiss();
         mPtrFrame.refreshComplete();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            return;
+        }
         showToast(getString(R.string.network_anomaly));
     }
 

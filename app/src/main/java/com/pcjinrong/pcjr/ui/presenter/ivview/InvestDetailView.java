@@ -11,7 +11,7 @@ import com.pcjinrong.pcjr.core.mvp.MvpView;
  */
 public interface InvestDetailView extends MvpView {
 
-    void onProductInfoSuccess(BaseBean<Product> data);
+    void onProductInfoSuccess(BaseBean<Product> data,long sys_time);
 
     void onInvestInfoSuccess(BaseBean<Withdraw> data);
 

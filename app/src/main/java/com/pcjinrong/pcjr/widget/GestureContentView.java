@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class GestureContentView extends ViewGroup {
 
-	private int baseNum = 6;
+	private int baseNum = 12;
 
 	private int[] screenDispaly;
 
@@ -45,7 +45,7 @@ public class GestureContentView extends ViewGroup {
 	public GestureContentView(Context context, boolean isVerify, String passWord, GestureDrawline.GestureCallBack callBack) {
 		super(context);
 		screenDispaly = ViewUtil.getScreenDispaly(context);
-		blockWidth = screenDispaly[0]/3;
+		blockWidth = (screenDispaly[0]-200)/3;
 		this.list = new ArrayList<>();
 		this.context = context;
 		this.isVerify = isVerify;
@@ -77,7 +77,7 @@ public class GestureContentView extends ViewGroup {
 
 	public void setParentView(ViewGroup parent){
 		// 得到屏幕的宽度
-		int width = screenDispaly[0];
+		int width = screenDispaly[0]-200;
 		LayoutParams layoutParams = new LayoutParams(width, width);
 		this.setLayoutParams(layoutParams);
 		gestureDrawline.setLayoutParams(layoutParams);

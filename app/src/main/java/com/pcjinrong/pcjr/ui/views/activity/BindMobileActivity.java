@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.KeyEvent;
@@ -17,6 +18,7 @@ import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -132,6 +134,11 @@ public class BindMobileActivity extends BaseToolbarActivity implements BindMobil
 
     @Override
     public void onFailure(Throwable e) {
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(BindMobileActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

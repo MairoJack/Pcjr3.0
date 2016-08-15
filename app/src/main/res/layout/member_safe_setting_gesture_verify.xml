@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gesture_bg"
@@ -10,32 +10,32 @@
         android:id="@+id/text_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
+        android:layout_above="@+id/gesture_container"
         android:text="@string/set_gesture_pattern"
         android:textColor="#ffcdc5" />
 
     <FrameLayout
         android:id="@+id/gesture_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/forget"
         android:layout_marginTop="10dp">
+
+    </FrameLayout>
+
 
         <TextView
             android:id="@+id/forget"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
             android:text="忘记手势密码?"
             android:textColor="#ffcdc5"
             android:textSize="@dimen/text_size_16sp" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

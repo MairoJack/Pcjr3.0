@@ -10,12 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
+import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.LoginPresenter;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 import butterknife.BindView;
@@ -75,19 +77,13 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
                 setResult(2);
                 finish();
                 break;
-
             case R.id.reg:
-                if(ViewUtil.isFastDoubleClick()){
-                    return;
-                }
-               /* intent = new Intent(LoginActivity.this, RegistActivity.class);
-                startActivity(intent);*/
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                if(ViewUtil.isFastDoubleClick()) return;
+                intent = new Intent(LoginActivity.this, RegistActivity.class);
+                startActivity(intent);
                 break;
             case R.id.forget:
-                if(ViewUtil.isFastDoubleClick()){
-                    return;
-                }
+                if(ViewUtil.isFastDoubleClick()) return;
                 intent = new Intent(LoginActivity.this, WebViewActivity.class);
                 intent.putExtra("url", Constant.FORGET_PASSWORD_URL);
                 intent.putExtra("title", Constant.FORGET_PASSWORD);
@@ -95,6 +91,7 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.loginbtn:
+                if(ViewUtil.isFastDoubleClick()) return;
                 login();
                 break;
         }
@@ -135,7 +132,11 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
     @Override
     public void onSuccess(Token data) {
         dialog.dismiss();
-        Dialog.show("登陆成功",this);
+        SPUtils.clear(this);
+        SPUtils.putToken(this,data);
+        Constant.IS_GESTURE_LOGIN = false;
+        Constant.IS_LOGIN = true;
+        setResult(RESULT_OK);
         finish();
     }
 }

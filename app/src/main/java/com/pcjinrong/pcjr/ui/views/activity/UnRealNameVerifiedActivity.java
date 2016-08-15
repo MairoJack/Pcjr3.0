@@ -1,6 +1,7 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -87,6 +89,11 @@ public class UnRealNameVerifiedActivity extends BaseToolbarActivity implements M
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(UnRealNameVerifiedActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

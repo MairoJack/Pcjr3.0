@@ -29,6 +29,7 @@ import com.pcjinrong.pcjr.ui.views.fragment.InvestDetailRecordFragment;
 import com.pcjinrong.pcjr.ui.views.fragment.InvestDetailRiskFragment;
 import com.pcjinrong.pcjr.ui.views.fragment.InvestTicketFragment;
 import com.pcjinrong.pcjr.utils.DateUtils;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -83,21 +84,19 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         btn_status.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             Intent intent;
-            boolean flag = false;
-            if (Constant.IS_LOGIN && Constant.IS_GESTURE_LOGIN) {
-                flag = true;
-            } else if (!Constant.IS_LOGIN) {
+            if (!Constant.IS_LOGIN) {
                 intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
                 intent.putExtra("tag", "invest");
                 startActivity(intent);
-            } else if (!Constant.IS_GESTURE_LOGIN) {
-
+                return;
             }
-            if (flag) {
-                dialog.setMessage("正在加载...");
-                dialog.show();
-                presenter.getWithdrawInvestInfo();
+            if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
+                startActivity(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class));
+                return;
             }
+            dialog.setMessage("正在加载...");
+            dialog.show();
+            presenter.getWithdrawInvestInfo();
         });
 
         cdv.setOnCountdownEndListener(cv -> {
@@ -193,10 +192,11 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
 
     @Override
-    public void onProductInfoSuccess(BaseBean<Product> data) {
+    public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
         this.product = data.getData();
         buildTabLayout(product);
-        refreshButton(data.getData(),data.getCurrent_time() * 1000);
+        long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+        refreshButton(data.getData(),server_time);
     }
 
     @Override

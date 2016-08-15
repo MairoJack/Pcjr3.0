@@ -12,13 +12,15 @@
         android:theme="@style/AppTheme"
         android:name=".App">
 
-        <activity android:name=".ui.views.activity.MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.views.activity.SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.views.activity.MainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.RegistActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.FinancialRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.TradeRecordsActivity" android:screenOrientation="portrait"/>

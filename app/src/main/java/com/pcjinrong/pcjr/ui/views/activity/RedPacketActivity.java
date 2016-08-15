@@ -1,13 +1,17 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.ui.adapter.TabFragmentAdapter;
 import com.pcjinrong.pcjr.ui.views.fragment.RedPacketFragment;
@@ -73,13 +77,28 @@ public class RedPacketActivity extends BaseToolbarActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if (keyCode == KeyEvent.KEYCODE_BACK )
-        {
-            finish();
-            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-        }
+        if (keyCode == KeyEvent.KEYCODE_BACK ) finish();
         return false;
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_coupon, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.ask) {
+            Intent intent = new Intent(RedPacketActivity.this, WebViewActivity.class);
+            intent.putExtra("title", Constant.TIPS);
+            intent.putExtra("url", Constant.REDPACKET_TIPS_URL);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

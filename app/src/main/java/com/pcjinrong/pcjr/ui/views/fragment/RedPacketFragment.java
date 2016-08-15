@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -13,10 +14,13 @@ import com.pcjinrong.pcjr.core.BaseSwipeFragment;
 import com.pcjinrong.pcjr.ui.adapter.RedPacketListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.RedPacketPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RedPacketView;
+import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import java.util.List;
+
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -105,6 +109,11 @@ public class RedPacketFragment extends BaseSwipeFragment implements RedPacketVie
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            return;
+        }
         showToast(getString(R.string.network_anomaly));
     }
 

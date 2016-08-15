@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.widget.GestureContentView;
 import com.pcjinrong.pcjr.widget.GestureDrawline;
 
@@ -54,13 +55,9 @@ public class GestureVerifyActivity extends BaseToolbarActivity {
 
 	@Override
 	protected void initViews(Bundle savedInstanceState) {
-
-		//// TODO: 2016/8/12
-	   /* SharedPreferenceUtil spu = new SharedPreferenceUtil(GestureVerifyActivity.this, Constant.FILE);
-		*/
-		String gesture = "";
+		setTitle("手势解锁");
         // 初始化一个显示各个点的viewGroup
-		mGestureContentView = new GestureContentView(this, true, gesture,
+		mGestureContentView = new GestureContentView(this, true, (String) SPUtils.get(GestureVerifyActivity.this, "gesture",""),
 				new GestureDrawline.GestureCallBack() {
 
 					@Override
@@ -71,11 +68,8 @@ public class GestureVerifyActivity extends BaseToolbarActivity {
 					@Override
 					public void checkedSuccess() {
 						mGestureContentView.clearDrawlineState(0L);
-						//Toast.makeText(GestureVerifyActivity.this, "密码正确", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent();
-                        intent.putExtra("abc","fuck");
-                        setResult(RESULT_OK,intent);
-                        Constant.IS_GESTURE_LOGIN = true;
+						Constant.IS_GESTURE_LOGIN = true;
+                        setResult(RESULT_OK);
                         GestureVerifyActivity.this.finish();
 
 					}

@@ -29,6 +29,7 @@ import com.pcjinrong.pcjr.widget.Dialog;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -179,6 +180,11 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     public void onFailure(Throwable e) {
+        if(e instanceof HttpException){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(WithdrawActivity.this, LoginActivity.class));
+            return;
+        }
         showToast(R.string.network_anomaly);
     }
 

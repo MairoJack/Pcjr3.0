@@ -61,6 +61,12 @@ public abstract class BaseFragment extends Fragment {
         getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        getActivity().startActivityForResult(intent, requestCode);
+        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
 
     public void showToast(String msg) {
         this.showToast(msg, Toast.LENGTH_SHORT);
