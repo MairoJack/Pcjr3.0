@@ -3,7 +3,7 @@
 ##皮城金融Andorid版 3.0
 - 主要用了Rxjava + Retrofit2 + MVP
 - BaseBean 封装公共响应信息；BaseToolbarActivity 封装Toolbar；BaseSwipeActivity 封装下拉刷新、上拉加载(只支持对 RecyclerView 操作)
-## 添加一个模块，比如用户列表UserList
+##添加一个模块，比如用户列表UserList
 1. 在 bean 下新建User对象
 2. 在 api 下的 OauthService(若无需Token，则在 ApiService) 中新增 Observable<BaseBean<List<User>>> getUserList() 方法
 3. 在 model 下的 IOAuthModel(若无需Token，则在 IApiModel) 中新增 getUserList() 接口，在 OAuthModel(若无需Token，则在 ApiModel) 中实现该方法
