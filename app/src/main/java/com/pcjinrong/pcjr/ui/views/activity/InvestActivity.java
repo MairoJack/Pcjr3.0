@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.InvestPresenter;
@@ -77,26 +80,29 @@ public class InvestActivity extends BaseToolbarActivity implements MvpView<BaseB
 
         btn_invest.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).min(new BigDecimal(product.getProduct_amount()));
+            BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount()));
             final String amount = txt_invest_amount.getText().toString().trim();
             if (amount.equals("")) {
                 Dialog.show("请输入投资金额",this);
                 return;
             }
-            if (Double.parseDouble(amount) > can_invest_amount.doubleValue()) {
+            BigDecimal bd_amount = new BigDecimal(amount);
+            BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
+            BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
+            if (bd_amount.compareTo(can_invest_amount) > 0) {
                 Dialog.show("金额超过可投最大值", this);
                 return;
             }
-            if (Double.parseDouble(amount) < Double.parseDouble(product.getThreshold_amount())) {
+            if (bd_amount.compareTo(bd_threshold_amount)< 0) {
                 Dialog.show("金额不能小于起投金额", this);
                 return;
             }
-            if (Double.parseDouble(amount) > available_balance.doubleValue()) {
+            if (bd_amount.compareTo(available_balance) > 0) {
                 Dialog.show("可用余额不足", this);
                 return;
             }
-            if(Double.parseDouble(product.getIncreasing_amount()) != 0) {
-                if (Double.parseDouble(amount) % Double.parseDouble(product.getIncreasing_amount()) != 0) {
+            if(bd_increasing_amount.compareTo(BigDecimal.ZERO) != 0) {
+                if ((bd_amount.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO)!=0)) {
                     Dialog.show("金额没有按递增金额填写", this);
                     return;
                 }
@@ -117,28 +123,29 @@ public class InvestActivity extends BaseToolbarActivity implements MvpView<BaseB
 
         btn_allin.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).min(new BigDecimal(product.getProduct_amount()));
-            final int amount;
-            double increase = Double.parseDouble(product.getIncreasing_amount());
-            if (can_invest_amount.doubleValue() > available_balance.doubleValue()) {
-                if(increase == 0){
+            int amount;
+            BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount()));
+            BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
+            BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
+            if (available_balance.compareTo(bd_threshold_amount) < 0) {
+                Dialog.show("可用余额不足", InvestActivity.this);
+                return;
+            }
+            if (can_invest_amount.compareTo(available_balance) > 0) {
+                if(bd_increasing_amount.compareTo(BigDecimal.ZERO) == 0){
                     amount = available_balance.intValue();
-                }else if(available_balance.doubleValue()%increase == 0){
+                }else if(available_balance.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) == 0){
                     amount = available_balance.intValue();
                 }else{
-                    amount = (int) (available_balance.doubleValue() - available_balance.doubleValue() % increase);
-                }
-                if (amount < Double.parseDouble(product.getThreshold_amount())) {
-                    Dialog.show("可用余额不足", InvestActivity.this);
-                    return;
+                    amount = available_balance.subtract(available_balance.remainder(bd_increasing_amount)).intValue();
                 }
             } else {
-                if(increase == 0){
+                if(bd_increasing_amount.compareTo(BigDecimal.ZERO) == 0){
                     amount = can_invest_amount.intValue();
-                }else if(can_invest_amount.doubleValue()%increase == 0){
+                }else if(can_invest_amount.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) == 0){
                     amount = can_invest_amount.intValue();
                 }else{
-                    amount = (int) (can_invest_amount.doubleValue() - can_invest_amount.doubleValue() % increase);
+                    amount = can_invest_amount.subtract(can_invest_amount.remainder(bd_increasing_amount)).intValue();
                 }
 
             }
@@ -175,7 +182,7 @@ public class InvestActivity extends BaseToolbarActivity implements MvpView<BaseB
             preview_repayment.setVisibility(View.VISIBLE);
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));
         }
-        txt_invest_amount.setHint("可投" + String.format("%.2f", (new BigDecimal(product.getAmount()).min(new BigDecimal(product.getProduct_amount())))) + "元");
+        txt_invest_amount.setHint("可投" + String.format("%.2f", (new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount())))) + "元");
         txt_threshold_amount.setText("起投/递增金额:" + product.getThreshold_amount() + "元/" + product.getIncreasing_amount() + " 元");
         int repayment = product.getRepayment();
         switch (repayment) {
@@ -230,5 +237,21 @@ public class InvestActivity extends BaseToolbarActivity implements MvpView<BaseB
         } else {
             Dialog.show(data.getMessage(), this);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_tips, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.ask) {
+            Dialog.show("投资提示", "若您选择全投，且您的可用余额大于该产品剩余可投金额，投资金额将自动填写为该产品剩余可投金额，有一定概率投资失败，请谨慎操作", this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

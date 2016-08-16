@@ -114,6 +114,8 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         this.presenter = new InvestDetailPresenter();
         this.presenter.attachView(this);
 
+        dialog.setMessage("正在加载...");
+        dialog.show();
         presenter.getProductDetail(id);
     }
 
@@ -149,6 +151,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
 
     public void refreshButton(final Product product, long current_time) {
+        this.product = product;
         btn_status.setClickable(false);
         if (product.getStatus() == 1) {
             Date date = new Date(current_time);
@@ -193,6 +196,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
+        if (dialog.isShowing()) dialog.dismiss();
         this.product = data.getData();
         buildTabLayout(product);
         long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;

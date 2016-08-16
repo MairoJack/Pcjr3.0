@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.adapter.TabChildFragmentAdapter;
 
@@ -64,6 +65,7 @@ public class InvestFragment extends BaseFragment
 		viewPager.setAdapter(fragmentPagerAdapter);
 		viewPager.setOffscreenPageLimit(4);
 		tabLayout.setupWithViewPager(viewPager);
+		tabLayout.getTabAt(Constant.TYPE).select();
 	}
 
 	@Override
@@ -84,5 +86,13 @@ public class InvestFragment extends BaseFragment
 	public static Fragment newInstance(String content) {
 		InvestFragment fragment = new InvestFragment();
 		return fragment;
+	}
+
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if(!hidden) {
+			tabLayout.getTabAt(Constant.TYPE).select();
+		}
 	}
 }

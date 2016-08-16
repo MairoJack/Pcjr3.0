@@ -65,8 +65,7 @@
                         android:layout_toRightOf="@+id/invest_amount"
                         android:maxLines="1"
                         android:inputType="numberDecimal"
-                        android:textSize="15dp"
-                        android:focusable="false"/>
+                        android:textSize="15dp" />
 
                     <Button
                         android:id="@+id/btn_invest"

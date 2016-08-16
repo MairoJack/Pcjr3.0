@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
+def releaseTime() {
+    return new Date().format("yyyyMMdd_HHmm ", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -25,8 +29,29 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //设置压缩对齐
+            zipAlignEnabled true
+            //移除无用的资源文件
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //指定签名包得输入文件名称
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为pcjr_v1.0_2016-08-16_1633.apk
+                        def fileName = "pcjr_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -68,4 +93,8 @@ dependencies {
     compile 'com.github.iwgang:countdownview:2.1.1'
     //AlertView
     compile 'com.bigkoo:alertview:1.0.2'
+    //信鸽推送
+    compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
+    compile files('libs/jg_filter_sdk_1.1.jar')
+    compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
 }

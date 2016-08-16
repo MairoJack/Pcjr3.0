@@ -52,6 +52,7 @@ public class SplashActivity extends BaseAppCompatActivity implements SplashView{
     @Override
     public void onGetIndexFocusSuccess(IndexFocusInfo data) {
         Constant.INDEX_FOCUS_INFO = data;
+        finish();
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
     }
 
@@ -65,6 +66,7 @@ public class SplashActivity extends BaseAppCompatActivity implements SplashView{
     @Override
     public void onFailure(Throwable e) {
         Logger.e(e.getMessage());
+        finish();
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
     }
 

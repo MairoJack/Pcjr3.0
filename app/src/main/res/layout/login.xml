@@ -77,7 +77,6 @@
             android:hint="用户名、已绑定手机、已验证身份证号"
             android:singleLine="true"
             android:textSize="12dp"
-            android:text="dama"
             />
     </RelativeLayout>
 
@@ -111,7 +110,6 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:textSize="12dp"
-            android:text="123456"
             />
     </RelativeLayout>
 

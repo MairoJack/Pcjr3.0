@@ -7,6 +7,8 @@ public class Constant {
     public static boolean IS_LOGIN = false;
     public static boolean IS_GESTURE_LOGIN = false;
 
+    public static int TYPE;
+    public static String DEVICE_TOKEN;
     public static String REALNAME = "";
     public static IndexFocusInfo INDEX_FOCUS_INFO = null;
 

@@ -326,12 +326,12 @@ public class DataManager {
                 if (throwable instanceof HttpException && ++retryCount <= ApiConstant.MAX_RETRY_COUNT) {
                     return apiModel.refreshToken(SPUtils.getToken(App.getContext()).getRefresh_token())
                             .doOnNext(token -> {
-                                Logger.d("refreshToken:" + token);
                                 SPUtils.putToken(App.getContext(), token);
                             })
                             .doOnError(e -> {
+                                Logger.e(e.getMessage());
                                 SPUtils.clear(App.getContext());
-                                Logger.d("refreshToken:" + e.getMessage());
+
                             });
                 }
                 return Observable.error(throwable);

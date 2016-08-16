@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +28,8 @@ import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +65,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     private List<BankCard> bankCards;
     private String bank_id;
+    private BigDecimal free_withdraw;
+    private BigDecimal available_balance;
 
     @Override
     protected int getLayoutId() {
@@ -90,6 +96,42 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
             startActivity(intent);
         });
 
+        txt_mention_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null && !s.toString().equals("")) {
+                    double amount = Double.parseDouble(s.toString());
+                    if(amount > available_balance.doubleValue()){
+                        txt_mention_amount.setText(String.valueOf(available_balance));
+                        amount = available_balance.doubleValue();
+                    }
+                    if (amount > free_withdraw.doubleValue()) {
+                        double fee = (amount - free_withdraw.doubleValue()) * 0.15 / 100;
+                        BigDecimal b = new BigDecimal(String.valueOf(fee));
+                        double f = b.setScale(2, RoundingMode.HALF_UP).doubleValue();
+                        if(f<=0){
+                            txt_fee.setText("0.01");
+                        }else {
+                            txt_fee.setText(String.valueOf(f));
+                        }
+                    }else{
+                        txt_fee.setText("0.00");
+                    }
+                }else{
+                    txt_fee.setText("0.00");
+                }
+            }
+        });
 
         bank_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -121,6 +163,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         Intent intent = getIntent();
         Withdraw withdraw = (Withdraw) intent.getSerializableExtra("data");
 
+        available_balance = new BigDecimal(withdraw.getAvailable_balance());
+        free_withdraw = new BigDecimal(withdraw.getFree_withdraw());
         txt_balance.setText(withdraw.getAvailable_balance());
         txt_mention_amount.setHint("免费可提" + withdraw.getFree_withdraw() + "元");
         txt_realname.setText(withdraw.getRealname());

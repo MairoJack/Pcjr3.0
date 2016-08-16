@@ -121,7 +121,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
             }
         });
 
-        refreshData();
+        //refreshData();
     }
 
     @Override
@@ -196,5 +196,12 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @Override
     public void onSuccess(Object data) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Constant.IS_LOGIN)
+        refreshData();
     }
 }

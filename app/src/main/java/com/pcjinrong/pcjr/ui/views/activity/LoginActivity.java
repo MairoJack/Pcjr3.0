@@ -74,7 +74,6 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
         Intent intent;
         switch (v.getId()) {
             case R.id.index:
-                setResult(2);
                 finish();
                 break;
             case R.id.reg:
@@ -136,6 +135,7 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
         SPUtils.putToken(this,data);
         Constant.IS_GESTURE_LOGIN = false;
         Constant.IS_LOGIN = true;
+        presenter.refreshDeviceToken(Constant.DEVICE_TOKEN);
         setResult(RESULT_OK);
         finish();
     }

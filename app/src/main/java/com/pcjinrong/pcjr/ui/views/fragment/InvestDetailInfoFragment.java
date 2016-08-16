@@ -67,6 +67,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
     private Product product;
     private int index = 0;
+    private boolean is_not_first = false;
 
     @Override
     protected int getLayoutId() {
@@ -152,7 +153,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         month.setText(product.getMonth());
 
         amount.setText(String.format("%.2f", bd_amount.divide(new BigDecimal(10000))));
-        invest_amount.setText(String.format("%.2f", bd_amount.min(bd_product_amount).divide(new BigDecimal(10000))));
+        invest_amount.setText(String.format("%.2f", bd_amount.subtract(bd_product_amount).divide(new BigDecimal(10000))));
         product_no.setText(product.getProduct_no());
 
         repayment_date.setText(DateUtils.dateTimeToStr(new Date(product.getRepayment_date() * 1000), "yyyy-MM-dd"));
@@ -200,7 +201,8 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     @Override
     public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
         mPtrFrame.refreshComplete();
-        bindData(data.getData());
+        product = data.getData();
+        bindData(product);
         if(getActivity()!=null) {
             long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
             ((InvestDetailActivity) getActivity()).refreshButton(data.getData(), server_time);
@@ -221,5 +223,14 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     @Override
     public void onSuccess(Object data) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(is_not_first) {
+            refresh();
+        }
+        is_not_first = true;
     }
 }

@@ -94,24 +94,27 @@ public class IndexFragment extends BaseFragment implements MainView {
 
     @OnClick(R.id.dcxa) void dcxa() {
         MainActivity mainActivity  = (MainActivity) getContext();
-        mainActivity.onTabSelected(1);
+        mainActivity.tabSelect(1);
+        Constant.TYPE = 1;
     }
 
     @OnClick(R.id.gtma) void gtma() {
         MainActivity mainActivity  = (MainActivity) getContext();
-        mainActivity.onTabSelected(1);
+        mainActivity.tabSelect(1);
+        Constant.TYPE = 2;
     }
 
     @OnClick(R.id.zlbh) void zlbh() {
-        /*MainActivity mainActivity  = (MainActivity) getContext();
-        mainActivity.onTabSelected(1);*/
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.tabSelect(1);
+        Constant.TYPE = 3;
 
     }
 
     @OnClick(R.id.all_invest) void allInvest() {
         MainActivity mainActivity  = (MainActivity) getContext();
-        mainActivity.onTabSelected(1);
+        mainActivity.tabSelect(1);
+        Constant.TYPE = 0;
     }
 
     @Override

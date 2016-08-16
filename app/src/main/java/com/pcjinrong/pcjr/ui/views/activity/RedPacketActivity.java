@@ -84,7 +84,7 @@ public class RedPacketActivity extends BaseToolbarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_coupon, menu);
+        getMenuInflater().inflate(R.menu.menu_tips, menu);
         return true;
     }
 

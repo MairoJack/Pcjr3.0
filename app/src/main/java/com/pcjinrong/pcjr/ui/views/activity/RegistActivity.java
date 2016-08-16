@@ -13,6 +13,7 @@ import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
+import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.RegistPresenter;
 import com.pcjinrong.pcjr.utils.ValidatorUtils;
@@ -25,7 +26,7 @@ import butterknife.BindView;
  * 注册
  * Created by Mario on 2016/6/7.
  */
-public class RegistActivity extends BaseAppCompatActivity implements View.OnClickListener,MvpView<BaseBean> {
+public class RegistActivity extends BaseToolbarActivity implements View.OnClickListener,MvpView<BaseBean> {
 
     @BindView(R.id.syxy) TextView syxy;
     @BindView(R.id.ystk) TextView ystk;
@@ -46,12 +47,8 @@ public class RegistActivity extends BaseAppCompatActivity implements View.OnClic
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-    }
-
-    @Override
-    protected void initToolbar(Bundle savedInstanceState) {
         setTitle("注册");
+        dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
     }
 
     @Override

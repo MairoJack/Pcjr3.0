@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.api;
 
+import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
@@ -9,6 +10,7 @@ import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -115,5 +117,10 @@ public interface ApiService {
     @GET("bank_card_list")
     Observable<BaseBean<List<BankCard>>> getBankCardList();
 
+    /**
+     * 获取版本信息
+     */
+    @GET("androidVersion/getNewstVersion")
+    Call<JsonObject> getNewstVersion();
 
 }

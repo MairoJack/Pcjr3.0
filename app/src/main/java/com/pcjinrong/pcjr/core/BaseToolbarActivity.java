@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 
 import com.pcjinrong.pcjr.R;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
 
     @BindView(R.id.toolbar) protected Toolbar mToolbar;
+    @BindView(R.id.title) protected TextView mTitle;
     @BindView(R.id.app_bar_layout) protected AppBarLayout mAppBarLayout;
 
     protected ActionBarHelper mActionBarHelper;
@@ -39,6 +41,7 @@ public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
         if (this.mToolbar == null || this.mAppBarLayout == null) return;
 
         this.setSupportActionBar(this.mToolbar);
+        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
         this.mActionBarHelper = this.createActionBarHelper();
         this.mActionBarHelper.init();
 
@@ -92,6 +95,10 @@ public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
         }
     }
 
+    protected void setTitle(String title){
+        mToolbar.setTitle("");
+        mTitle.setText(title);
+    }
 
     /**
      * Create a compatible helper that will manipulate the action bar if available.
@@ -117,6 +124,7 @@ public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
             this.mActionBar.setDisplayHomeAsUpEnabled(true);
             this.mActionBar.setDisplayShowHomeEnabled(false);
             this.mTitle = mDrawerTitle = getTitle();
+
         }
 
 

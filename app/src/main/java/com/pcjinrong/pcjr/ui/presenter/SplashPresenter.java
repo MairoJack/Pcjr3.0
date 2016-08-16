@@ -30,7 +30,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.d(e.getMessage());
+                        Logger.e(e.getMessage());
                         SplashPresenter.this.getMvpView().onFailure(e);
                     }
 
@@ -54,7 +54,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.d(e.getMessage());
+                        Logger.e(e.getMessage());
                         SplashPresenter.this.getMvpView().onFailure(e);
                     }
 
