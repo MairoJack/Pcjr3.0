@@ -62,6 +62,7 @@
         <activity android:name=".ui.views.activity.GestureEditActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.GestureVerifyActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.WithdrawRechargeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
 
 
         <!-- 【必须】 信鸽receiver广播接收 -->

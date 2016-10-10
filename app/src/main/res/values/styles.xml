@@ -14,6 +14,14 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+    </style>
+
     <declare-styleable name="ProgressWheel">
         <attr name="pwText" format="string" />
         <attr name="pwTextColor" format="color" />
@@ -30,4 +38,5 @@
         <attr name="pwContourColor" format="color"/>
         <attr name="pwContourSize" format="dimension"/>
     </declare-styleable>
+
 </resources>

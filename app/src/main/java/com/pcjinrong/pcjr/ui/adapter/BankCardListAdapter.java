@@ -79,7 +79,6 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
         public void bindTo(BankCard object, String realname) {
             mIvBank.setText(object.getBank());
             mIvCardNo.setText(object.getCard_no());
-            mIvStatus.setText("已认证");
             mIvRealname.setText(realname);
 
         }

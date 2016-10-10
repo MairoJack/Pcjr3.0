@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+      <item
+          android:title="全部记录"
+          android:orderInCategory="0"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="充值记录"
+          android:orderInCategory="1"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="提现记录"
+          android:orderInCategory="2"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="投资记录"
+          android:orderInCategory="3"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="收益记录"
+          android:orderInCategory="4"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="奖励"
+          android:orderInCategory="5"
+          app:showAsAction="never"/>
+
+</menu>

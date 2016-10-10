@@ -28,6 +28,7 @@ import com.pcjinrong.pcjr.ui.views.activity.PaymentPlanActivity;
 import com.pcjinrong.pcjr.ui.views.activity.SafeSettingActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
+import com.pcjinrong.pcjr.ui.views.activity.WithdrawRechargeActivity;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
@@ -173,7 +174,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
     public void onWithdrawInfoSuccess(BaseBean<Withdraw> data) {
         dialog.dismiss();
         if(data.isSuccess()) {
-            Intent intent = new Intent(getActivity(), WithdrawActivity.class);
+            Intent intent = new Intent(getActivity(), WithdrawRechargeActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data.getData());
             intent.putExtras(bundle);

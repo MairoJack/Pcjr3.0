@@ -9,10 +9,11 @@ import com.pcjinrong.pcjr.R;
  * Created by Mario on 2016/6/20.
  */
 public class Dialog {
-    public static void show(String title, Context context) {
+    public static void show(String msg, Context context) {
         if (null != context) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(title);
+            builder.setTitle("提示");
+            builder.setMessage(msg);
             builder.setPositiveButton("确定", null);
             builder.show();
         }

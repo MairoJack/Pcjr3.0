@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+      <item
+          android:title="全部记录"
+          android:orderInCategory="0"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="正在募集"
+          android:orderInCategory="1"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="募集成功"
+          android:orderInCategory="2"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="正在回款"
+          android:orderInCategory="3"
+          app:showAsAction="never"/>
+
+      <item
+          android:title="回款完毕"
+          android:orderInCategory="4"
+          app:showAsAction="never"/>
+
+</menu>

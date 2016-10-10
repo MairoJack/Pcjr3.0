@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.ui.views.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -64,5 +65,17 @@ public class WebViewActivity extends BaseToolbarActivity {
         url = intent.getStringExtra("url");
         setTitle(intent.getStringExtra("title"));
         webView.loadUrl(url);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+            } else {
+                finish();
+            }
+        }
+        return false;
     }
 }

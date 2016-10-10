@@ -82,7 +82,7 @@ public class MsgCenterActivity extends BaseSwipeActivity implements MsgCenterVie
         refresh = true;
         emptyCount = 0;
         this.presenter.setPage(1);
-        this.presenter.getLetterList(ApiConstant.DEFAULT_PAGE_SIZE);
+        this.presenter.getLetterList(15);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class MsgCenterActivity extends BaseSwipeActivity implements MsgCenterVie
         if (emptyCount < EMPTY_LIMIT && !mPtrFrame.isRefreshing()) {
             refresh = false;
             this.presenter.setPage(this.presenter.getPage() + 1);
-            this.presenter.getLetterList(ApiConstant.DEFAULT_PAGE_SIZE);
+            this.presenter.getLetterList(15);
         }
     }
 

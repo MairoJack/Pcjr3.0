@@ -1,6 +1,5 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -120,9 +119,11 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
         if(list.size() == 0) {
             empty.setVisibility(View.VISIBLE);
             rv_list.setVisibility(View.INVISIBLE);
+            btn_addbankcard.setVisibility(View.VISIBLE);
         }else{
             empty.setVisibility(View.INVISIBLE);
             rv_list.setVisibility(View.VISIBLE);
+            btn_addbankcard.setVisibility(View.GONE);
             adapter.setData(list,realname);
         }
     }

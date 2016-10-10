@@ -1,12 +1,9 @@
 package com.pcjinrong.pcjr.ui.presenter;
 
 import com.orhanobut.logger.Logger;
-import com.pcjinrong.pcjr.bean.BankCard;
-import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.AddBankCardView;
-
-import java.util.List;
 
 import rx.Subscriber;
 
@@ -19,9 +16,9 @@ public class AddBankCardPresenter extends BasePresenter<AddBankCardView> {
         long time = System.currentTimeMillis();
     }
 
-    public void getBankCardList() {
-        this.mCompositeSubscription.add(this.mDataManager.getBankCardList()
-                .subscribe(new Subscriber<BaseBean<List<BankCard>>>() {
+    public void bindCard(String memberID, String cardNo, String phone) {
+        this.mCompositeSubscription.add(this.mDataManager.bindCard(memberID,cardNo,phone)
+                .subscribe(new Subscriber<PayBean>() {
                     @Override
                     public void onCompleted() {
                         if (AddBankCardPresenter.this.mCompositeSubscription != null) {
@@ -36,16 +33,16 @@ public class AddBankCardPresenter extends BasePresenter<AddBankCardView> {
                     }
 
                     @Override
-                    public void onNext(BaseBean<List<BankCard>> data) {
+                    public void onNext(PayBean data) {
                         if (AddBankCardPresenter.this.getMvpView() != null)
-                            AddBankCardPresenter.this.getMvpView().onBankCardListSuccess(data.getData());
+                            AddBankCardPresenter.this.getMvpView().onBindCardSuccess(data);
                     }
                 }));
     }
 
-    public void addBankCard(String bank_id, String card_no, String real_name) {
-        this.mCompositeSubscription.add(this.mDataManager.addBankCard(bank_id, card_no, real_name)
-                .subscribe(new Subscriber<BaseBean>() {
+    public void addBankCard(String requestId, String validatecode) {
+        this.mCompositeSubscription.add(this.mDataManager.confirmBindCard(requestId, validatecode)
+                .subscribe(new Subscriber<PayBean>() {
                     @Override
                     public void onCompleted() {
                         if (AddBankCardPresenter.this.mCompositeSubscription != null) {
@@ -60,7 +57,7 @@ public class AddBankCardPresenter extends BasePresenter<AddBankCardView> {
                     }
 
                     @Override
-                    public void onNext(BaseBean data) {
+                    public void onNext(PayBean data) {
                         if (AddBankCardPresenter.this.getMvpView() != null)
                             AddBankCardPresenter.this.getMvpView().onAddBankCardSuccess(data);
                     }

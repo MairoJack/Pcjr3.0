@@ -100,11 +100,11 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
         final String username = text_username.getText().toString().trim();
         final String password = text_password.getText().toString().trim();
         if (username.equals("")) {
-            Dialog.show("用户名不能为空",this);
+            Dialog.show("提示","用户名不能为空",this);
             return;
         }
         if (password.equals("")) {
-            Dialog.show("密码不能为空",this);
+            Dialog.show("提示","密码不能为空",this);
             return;
         }
         dialog.setMessage("正在登录...");

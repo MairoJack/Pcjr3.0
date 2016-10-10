@@ -14,6 +14,7 @@ import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
+import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
@@ -23,6 +24,7 @@ import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.model.impl.OAuthModel;
+import com.pcjinrong.pcjr.model.impl.PayModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
 import com.pcjinrong.pcjr.utils.SPUtils;
 
@@ -42,6 +44,7 @@ public class DataManager {
 
     private ApiModel apiModel;
     private OAuthModel oAuthModel;
+    private PayModel payModel;
 
     public synchronized static DataManager getInstance() {
         if (dataManager == null) {
@@ -310,9 +313,62 @@ public class DataManager {
     /*
      * -------------------------- OAuthModel Over ------------------------------
      */
+
+    /*
+     * -------------------------- PayModel Start------------------------------
+     */
+    public Observable<PayBean> bindCard(String memberID, String cardNo, String phone) {
+        return this.payModel.bind_card(memberID, cardNo,phone)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<PayBean> confirmBindCard(String requestId, String validatecode) {
+        return this.payModel.confirm_bind_card(requestId, validatecode)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<PayBean> pay(String memberID, String cardID,String amount) {
+        return this.payModel.pay(memberID, cardID,amount)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<PayBean> sendVerifyCode(String memberID, String cardID ,String amount) {
+        return this.payModel.pay(memberID, cardID,amount)
+                .flatMap(new Func1<PayBean, Observable<PayBean>>() {
+                    @Override
+                    public Observable<PayBean> call(PayBean payResult) {
+                        Observable<PayBean> o = payModel.send_verify_code(memberID,payResult.getOrder_no());
+                        return o.map(new Func1<PayBean, PayBean>() {
+                            @Override
+                            public PayBean call(PayBean payBean) {
+                                payBean.setOrder_no(payResult.getOrder_no());
+                                return payBean;
+                            }
+                        });
+                    }
+                })
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<PayBean> confirmPay(String memberID, String orderNo, String validateCode) {
+        return this.payModel.confirm_pay(memberID, orderNo, validateCode)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<PayBean> checkCard(String cardNo) {
+        return this.payModel.check_card(cardNo)
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    /*
+     * -------------------------- ApiModel Over ------------------------------
+     */
+
+
     private DataManager() {
         this.apiModel = ApiModel.getInstance();
         this.oAuthModel = OAuthModel.getInstance();
+        this.payModel = PayModel.getInstance();
     }
 
 

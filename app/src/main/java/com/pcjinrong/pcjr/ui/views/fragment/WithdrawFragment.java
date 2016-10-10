@@ -1,12 +1,13 @@
-package com.pcjinrong.pcjr.ui.views.activity;
+package com.pcjinrong.pcjr.ui.views.fragment;
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,9 +23,12 @@ import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
-import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.WithdrawPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
+import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
+import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
+import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -35,12 +39,13 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
 
-
 /**
- * 提现
- * Created by Mario on 2016/5/24.
+ * 提现Fragment
+ * Created by Mario on 2016/9/27.
  */
-public class WithdrawActivity extends BaseToolbarActivity implements WithdrawView {
+public class WithdrawFragment extends BaseFragment implements WithdrawView {
+
+    public static final String TAG = WithdrawFragment.class.getSimpleName();
 
     @BindView(R.id.btn_verify) Button btn_verify;
     @BindView(R.id.btn_apply) Button btn_apply;
@@ -73,21 +78,19 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
     }
 
     @Override
-    protected void initViews(Bundle savedInstanceState) {
-        showBack();
-        setTitle("提现/充值");
+    protected void initViews(View self, Bundle savedInstanceState) {
         time = new TimeCount(60000, 1000);
-        dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+        dialog = new ProgressDialog(getContext(), ProgressDialog.STYLE_SPINNER);
     }
 
     @Override
     protected void initListeners() {
 
-        info.setOnClickListener(v -> Dialog.show("提现金额", "已赚取利息与到期本金之和即为您可免费提现的总额，充值未投资金额则需收取0.15%手续费", this));
+        info.setOnClickListener(v -> Dialog.show("提现金额", "已赚取利息与到期本金之和即为您可免费提现的总额，充值未投资金额则需收取0.15%手续费", getContext()));
 
         explain.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            Intent intent = new Intent(WithdrawActivity.this, WebViewActivity.class);
+            Intent intent = new Intent(getContext(), WebViewActivity.class);
             intent.putExtra("title", Constant.WITHDRAW_RULES);
             intent.putExtra("url", Constant.WITHDRAW_RULES_URL);
             startActivity(intent);
@@ -157,8 +160,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     protected void initData() {
-        Intent intent = getIntent();
-        Withdraw withdraw = (Withdraw) intent.getSerializableExtra("data");
+        Bundle bundle = getArguments();
+        Withdraw withdraw = (Withdraw) bundle.getSerializable("withdraw");
 
         available_balance = new BigDecimal(withdraw.getAvailable_balance());
         free_withdraw = new BigDecimal(withdraw.getFree_withdraw());
@@ -177,15 +180,15 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         String amount = txt_mention_amount.getText().toString().trim();
         String verify = txt_verify.getText().toString().trim();
         if (amount.equals("")) {
-            Dialog.show("请输入提现金额", this);
+            Dialog.show("请输入提现金额", getContext());
             return;
         }
         if (Double.parseDouble(amount) <= 0) {
-            Dialog.show("提现金额必须大于0", this);
+            Dialog.show("提现金额必须大于0", getContext());
             return;
         }
         if (verify.equals("")) {
-            Dialog.show("请输入验证码", this);
+            Dialog.show("请输入验证码", getContext());
             return;
         }
 
@@ -195,11 +198,11 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
     public void send_verify() {
         String amount = txt_mention_amount.getText().toString().trim();
         if (amount.equals("")) {
-            Dialog.show("请输入提现金额", WithdrawActivity.this);
+            Dialog.show("请输入提现金额", getContext());
             return;
         }
         if (Double.parseDouble(amount) <= 0) {
-            Dialog.show("提现金额必须大于0", WithdrawActivity.this);
+            Dialog.show("提现金额必须大于0", getContext());
             return;
         }
         btn_verify.setClickable(false);
@@ -209,21 +212,15 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-        }
-        return false;
+    protected void lazyLoad() {
 
     }
-
 
     @Override
     public void onFailure(Throwable e) {
         if(e instanceof HttpException){
             showToast(getString(R.string.login_expired));
-            startActivity(new Intent(WithdrawActivity.this, LoginActivity.class));
+            startActivity(new Intent(getContext(), LoginActivity.class));
             return;
         }
         showToast(R.string.network_anomaly);
@@ -236,16 +233,16 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     public void onWithdrawVerifySuccess(BaseBean data) {
-        Dialog.show(data.getMessage(), this);
+        Dialog.show(data.getMessage(), getContext());
     }
 
     @Override
     public void onWithdrawSuccess(BaseBean data) {
         if (data.isSuccess()) {
             showToast(data.getMessage());
-            finish();
+            getActivity().finish();
         } else {
-            Dialog.show(data.getMessage(), this);
+            Dialog.show(data.getMessage(), getContext());
         }
     }
 
@@ -256,9 +253,17 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         for (int i = 0; i < bankCards.size(); i++) {
             mItems[i] = bankCards.get(i).getBank() + " " + bankCards.get(i).getCard_no();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(WithdrawActivity.this, android.R.layout.simple_spinner_item, mItems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bank_spinner.setAdapter(adapter);
+    }
+
+    public static Fragment newInstance(Withdraw withdraw) {
+        WithdrawFragment fragment = new WithdrawFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("withdraw", withdraw);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     class TimeCount extends CountDownTimer {

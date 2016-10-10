@@ -17,6 +17,7 @@ public class RetrofitManager {
 
     private ApiService apiService;
     private OAuthService authService;
+    private PayService payService;
 
     public static RetrofitManager getInstance() {
         if (mInstance == null) mInstance = new RetrofitManager();
@@ -34,6 +35,13 @@ public class RetrofitManager {
                 .client(client.build())
                 .build();
 
+        Retrofit payRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.PAY_URL)
+                .addCallAdapterFactory(
+                        RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
+                .build();
+
         client.addInterceptor(new RequestInterceptor());
         Retrofit authRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
                 .addCallAdapterFactory(
@@ -44,6 +52,7 @@ public class RetrofitManager {
 
         this.apiService = apiRetrofit.create(ApiService.class);
         this.authService = authRetrofit.create(OAuthService.class);
+        this.payService = payRetrofit.create(PayService.class);
     }
 
     public ApiService getApiService() {
@@ -53,4 +62,6 @@ public class RetrofitManager {
     public OAuthService getAuthService() {
         return authService;
     }
+
+    public PayService getPayService() { return payService;}
 }

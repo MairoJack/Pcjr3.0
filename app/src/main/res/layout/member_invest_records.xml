@@ -7,13 +7,6 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <com.jayfang.dropdownmenu.DropDownMenu
-        android:id="@+id/lv_menu"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/color_content_background"
-        android:orientation="horizontal" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

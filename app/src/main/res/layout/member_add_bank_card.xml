@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_background"
     android:orientation="vertical">
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
         android:layout_marginTop="1dp"
-        android:background="@color/color_content_background" >
+        android:background="@color/color_content_background">
 
         <TextView
             android:id="@+id/cardholder"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="持卡人　"
+            android:text="持 卡 人　"
             android:textColor="@color/color_text"
             android:textSize="@dimen/text_size_14sp" />
 
@@ -29,12 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/cardholder"
             android:gravity="center_vertical"
-            tools:text="dama"
-            android:textSize="@dimen/text_size_14sp" />
+            android:textSize="@dimen/text_size_14sp"
+            tools:text="dama" />
 
         <ImageView
             android:id="@+id/img_info"
@@ -50,34 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
         android:layout_marginTop="1dp"
-        android:background="@color/color_content_background" >
-
-        <TextView
-            android:id="@+id/choose_bank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="选择银行"
-            android:textColor="@color/color_text"
-            android:textSize="@dimen/text_size_14sp" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@+id/choose_bank"
-            android:gravity="center_vertical" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_item_height"
-        android:layout_marginTop="1dp"
-        android:background="@color/color_content_background" >
+        android:background="@color/color_content_background">
 
         <TextView
             android:id="@+id/cardno"
@@ -89,27 +60,97 @@
             android:textColor="@color/color_text"
             android:textSize="@dimen/text_size_14sp" />
 
+
         <EditText
             android:id="@+id/txt_card_no"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ"
+            android:hint="银行卡号"
+            android:text="622908358093115919"
+            android:textSize="@dimen/text_size_14sp"
+            android:background="@null"
+            android:layout_toRightOf="@+id/cardno"
+            android:layout_marginStart="9dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_content_background">
+
+        <TextView
+            android:id="@+id/mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="手 机 号"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <EditText
+            android:id="@+id/txt_mobile"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/cardno"
+            android:layout_toRightOf="@+id/mobile"
+            android:inputType="phone"
+            android:background="@null"
             android:gravity="center_vertical"
             android:hint="银行卡号"
-            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ"
+            android:text="18768105742"
             android:textSize="@dimen/text_size_14sp" />
 
-        <ImageView
-            android:id="@+id/img_clear"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="0.8dp"
+        android:background="@color/color_content_background">
+
+        <TextView
+            android:id="@+id/verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="验 证 码"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_16sp" />
+
+        <EditText
+            android:id="@+id/txt_verify"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/verify"
+            android:hint="验证码"
+            android:background="@null"
+            android:inputType="number"
+            android:textSize="@dimen/text_size_16sp"
+            android:textColorHint="@color/color_text_light"
+            />
+
+        <Button
+            android:id="@+id/btn_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
             android:layout_marginRight="20dp"
-            android:src="@mipmap/icon_clear" />
+            android:textColor="@color/color_content_background"
+            android:background="@drawable/btn_primary"
+            android:text="获取验证码" />
     </RelativeLayout>
 
     <Button
@@ -121,7 +162,28 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_primary"
         android:padding="10dp"
-        android:text="确认"
+        android:text="确　定"
         android:textColor="@color/color_button" />
 
+    <LinearLayout
+        android:id="@+id/bksm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_18sp"
+            android:text="绑卡说明" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_18sp"
+            android:text=" (附支持绑定银行列表)" />
+    </LinearLayout>
 </LinearLayout>

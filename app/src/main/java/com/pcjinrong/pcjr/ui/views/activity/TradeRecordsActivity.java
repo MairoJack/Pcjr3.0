@@ -1,11 +1,12 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import com.jayfang.dropdownmenu.DropDownMenu;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BaseBean;
@@ -14,11 +15,8 @@ import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.TradeRecordsListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.TradeRecordsPresenter;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
 
 
@@ -27,7 +25,6 @@ import retrofit2.adapter.rxjava.HttpException;
  * Created by Mario on 2016/5/24.
  */
 public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<BaseBean<List<TradeRecords>>>{
-    @BindView(R.id.lv_menu) DropDownMenu lv_menu;
 
     private TradeRecordsPresenter presenter;
     private TradeRecordsListAdapter adapter;
@@ -43,7 +40,7 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
         this.showBack();
         this.setTitle("交易记录");
         dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height_1dp);
-        initMenu();
+        mToolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.mipmap.ic_more_horiz_white_24dp));
     }
 
 
@@ -63,37 +60,6 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
     }
 
 
-    public void initMenu() {
-
-        final String[] arr=new String[]{"全部记录", "充值记录", "提现记录", "投资记录", "收益记录","奖励"};
-
-        final String[] strings=new String[]{"全部记录"};
-
-        lv_menu.setmMenuCount(1);
-        lv_menu.setmShowCount(6);
-        lv_menu.setShowCheck(true);
-        lv_menu.setmMenuTitleTextSize(16);
-        lv_menu.setmMenuTitleTextColor(Color.BLACK);
-        lv_menu.setmMenuPressedTitleTextColor(Color.GRAY);
-        lv_menu.setmMenuListTextSize((int) getResources().getDimension(R.dimen.text_size_14sp));
-        lv_menu.setmMenuListTextColor(Color.BLACK);
-        lv_menu.setmMenuBackColor(Color.WHITE);
-        lv_menu.setmMenuPressedBackColor(Color.WHITE);
-        lv_menu.setmCheckIcon(R.drawable.ico_make);
-        lv_menu.setmUpArrow(R.drawable.arrow_up);
-        lv_menu.setmDownArrow(R.drawable.arrow_down);
-        lv_menu.setDefaultMenuTitle(strings);
-        lv_menu.setMenuSelectedListener((listview,RowIndex,ColumnIndex)-> {
-                refresh = true;
-                type = RowIndex;
-                mPtrFrame.post(()-> mPtrFrame.autoRefresh());
-        });
-
-        List<String[]> items = new ArrayList<>();
-        items.add(arr);
-        lv_menu.setmMenuItems(items);
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -103,7 +69,6 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
         return false;
 
     }
-
 
     @Override
     protected void refresh() {
@@ -149,5 +114,24 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
             adapter.addAll(data.getData());
         }
         if(data.getData().size() == 0 ) emptyCount++;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_trade_record, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+        refresh = true;
+        type = item.getOrder();
+        mTitle.setText(item.getTitle());
+        mPtrFrame.post(()-> mPtrFrame.autoRefresh());
+        return true;
     }
 }

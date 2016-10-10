@@ -83,8 +83,6 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     //图片加载
     compile files('libs/universal-image-loader-1.9.5.jar')
-    //dropdown
-    compile 'com.github.JayFang1993:DropDownMenu:v0.9'
     //日历
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
     //弹框
