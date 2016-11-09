@@ -12,6 +12,7 @@ import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -51,6 +52,8 @@ public interface IOAuthModel {
     Observable<BaseBean> changePassword(String old_password,String new_password);
 
     Observable<BaseBean<List<BankCard>>> getMemberBankCardInfo();
+
+    Observable<BaseBean<RechargeInfo>> getRechargeInfo();
 
     Observable<BaseBean> addBankCard(String bank_id,String card_no,String real_name);
 

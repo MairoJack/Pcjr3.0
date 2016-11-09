@@ -3,9 +3,14 @@ package com.pcjinrong.pcjr;
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Token;
+import com.pcjinrong.pcjr.utils.MD5Utils;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -44,7 +49,7 @@ public class ExampleUnitTest {
                         return null;
                     }
                 })
-                .subscribe(s -> System.out.println(s.getName()));*/
+                .subscribe(s -> System.out.println(s.getName()));
 
 
 
@@ -56,9 +61,28 @@ public class ExampleUnitTest {
                 System.out.println("delay retry by " + i + " second(s)");
                 return Observable.timer(i, TimeUnit.SECONDS);
             });
-        }).toBlocking().forEach(System.out::println);
+        }).toBlocking().forEach(System.out::println);*/
+
+
+        Map<String,String> map = new TreeMap<>();
+        map.put("memberID","628");
+        map.put("cardNo","6228480322033752013");
+        map.put("phone","18768105742");
+
+        Set<String> keySet = map.keySet();
+        Iterator<String> iter = keySet.iterator();
+        String str = "";
+        while (iter.hasNext()) {
+            String key = iter.next();
+            str+=map.get(key);
+            System.out.println(key + ":" + map.get(key));
+        }
+        str+="pcjrjsb";
+        String token = MD5Utils.MD5(str);
+        System.out.println("token:" + token.toLowerCase());
 
     }
+
 
 
 

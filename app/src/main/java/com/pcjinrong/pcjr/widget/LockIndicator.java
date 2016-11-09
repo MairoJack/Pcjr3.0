@@ -21,8 +21,8 @@ import com.pcjinrong.pcjr.R;
 public class LockIndicator extends View {
 	private int numRow = 3;	// 行
 	private int numColum = 3; // 列
-	private int patternWidth = 40;
-	private int patternHeight = 40;
+	private int patternWidth = 60;
+	private int patternHeight = 60;
 	private int f = 5;
 	private int g = 5;
 	private int strokeWidth = 3;

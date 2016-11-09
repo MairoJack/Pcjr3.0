@@ -69,27 +69,4 @@ public class RechargePresenter extends BasePresenter<RechargeView> {
                 }));
     }
 
-    public void getBankCardList() {
-        this.mCompositeSubscription.add(this.mDataManager.getBankCardInfo()
-                .subscribe(new Subscriber<BaseBean<List<BankCard>>>() {
-                    @Override
-                    public void onCompleted() {
-                        if (RechargePresenter.this.mCompositeSubscription != null) {
-                            RechargePresenter.this.mCompositeSubscription.remove(this);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Logger.e(e.getMessage());
-                        RechargePresenter.this.getMvpView().onFailure(e);
-                    }
-
-                    @Override
-                    public void onNext(BaseBean<List<BankCard>> data) {
-                        if (RechargePresenter.this.getMvpView() != null)
-                            RechargePresenter.this.getMvpView().onBankCardListSuccess(data.getData());
-                    }
-                }));
-    }
 }

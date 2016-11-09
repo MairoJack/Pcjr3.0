@@ -65,6 +65,8 @@ public class Product implements Serializable {
     private String estimate_interest;
     @Expose
     private long preview_repayment_date;
+    @Expose
+    private int is_welfare;
 
     public String getId() {
         return id;
@@ -282,4 +284,11 @@ public class Product implements Serializable {
         this.preview_repayment_date = preview_repayment_date;
     }
 
+    public int getIs_welfare() {
+        return is_welfare;
+    }
+
+    public void setIs_welfare(int is_welfare) {
+        this.is_welfare = is_welfare;
+    }
 }

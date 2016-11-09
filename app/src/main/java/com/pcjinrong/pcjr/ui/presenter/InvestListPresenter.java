@@ -7,6 +7,7 @@ import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.ivview.MainView;
+import com.pcjinrong.pcjr.utils.DateUtils;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
                     @Override
                     public void onNext(BaseBean<List<Product>> data) {
                         if (InvestListPresenter.this.getMvpView() != null) {
-                            data.setCurrent_time(data.getCurrent_time() + System.currentTimeMillis() - sys_time);
+                            data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
                             InvestListPresenter.this.getMvpView().onSuccess(data);
                         }
                     }

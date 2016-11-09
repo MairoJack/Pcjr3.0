@@ -1,12 +1,14 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,9 +18,11 @@ import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.RechargePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
+import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -48,11 +52,18 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
 
     @BindView(R.id.info) ImageView info;
 
+    @BindView(R.id.agree) CheckBox agree;
+    @BindView(R.id.service_agreement) TextView service_agreement;
+
     private TimeCount time;
     private RechargePresenter presenter;
     private ProgressDialog dialog;
     private String bank_id;
     private String order_no;
+
+    private boolean isPrepared;
+    private boolean mHasLoadedOnce;
+
     @Override
     protected int getLayoutId() {
         return R.layout.member_recharge;
@@ -77,10 +88,19 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
             if (ViewUtil.isFastDoubleClick()) return;
             apply();
         });
+
+        service_agreement.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            Intent intent = new Intent(getContext(), WebViewActivity.class);
+            intent.putExtra("title", Constant.SERVICE_AGREEMENT);
+            intent.putExtra("url", Constant.SERVICE_AGREEMENT_URL);
+            startActivity(intent);
+        });
     }
 
     @Override
     protected void initData() {
+        isPrepared = true;
         Bundle bundle = getArguments();
         Withdraw withdraw = (Withdraw) bundle.getSerializable("withdraw");
 
@@ -91,11 +111,13 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
         presenter = new RechargePresenter();
         presenter.attachView(this);
 
-        presenter.getBankCardList();
     }
 
     @Override
     protected void lazyLoad() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
 
     }
 
@@ -115,7 +137,10 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
             Dialog.show("请输入验证码", getContext());
             return;
         }
-
+        if(!agree.isChecked()){
+            Dialog.show("请先阅读并同意《一键支付服务协议》", getContext());
+            return;
+        }
         presenter.recharge("628", order_no, verify);
     }
 
@@ -163,13 +188,6 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
         }else{
             Dialog.show(data.getMessage(),getContext());
         }
-    }
-
-    @Override
-    public void onBankCardListSuccess(List<BankCard> list) {
-        BankCard bankCard = list.get(0);
-        bank_id = bankCard.getId();
-        txt_bank_card.setText(bankCard.getBank()+" "+bankCard.getCard_no());
     }
 
     @Override

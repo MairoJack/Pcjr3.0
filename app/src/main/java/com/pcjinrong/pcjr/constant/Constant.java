@@ -53,4 +53,18 @@ public class Constant {
 
     public static final String WITHDRAW_RULES = "提现细则";
     public static final String WITHDRAW_RULES_URL = "https://m.pcjr.com/appdeal/mention";
+
+    public static final String SERVICE_AGREEMENT = "服务协议";
+    public static final String SERVICE_AGREEMENT_URL = "https://m.pcjr.com/appdeal/rechargeag";
+
+    public static final String CARD_EXPLAIN = "绑卡说明";
+    public static final String CARD_EXPLAIN_URL = "https://m.pcjr.com/appdeal/bankintro";
+
+    public static final String RISK_ASSESS = "风险评估";
+    public static final String RISK_ASSESS_URL = "http://m.pcjr.test/riskassess";
+
+    public static final String SHARE_URL = "https://m.pcjr.com";
+    public static final String SHARE_LIST_URL = "https://m.pcjr.com/invest";
+    public static final String SHARE_DETAIL_URL = "https://m.pcjr.com/productdetail/index?id=";
+    public static final String SHARE_IMG_URL = "https://m.pcjr.com/lib/wap/images/tips/logo_256.png";
 }

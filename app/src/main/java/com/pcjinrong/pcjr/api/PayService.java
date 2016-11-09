@@ -23,7 +23,7 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("bind_card")
-    Observable<PayBean> bind_card(@Field("memberID") String memberID, @Field("cardNo") String cardNo, @Field("phone") String phone);
+    Observable<PayBean> bind_card(@Field("memberID") String memberID, @Field("cardNo") String cardNo, @Field("phone") String phone, @Field("token") String token);
 
     /**
      * 确认绑卡
@@ -34,7 +34,7 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("confirm_bind_card")
-    Observable<PayBean> confirm_bind_card(@Field("requestId") String requestId, @Field("validateCode") String validateCode);
+    Observable<PayBean> confirm_bind_card(@Field("requestId") String requestId, @Field("validateCode") String validateCode, @Field("token") String token);
 
     /**
      * 支付
@@ -46,7 +46,7 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("pay")
-    Observable<PayBean> pay(@Field("memberID") String memberID, @Field("cardID") String cardID, @Field("amount") String amount);
+    Observable<PayBean> pay(@Field("memberID") String memberID, @Field("cardID") String cardID, @Field("amount") String amount, @Field("token") String token);
 
     /**
      * 支付验证码
@@ -57,7 +57,7 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("send_verify_code")
-    Observable<PayBean> send_verify_code(@Field("memberID") String memberID, @Field("orderNo") String orderNo);
+    Observable<PayBean> send_verify_code(@Field("memberID") String memberID, @Field("orderNo") String orderNo, @Field("token") String token);
 
     /**
      * 确认支付
@@ -69,7 +69,7 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("confirm_pay")
-    Observable<PayBean> confirm_pay(@Field("memberID") String memberID, @Field("orderNo") String orderNo, @Field("validateCode") String validateCode);
+    Observable<PayBean> confirm_pay(@Field("memberID") String memberID, @Field("orderNo") String orderNo, @Field("validateCode") String validateCode, @Field("token") String token);
 
     /**
      * 检查卡号
@@ -79,6 +79,6 @@ public interface PayService {
      */
     @FormUrlEncoded
     @POST("check_card")
-    Observable<PayBean> check_card(@Field("cardNo") String cardNo);
+    Observable<PayBean> check_card(@Field("cardNo") String cardNo, @Field("token") String token);
 
 }

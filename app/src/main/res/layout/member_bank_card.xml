@@ -20,6 +20,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_list"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
@@ -43,12 +44,24 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:text="一旦绑卡成功，除绑定银行卡无效或丢失，充值本金在投资过程中，不支持换卡！"
+        android:textSize="@dimen/text_size_14sp" />
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
-        android:text="如需更换银行卡,请联系在线客服,提供相关资料,理时间在 1-2 个工作日左右,请耐心等待。"
+        android:text="如需更换银行卡,请联系在线客服,提供相关资料,处理时间在 1-2 个工作日左右,请耐心等待。"
         android:textSize="@dimen/text_size_14sp" />
 
 </LinearLayout>

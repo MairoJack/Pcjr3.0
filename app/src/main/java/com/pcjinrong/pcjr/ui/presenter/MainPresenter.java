@@ -17,15 +17,20 @@ import rx.Subscriber;
  */
 public class MainPresenter extends BasePresenter<MainView> {
     private int page;
+    private long sys_time;
 
     public MainPresenter() {
-        long time = System.currentTimeMillis();
         this.page = 1;
     }
 
     public void getIndexProductList() {
         this.mCompositeSubscription.add(this.mDataManager.getIndexProductList()
                 .subscribe(new Subscriber<BaseBean<List<Product>>>() {
+                    @Override
+                    public void onStart() {
+                        sys_time = System.currentTimeMillis();
+                    }
+
                     @Override
                     public void onCompleted() {
                         if (MainPresenter.this.mCompositeSubscription != null) {
@@ -41,8 +46,10 @@ public class MainPresenter extends BasePresenter<MainView> {
 
                     @Override
                     public void onNext(BaseBean<List<Product>> data) {
-                        if (MainPresenter.this.getMvpView() != null)
+                        if (MainPresenter.this.getMvpView() != null){
+                            data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
                             MainPresenter.this.getMvpView().onGetIndexListSuccess(data.getData(),data.getCurrent_time());
+                        }
                     }
                 }));
     }

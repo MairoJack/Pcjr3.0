@@ -91,4 +91,28 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
                     }
                 }));
     }
+
+    public void rechargeInfo() {
+        this.mCompositeSubscription.add(this.mDataManager.getRechargeInfo()
+                .subscribe(new Subscriber<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        if (WithdrawPresenter.this.mCompositeSubscription != null) {
+                            WithdrawPresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        WithdrawPresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(BaseBean data) {
+                        if (WithdrawPresenter.this.getMvpView() != null)
+                            WithdrawPresenter.this.getMvpView().onRechargeInfoSuccess(data);
+                    }
+                }));
+    }
 }

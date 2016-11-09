@@ -22,6 +22,10 @@
         <item name="overlapAnchor">false</item>
     </style>
 
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
     <declare-styleable name="ProgressWheel">
         <attr name="pwText" format="string" />
         <attr name="pwTextColor" format="color" />

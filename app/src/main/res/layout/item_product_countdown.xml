@@ -53,6 +53,22 @@
         android:layout_above="@+id/layoutc"
         android:layout_toRightOf="@+id/name"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="福利"
+        android:textColor="@color/item_product_repayment_text_color"
+        android:textSize="@dimen/item_product_repayment_text_size"
+        android:background="@drawable/bg_corner_orange"
+        android:fontFamily="微软雅黑"
+        android:id="@+id/welfare"
+        android:layout_above="@+id/layoutc"
+        android:layout_toRightOf="@+id/repayment"/>
+
     <LinearLayout
         android:id="@+id/layoutc"
         android:layout_width="match_parent"

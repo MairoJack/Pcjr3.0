@@ -69,7 +69,6 @@
             android:layout_centerVertical="true"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ"
             android:hint="银行卡号"
-            android:text="622908358093115919"
             android:textSize="@dimen/text_size_14sp"
             android:background="@null"
             android:layout_toRightOf="@+id/cardno"
@@ -102,8 +101,7 @@
             android:inputType="phone"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="银行卡号"
-            android:text="18768105742"
+            android:hint="银行预留手机号"
             android:textSize="@dimen/text_size_14sp" />
 
     </RelativeLayout>
@@ -171,7 +169,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="15dp">
 
         <TextView
             android:layout_width="wrap_content"

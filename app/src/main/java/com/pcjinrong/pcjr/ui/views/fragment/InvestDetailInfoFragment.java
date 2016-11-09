@@ -59,6 +59,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     @BindView(R.id.guarantors_name) TextView guarantors_name;
     @BindView(R.id.intro) TextView intro;
     @BindView(R.id.company_intro) TextView borrower_intro;
+    @BindView(R.id.welfare) TextView welfare;
 
     @BindView(R.id.preview_repayment) LinearLayout preview_repayment;
     @BindView(R.id.debx) LinearLayout debx;
@@ -138,7 +139,11 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         int repayment = product.getRepayment();
         BigDecimal bd_amount = new BigDecimal(product.getAmount());
         BigDecimal bd_product_amount = new BigDecimal(product.getProduct_amount());
-
+        if(product.getIs_welfare() == 1){
+            welfare.setVisibility(View.VISIBLE);
+        }else{
+            welfare.setVisibility(View.GONE);
+        }
         switch (repayment) {
             case 0:txt_repayment.setText("一次还本付息");break;
             case 1:txt_repayment.setText("先息后本(按月付息)");break;

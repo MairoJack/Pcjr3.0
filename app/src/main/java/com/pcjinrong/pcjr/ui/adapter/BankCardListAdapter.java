@@ -24,8 +24,6 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
     private List<BankCard> list;
     private String realname;
 
-    private OnDeleteClickListener listener;
-
     public BankCardListAdapter() {
         list = new ArrayList<>();
     }
@@ -52,9 +50,6 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindTo((list.get(position)), realname);
-        holder.mIvDelete.setOnClickListener(v->{
-            listener.onDeleteClick(v,list.get(position));
-        });
     }
 
     @Override
@@ -68,7 +63,6 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
         @BindView(R.id.bank) TextView mIvBank;
         @BindView(R.id.card_no) TextView mIvCardNo;
         @BindView(R.id.status) TextView mIvStatus;
-        @BindView(R.id.delete) TextView mIvDelete;
         @BindView(R.id.realname) TextView mIvRealname;
 
         public ViewHolder(View itemView) {
@@ -78,18 +72,10 @@ public class BankCardListAdapter extends RecyclerView.Adapter<BankCardListAdapte
 
         public void bindTo(BankCard object, String realname) {
             mIvBank.setText(object.getBank());
-            mIvCardNo.setText(object.getCard_no());
+            mIvCardNo.setText(object.getCard_top()+" **** **** "+object.getCard_last() );
             mIvRealname.setText(realname);
 
         }
-    }
-
-    public void setOnDeleteClickListener(OnDeleteClickListener listener){
-        this.listener = listener;
-    }
-
-    public interface OnDeleteClickListener{
-        void onDeleteClick(View view , BankCard data);
     }
 
 }

@@ -18,6 +18,7 @@ import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
+import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
@@ -201,6 +202,13 @@ public class DataManager {
     public Observable<BaseBean<List<BankCard>>> getBankCardInfo() {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getMemberBankCardInfo())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<RechargeInfo>> getRechargeInfo() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getRechargeInfo())
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }

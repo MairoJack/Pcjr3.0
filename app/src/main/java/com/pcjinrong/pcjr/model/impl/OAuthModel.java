@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.model.impl;
 
+import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
@@ -12,6 +13,7 @@ import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -106,6 +108,11 @@ public class OAuthModel implements IOAuthModel {
     @Override
     public Observable<BaseBean<List<BankCard>>> getMemberBankCardInfo() {
         return RetrofitManager.getInstance().getAuthService().getMemberBankCardInfo();
+    }
+
+    @Override
+    public Observable<BaseBean<RechargeInfo>> getRechargeInfo() {
+        return RetrofitManager.getInstance().getAuthService().getRechargeInfo(ApiConstant.ACCEPT);
     }
 
     @Override

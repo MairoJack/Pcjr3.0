@@ -7,19 +7,16 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
@@ -41,6 +38,7 @@ import retrofit2.adapter.rxjava.HttpException;
  * Created by Mario on 2016/5/24.
  */
 public class WithdrawActivity extends BaseToolbarActivity implements WithdrawView {
+    @BindView(R.id.btn_recharge) RelativeLayout btn_recharge;
 
     @BindView(R.id.btn_verify) Button btn_verify;
     @BindView(R.id.btn_apply) Button btn_apply;
@@ -56,13 +54,12 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @BindView(R.id.info) ImageView info;
 
-    @BindView(R.id.bank_spinner) Spinner bank_spinner;
+    @BindView(R.id.txt_bank_card) TextView txt_bank_card;
 
     private TimeCount time;
     private WithdrawPresenter presenter;
     private ProgressDialog dialog;
 
-    private List<BankCard> bankCards;
     private String bank_id;
     private BigDecimal free_withdraw;
     private BigDecimal available_balance;
@@ -82,6 +79,11 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     protected void initListeners() {
+
+        btn_recharge.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            presenter.rechargeInfo();
+        });
 
         info.setOnClickListener(v -> Dialog.show("提现金额", "已赚取利息与到期本金之和即为您可免费提现的总额，充值未投资金额则需收取0.15%手续费", this));
 
@@ -130,19 +132,6 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
             }
         });
 
-        bank_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                bank_id = bankCards.get(position).getId();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
 
         btn_verify.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
@@ -162,6 +151,7 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
         available_balance = new BigDecimal(withdraw.getAvailable_balance());
         free_withdraw = new BigDecimal(withdraw.getFree_withdraw());
+
         txt_balance.setText(withdraw.getAvailable_balance());
         txt_mention_amount.setHint("免费可提" + withdraw.getFree_withdraw() + "元");
         txt_realname.setText(withdraw.getRealname());
@@ -251,14 +241,35 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     public void onBankCardListSuccess(List<BankCard> list) {
-        bankCards = list;
-        String[] mItems = new String[bankCards.size()];
-        for (int i = 0; i < bankCards.size(); i++) {
-            mItems[i] = bankCards.get(i).getBank() + " " + bankCards.get(i).getCard_no();
+        if(list != null && list.size() > 0) {
+            BankCard bankCard = list.get(0);
+            txt_bank_card.setText(bankCard.getBank() + " " + bankCard.getCard_top()+" **** **** "+bankCard.getCard_last());
+            bank_id = bankCard.getId();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(WithdrawActivity.this, android.R.layout.simple_spinner_item, mItems);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bank_spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void onRechargeInfoSuccess(BaseBean<RechargeInfo> data) {
+        if(data.isSuccess()) {
+            if(data.getData().getBank_info() == null){
+                Dialog.show("未绑定银行卡", this);
+                return;
+            }
+            if(data.getData().isFinish_assessment()==0){
+                Intent intent = new Intent(WithdrawActivity.this, WebViewActivity.class);
+                intent.putExtra("title", Constant.RISK_ASSESS);
+                intent.putExtra("url", Constant.RISK_ASSESS_URL);
+                startActivity(intent);
+                return;
+            }
+            Intent intent = new Intent(WithdrawActivity.this, RechargeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data.getData());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }else{
+            Dialog.show(data.getMessage(), this);
+        }
     }
 
     class TimeCount extends CountDownTimer {

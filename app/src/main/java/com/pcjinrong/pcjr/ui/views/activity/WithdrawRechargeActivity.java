@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -67,6 +69,27 @@ public class WithdrawRechargeActivity extends BaseToolbarActivity {
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
 
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 1){
+                    Toast.makeText(WithdrawRechargeActivity.this, "您还没有登录", Toast.LENGTH_SHORT).show();
+                    viewPager.setCurrentItem(1);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     @Override
@@ -86,5 +109,4 @@ public class WithdrawRechargeActivity extends BaseToolbarActivity {
         return false;
 
     }
-
 }

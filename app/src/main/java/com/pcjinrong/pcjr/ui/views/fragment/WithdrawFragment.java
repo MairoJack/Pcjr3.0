@@ -9,13 +9,9 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
@@ -28,7 +24,6 @@ import com.pcjinrong.pcjr.ui.presenter.WithdrawPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
-import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -61,7 +56,7 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
     @BindView(R.id.info) ImageView info;
 
-    @BindView(R.id.bank_spinner) Spinner bank_spinner;
+    @BindView(R.id.txt_bank_card) TextView txt_bank_card;
 
     private TimeCount time;
     private WithdrawPresenter presenter;
@@ -130,19 +125,6 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
                 }else{
                     txt_fee.setText("0.00");
                 }
-            }
-        });
-
-        bank_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                bank_id = bankCards.get(position).getId();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -248,14 +230,16 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
     @Override
     public void onBankCardListSuccess(List<BankCard> list) {
-        bankCards = list;
-        String[] mItems = new String[bankCards.size()];
-        for (int i = 0; i < bankCards.size(); i++) {
-            mItems[i] = bankCards.get(i).getBank() + " " + bankCards.get(i).getCard_no();
+        if(list != null && list.size() > 0) {
+            BankCard bankCard = list.get(0);
+            txt_bank_card.setText(bankCard.getBank() + " " + bankCard.getCard_no());
+            bank_id = bankCard.getId();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mItems);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bank_spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void onRechargeInfoSuccess(BaseBean data) {
+
     }
 
     public static Fragment newInstance(Withdraw withdraw) {

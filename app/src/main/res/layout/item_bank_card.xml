@@ -51,16 +51,4 @@
         android:layout_alignParentBottom="true"
         />
 
-    <TextView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -2,13 +2,17 @@ package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.ui.adapter.BankCardListAdapter;
@@ -29,6 +33,7 @@ import retrofit2.adapter.rxjava.HttpException;
  */
 public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     @BindView(R.id.btn_addbankcard) Button btn_addbankcard;
+    @BindView(R.id.rl_list) RelativeLayout rl_list;
     private BankCardPresenter presenter;
     private BankCardListAdapter adapter;
 
@@ -49,20 +54,7 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     protected void initListeners() {
         btn_addbankcard.setOnClickListener(v-> {
             if(ViewUtil.isFastDoubleClick())return;
-            startActivityForResult(new Intent(BankCardActivity.this, AddBankCardActivity.class), Constant.REQUSET);
-        });
-
-        adapter.setOnDeleteClickListener((view,data)-> {
-            if(ViewUtil.isFastDoubleClick())return;
-            bankCard = data;
-            new AlertDialog.Builder(this)
-                    .setTitle("确认删除尾号为" + bankCard.getCard_no().substring(bankCard.getCard_no().length() - 4) + "的银行卡吗?")
-                    .setPositiveButton("确认", (dialog, which) -> {
-                        presenter.delBankCard(bankCard.getId());
-                    })
-                    .setNegativeButton("取消", (dialog, which) -> {
-                        dialog.dismiss();
-                    }).create().show();
+            presenter.getIdentityInfo();
         });
     }
 
@@ -117,12 +109,10 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
         mPtrFrame.refreshComplete();
         Constant.REALNAME = realname;
         if(list.size() == 0) {
-            empty.setVisibility(View.VISIBLE);
-            rv_list.setVisibility(View.INVISIBLE);
+            rl_list.setVisibility(View.GONE);
             btn_addbankcard.setVisibility(View.VISIBLE);
         }else{
-            empty.setVisibility(View.INVISIBLE);
-            rv_list.setVisibility(View.VISIBLE);
+            rl_list.setVisibility(View.VISIBLE);
             btn_addbankcard.setVisibility(View.GONE);
             adapter.setData(list,realname);
         }
@@ -138,10 +128,40 @@ public class BankCardActivity extends BaseSwipeActivity implements BankCardView{
     }
 
     @Override
+    public void onIdentityInfoSuccess(BaseBean<IdentityInfo> data) {
+        if (data.isSuccess()) {
+            Intent intent = new Intent(BankCardActivity.this, AddBankCardActivity.class);
+            intent.putExtra("data",data.getData());
+            startActivityForResult(intent, Constant.REQUSET);
+        } else {
+            Dialog.show("未实名认证",this);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Constant.REQUSET && resultCode == RESULT_OK){
             refresh();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_bank, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.explain) {
+            Intent intent = new Intent(BankCardActivity.this, WebViewActivity.class);
+            intent.putExtra("title", Constant.CARD_EXPLAIN);
+            intent.putExtra("url", Constant.CARD_EXPLAIN_URL);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

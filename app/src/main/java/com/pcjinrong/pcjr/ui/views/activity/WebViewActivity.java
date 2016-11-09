@@ -4,11 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.webkit.CookieManager;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.utils.JsInterface;
+import com.pcjinrong.pcjr.utils.SPUtils;
+import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
 
@@ -20,6 +29,7 @@ public class WebViewActivity extends BaseToolbarActivity {
     @BindView(R.id.web_view) WebView webView;
     private ProgressDialog dialog;
     private String url;
+    private JsInterface jsInterface = new JsInterface();
 
     @Override
     protected int getLayoutId() {
@@ -44,10 +54,20 @@ public class WebViewActivity extends BaseToolbarActivity {
         Intent intent = getIntent();
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webSettings
                 .setUserAgentString(webSettings.getUserAgentString() + "NewpcjrApp");
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+               webView.addJavascriptInterface(jsInterface,"jsInterface");
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -55,15 +75,28 @@ public class WebViewActivity extends BaseToolbarActivity {
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 dialog.dismiss();
                 webView.loadUrl("javascript:appdeletehead()");
+                jsInterface.setWvClientClickListener(new webViewClick());
+                CookieManager cookieManager = CookieManager.getInstance();
+                cookieManager.setCookie("m.pcjr.test","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
+                String c = cookieManager.getCookie("m.pcjr.test");
+                System.out.println("oldCookie:"+c);
             }
+
         });
+
+
         url = intent.getStringExtra("url");
-        setTitle(intent.getStringExtra("title"));
+        String title = intent.getStringExtra("title");
+        if(null == title || title.equals("")){
+            title = "皮城金融";
+        }
+        setTitle(title);
         webView.loadUrl(url);
     }
 
@@ -77,5 +110,13 @@ public class WebViewActivity extends BaseToolbarActivity {
             }
         }
         return false;
+    }
+
+    class webViewClick implements JsInterface.WvClientClickListener{
+
+        @Override
+        public void wvHasClickEnvent() {
+            finish();
+        }
     }
 }

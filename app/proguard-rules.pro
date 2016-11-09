@@ -115,3 +115,10 @@
 -keep class com.ashokvarma.bottomnavigation.** {*;}
 -keep class com.orhanbut.logger.** {*;}
 -keep class butterknife.** {*;}
+-keep class cn.sharesdk.** {*;}
+-keep class com.mob.** {*;}
+-keep class android.net.http.SslError
+-keep class android.webkit.**{*;}
+-keep class com.sina.**{*;}
+-keep class m.framework.**{*;}
+-keep class com.github.paolorotolo.appintro.**{*;}

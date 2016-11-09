@@ -143,6 +143,7 @@ public class IndexFragment extends BaseFragment implements MainView {
             Intent intent = new Intent(getActivity(), WebViewActivity.class);
             String url = announces.get(mCounter).getUrl();
             if (url != null && !url.equals("")) {
+                intent.putExtra("title","新闻公告 ");
                 intent.putExtra("url", announces.get(mCounter).getUrl());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

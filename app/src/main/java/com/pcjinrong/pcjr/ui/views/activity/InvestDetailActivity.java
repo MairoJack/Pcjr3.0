@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -40,6 +42,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.iwgang.countdownview.CountdownView;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * 投资详情
@@ -224,5 +228,27 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
             initData();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.btn_share) {
+            ShareSDK.initSDK(this);
+            OnekeyShare oks = new OnekeyShare();
+            oks.disableSSOWhenAuthorize();
+            oks.setTitle(product.getName()+"，年化收益"+product.getYear_income()+"%，"+product.getMonth());
+            oks.setTitleUrl(Constant.SHARE_URL);
+            oks.setImageUrl(Constant.SHARE_IMG_URL);
+            oks.setUrl(Constant.SHARE_DETAIL_URL+product.getId());
+            oks.show(this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

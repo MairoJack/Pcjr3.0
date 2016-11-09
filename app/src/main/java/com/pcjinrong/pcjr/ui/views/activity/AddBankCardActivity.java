@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
@@ -44,6 +45,7 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
     private ProgressDialog dialog;
     private AddBankCardPresenter presenter;
 
+    private IdentityInfo identityInfo;
     private String requestId;
 
     @Override
@@ -67,8 +69,8 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
         bksm.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             Intent intent = new Intent(AddBankCardActivity.this, WebViewActivity.class);
-            intent.putExtra("title", Constant.USE_AGREEMENT);
-            intent.putExtra("url", Constant.USE_AGREEMENT_URL);
+            intent.putExtra("title", Constant.CARD_EXPLAIN);
+            intent.putExtra("url", Constant.CARD_EXPLAIN_URL);
             startActivity(intent);
         });
 
@@ -85,6 +87,7 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
 
     @Override
     protected void initData() {
+        identityInfo = (IdentityInfo) getIntent().getSerializableExtra("data");
         txt_cardholder.setText(Constant.REALNAME);
         presenter = new AddBankCardPresenter();
         presenter.attachView(this);
@@ -108,7 +111,7 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
         btn_verify.setClickable(false);
         btn_verify.setBackgroundResource(R.drawable.btn_disable);
         time.start();
-        presenter.bindCard("628",cardNo,mobile);
+        presenter.bindCard(identityInfo.getId(),cardNo,mobile);
     }
 
     public void save() {
@@ -133,7 +136,7 @@ public class AddBankCardActivity extends BaseToolbarActivity implements AddBankC
         }
         dialog.setMessage("正在提交...");
         dialog.show();
-        presenter.addBankCard(requestId, card_no);
+        presenter.addBankCard(requestId, checkCode);
     }
 
     @Override

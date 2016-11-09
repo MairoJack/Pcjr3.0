@@ -22,7 +22,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_above="@+id/forget"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
     </FrameLayout>
 
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="60dp"
             android:layout_alignParentBottom="true"
             android:text="忘记手势密码?"
             android:textColor="#ffcdc5"

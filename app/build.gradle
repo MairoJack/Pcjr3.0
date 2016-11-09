@@ -91,8 +91,19 @@ dependencies {
     compile 'com.github.iwgang:countdownview:2.1.1'
     //AlertView
     compile 'com.bigkoo:alertview:1.0.2'
+    //引导页
+    compile 'com.github.paolorotolo:appintro:4.1.0'
     //信鸽推送
     compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
     compile files('libs/jg_filter_sdk_1.1.jar')
     compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
+    //分享
+    compile files('libs/MobCommons-2016.1020.1028.jar')
+    compile files('libs/MobTools-2016.1020.1028.jar')
+    compile files('libs/ShareSDK-Core-2.7.8.jar')
+    compile files('libs/ShareSDK-QQ-2.7.8.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.7.8.jar')
 }

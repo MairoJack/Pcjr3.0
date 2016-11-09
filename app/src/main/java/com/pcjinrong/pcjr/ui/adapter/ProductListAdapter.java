@@ -1,12 +1,14 @@
 package com.pcjinrong.pcjr.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.constant.Constant;
@@ -41,14 +43,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void setData(List<Product> list, long server_time, long sys_time) {
         this.list.clear();
         this.list = list;
-        this.server_time = server_time * 1000;
+        this.server_time = server_time;
         this.sys_time = sys_time;
         notifyDataSetChanged();
     }
 
     public void addAll(List<Product> list, long server_time, long sys_time) {
         this.list.addAll(list);
-        this.server_time = server_time * 1000;
+        this.server_time = server_time;
         this.sys_time = sys_time;
         notifyDataSetChanged();
     }
@@ -126,6 +128,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         @BindView(R.id.income) TextView mIvIncome;
         @BindView(R.id.amount) TextView mIvAmount;
         @BindView(R.id.month) TextView mIvMonth;
+        @BindView(R.id.welfare) TextView mIvWelfare;
 
         @BindView(R.id.tqhk) ImageView mIvTqhk;
 
@@ -138,11 +141,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             mIvName.setText(object.getName());
             int repayment = object.getRepayment();
             int preview_repayment = object.getIs_preview_repayment();
+            if(object.getIs_welfare() == 1){
+                mIvWelfare.setVisibility(View.VISIBLE);
+            }else{
+                mIvWelfare.setVisibility(View.GONE);
+            }
             switch (repayment) {
                 case 0:mIvRepayment.setText("一次还本付息");break;
-                case 1:mIvRepayment.setText("先息后本(按月付息)");break;
+                case 1:mIvRepayment.setText("先息后本(月)");break;
                 case 2:mIvRepayment.setText("等额本息");break;
-                case 3:mIvRepayment.setText("先息后本(按季付息)");break;
+                case 3:mIvRepayment.setText("先息后本(季)");break;
             }
             if (object.getFinish_preview_repayment() == 1) {
                 mIvTqhk.setImageResource(R.mipmap.ic_tqhk);
@@ -183,6 +191,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             } else {
                 mIvRate.setText(object.getRate() + "%");
                 mIvProgressWheel.setProgress(18 * object.getRate() / 5);
+                mIvProgressWheel.setVisibility(View.INVISIBLE);
+                mIvProgressWheel.setVisibility(View.VISIBLE);
             }
         }
     }

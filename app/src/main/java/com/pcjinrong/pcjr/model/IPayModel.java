@@ -2,6 +2,8 @@ package com.pcjinrong.pcjr.model;
 
 import com.pcjinrong.pcjr.bean.PayBean;
 
+import java.security.NoSuchAlgorithmException;
+
 import rx.Observable;
 
 /**
@@ -9,7 +11,7 @@ import rx.Observable;
  */
 public interface IPayModel {
 
-    Observable<PayBean> bind_card(String memberID, String cardNo, String phone);
+    Observable<PayBean> bind_card(String memberID, String cardNo, String phone) throws NoSuchAlgorithmException;
 
     Observable<PayBean> confirm_bind_card(String requestId, String validatecode);
 

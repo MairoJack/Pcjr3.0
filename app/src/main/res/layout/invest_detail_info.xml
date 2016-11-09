@@ -77,11 +77,25 @@
                         ProgressWheel:pwTextSize="14sp" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="70dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="福利产品"
+                        android:textColor="@color/item_product_repayment_text_color"
+                        android:textSize="@dimen/item_product_repayment_text_size"
+                        android:background="@drawable/bg_corner_orange"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/welfare"
+                        android:visibility="gone"/>
+
+                    <TextView
                         android:id="@+id/year_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="80dp"
+                        android:layout_marginTop="90dp"
                         android:text="10.00%"
                         android:textColor="@color/color_text"
                         android:textSize="50dp"
@@ -93,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/year_income"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="10dp"
                         android:text="年化收益率"
                         android:textColor="@color/color_text"
                         android:textSize="@dimen/text_size_title" />

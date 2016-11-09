@@ -12,11 +12,13 @@ public class ApiConstant {
     public final static String CLIENT_ID = "1";
     public final static String CLIENT_SECRET = "123";
     public final static String BEARER = "Bearer";
+    public final static String ACCEPT = "application/x.pcjr.v2+json";
+    public final static String SUFFIX = "pcjrjsb";
 
     /**
      * 快捷支付接口
      */
-    public final static String PAY_URL = "http://122.225.68.207/yibao/quick/";
+    public final static String PAY_URL = "http://paytest.pcjr.com/yibao/quick/";
 
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int MAX_RETRY_COUNT = 2;

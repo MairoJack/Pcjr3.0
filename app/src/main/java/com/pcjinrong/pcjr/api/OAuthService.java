@@ -12,6 +12,7 @@ import com.pcjinrong.pcjr.bean.Letter;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -101,12 +102,18 @@ public interface OAuthService {
     Observable<BaseBean<IdentityInfo>> getMemberIdentityInfo();
 
     /**
-     * 获取用户银行卡信息
+     * 获取用户银行卡信息v1
      *
      */
     @GET("member/bank_card_info")
     Observable<BaseBean<List<BankCard>>> getMemberBankCardInfo();
 
+    /**
+     * 获取用户银行卡信息v2
+     *
+     */
+    @GET("member/bank_card_info")
+    Observable<BaseBean<RechargeInfo>> getRechargeInfo(@Header("Accept") String header);
 
     /**
      * 添加银行卡
