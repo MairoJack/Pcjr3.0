@@ -8,19 +8,13 @@ import android.view.View;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.api.ApiConstant;
-import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.InvestTicket;
-import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.core.BaseSwipeFragment;
-import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.InvestTicketListAdapter;
-import com.pcjinrong.pcjr.ui.adapter.ProductListAdapter;
-import com.pcjinrong.pcjr.ui.presenter.InvestListPresenter;
 import com.pcjinrong.pcjr.ui.presenter.InvestTicketPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestTicketView;
 import com.pcjinrong.pcjr.ui.views.activity.InvestTicketDetailActivity;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
-import com.pcjinrong.pcjr.ui.views.activity.MsgDetailActivity;
 
 import java.util.List;
 

@@ -3,15 +3,18 @@ package com.pcjinrong.pcjr.data;
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.api.ApiConstant;
+import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
+import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PayBean;
@@ -297,9 +300,9 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
-    public Observable<BaseBean> investProduct(String amount, String id, String password) {
+    public Observable<BaseBean> investProduct(String amount, String id, String password,String interestTicketId) {
         return Observable.just(null)
-                .flatMap(o -> oAuthModel.investProduct(amount, id, password))
+                .flatMap(o -> oAuthModel.investProduct(amount, id, password,interestTicketId))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
@@ -314,6 +317,27 @@ public class DataManager {
     public Observable<BaseBean> refreshDeviceToken(String device_token) {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.refreshDeviceToken(device_token))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<InterestTicket>>> getAvailableInterestTicketList() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getAvailableInterestTicketList())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<List<InterestTicket>>> getInterestTicketList(int type, int page, int page_size) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getInterestTicketList(type, page, page_size))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean<InterestTicket>> getInterestTicketDetail(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getInterestTicketDetail(id))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
@@ -345,14 +369,18 @@ public class DataManager {
                 .flatMap(new Func1<PayBean, Observable<PayBean>>() {
                     @Override
                     public Observable<PayBean> call(PayBean payResult) {
-                        Observable<PayBean> o = payModel.send_verify_code(memberID,payResult.getOrder_no());
-                        return o.map(new Func1<PayBean, PayBean>() {
-                            @Override
-                            public PayBean call(PayBean payBean) {
-                                payBean.setOrder_no(payResult.getOrder_no());
-                                return payBean;
-                            }
-                        });
+                        if(payResult.isSuccess()) {
+                            Observable<PayBean> o = payModel.send_verify_code(memberID, payResult.getOrder_no());
+                            return o.map(new Func1<PayBean, PayBean>() {
+                                @Override
+                                public PayBean call(PayBean payBean) {
+                                    payBean.setOrder_no(payResult.getOrder_no());
+                                    return payBean;
+                                }
+                            });
+                        }else{
+                            return Observable.just(null).map((payBean)-> payResult);
+                        }
                     }
                 })
                 .compose(RxUtils.applyIOToMainThreadSchedulers());

@@ -2,11 +2,14 @@ package com.pcjinrong.pcjr.ui.presenter;
 
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestDetailView;
+
+import java.util.List;
 
 import rx.Subscriber;
 
@@ -68,6 +71,30 @@ public class InvestDetailPresenter extends BasePresenter<InvestDetailView> {
                     public void onNext(BaseBean<Withdraw> data) {
                         if (InvestDetailPresenter.this.getMvpView() != null)
                             InvestDetailPresenter.this.getMvpView().onInvestInfoSuccess(data);
+                    }
+                }));
+    }
+
+    public void getInterestList() {
+        this.mCompositeSubscription.add(this.mDataManager.getAvailableInterestTicketList()
+                .subscribe(new Subscriber<BaseBean<List<InterestTicket>>>() {
+                    @Override
+                    public void onCompleted() {
+                        if (InvestDetailPresenter.this.mCompositeSubscription != null) {
+                            InvestDetailPresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        InvestDetailPresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(BaseBean<List<InterestTicket>> data) {
+                        if (InvestDetailPresenter.this.getMvpView() != null)
+                            InvestDetailPresenter.this.getMvpView().onInterestListSuccess(data.getData());
                     }
                 }));
     }

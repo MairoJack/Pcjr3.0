@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@mipmap/ic_invest_ticket_bg_left"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="3dp"
+            tools:text="0.50"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:textColor="@color/color_text_light" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_light" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="15dp"
+        android:layout_height="100dp"
+        android:background="@mipmap/ic_line"/>
+    <LinearLayout
+        android:background="@mipmap/ic_invest_ticket_bg_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="单笔投资500000以下"
+            android:textSize="@dimen/text_size_18sp"
+            android:textColor="@color/color_text_light" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="来源：皮城金融周年庆，颠覆你的生日观"
+            android:textSize="12sp"
+            android:textColor="@color/color_text_light" />
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            tools:text="有效期至：2016-06-21"
+            android:textColor="@color/color_text_light" />
+    </LinearLayout>
+
+</LinearLayout>

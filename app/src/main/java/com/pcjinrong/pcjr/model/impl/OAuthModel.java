@@ -2,14 +2,17 @@ package com.pcjinrong.pcjr.model.impl;
 
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
+import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
+import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
@@ -176,8 +179,8 @@ public class OAuthModel implements IOAuthModel {
     }
 
     @Override
-    public Observable<BaseBean> investProduct(String amount, String id, String password) {
-        return RetrofitManager.getInstance().getAuthService().investProduct(amount,id,password);
+    public Observable<BaseBean> investProduct(String amount, String id, String password,String interestTicketId) {
+        return RetrofitManager.getInstance().getAuthService().investProduct(amount,id,password,interestTicketId);
     }
 
     @Override
@@ -188,6 +191,21 @@ public class OAuthModel implements IOAuthModel {
     @Override
     public Observable<BaseBean> refreshDeviceToken(String device_token) {
         return RetrofitManager.getInstance().getAuthService().refreshDeviceToken(device_token);
+    }
+
+    @Override
+    public Observable<BaseBean<List<InterestTicket>>> getAvailableInterestTicketList() {
+        return RetrofitManager.getInstance().getAuthService().getAvailableInterestTicketList();
+    }
+
+    @Override
+    public Observable<BaseBean<List<InterestTicket>>> getInterestTicketList(int type, int page, int page_size) {
+        return RetrofitManager.getInstance().getAuthService().getInterestTicketList(type,page,page_size);
+    }
+
+    @Override
+    public Observable<BaseBean<InterestTicket>> getInterestTicketDetail(String id) {
+        return RetrofitManager.getInstance().getAuthService().getInterestTicketDetail(id);
     }
 
 

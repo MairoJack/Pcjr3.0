@@ -83,8 +83,8 @@ public class WebViewActivity extends BaseToolbarActivity {
                 webView.loadUrl("javascript:appdeletehead()");
                 jsInterface.setWvClientClickListener(new webViewClick());
                 CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setCookie("m.pcjr.test","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
-                String c = cookieManager.getCookie("m.pcjr.test");
+                cookieManager.setCookie(".pcjr.com","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
+                String c = cookieManager.getCookie(".pcjr.com");
                 System.out.println("oldCookie:"+c);
             }
 

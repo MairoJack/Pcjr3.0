@@ -1,9 +1,12 @@
 package com.pcjinrong.pcjr.ui.presenter.ivview;
 
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
+
+import java.util.List;
 
 
 /**
@@ -15,4 +18,5 @@ public interface InvestDetailView extends MvpView {
 
     void onInvestInfoSuccess(BaseBean<Withdraw> data);
 
+    void onInterestListSuccess(List<InterestTicket> list);
 }

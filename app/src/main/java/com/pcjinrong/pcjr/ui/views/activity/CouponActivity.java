@@ -19,9 +19,11 @@ import butterknife.BindView;
  * Created by Mario on 2016/5/24.
  */
 public class CouponActivity extends BaseToolbarActivity {
+    @BindView(R.id.interest_ticket) RelativeLayout interest_ticket;
     @BindView(R.id.invest_certificate) RelativeLayout invest_certificate;
     @BindView(R.id.red_packet) RelativeLayout red_packet;
 
+    @BindView(R.id.interest_ticket_number) TextView interest_ticket_number;
     @BindView(R.id.invest_ticket_number) TextView invest_ticket_number;
     @BindView(R.id.red_packet_number) TextView red_packet_number;
 
@@ -44,6 +46,11 @@ public class CouponActivity extends BaseToolbarActivity {
             startActivity(new Intent(CouponActivity.this, InvestTicketActivity.class));
         });
 
+        interest_ticket.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            startActivity(new Intent(CouponActivity.this, InterestTicketActivity.class));
+        });
+
         red_packet.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             startActivity(new Intent(CouponActivity.this, RedPacketActivity.class));
@@ -55,12 +62,19 @@ public class CouponActivity extends BaseToolbarActivity {
         Intent intent = getIntent();
         Coupon coupon = (Coupon) intent.getSerializableExtra("data");
         int investTicketNum = coupon.getInvest_ticket_num();
+        int interestTicketNum = coupon.getInterest_ticket_num();
         int redPacketNum = coupon.getRed_packet_num();
         if (investTicketNum != 0) {
             invest_ticket_number.setVisibility(View.VISIBLE);
             invest_ticket_number.setText(String.valueOf(investTicketNum));
         } else {
             invest_ticket_number.setVisibility(View.GONE);
+        }
+        if (interestTicketNum != 0) {
+            interest_ticket_number.setVisibility(View.VISIBLE);
+            interest_ticket_number.setText(String.valueOf(interestTicketNum));
+        } else {
+            interest_ticket_number.setVisibility(View.GONE);
         }
         if (redPacketNum != 0) {
             red_packet_number.setVisibility(View.VISIBLE);

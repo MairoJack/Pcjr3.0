@@ -38,7 +38,7 @@ public class RedPacketActivity extends BaseToolbarActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.member_coupon_invest_ticket;
+        return R.layout.member_coupon_red_packet;
     }
 
     @Override

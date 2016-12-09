@@ -28,7 +28,7 @@ public class Product implements Serializable {
     @Expose
     private long pub_date;
     @Expose
-    private String series;
+    private int series;
     @Expose
     private int is_preview_repayment;
     @Expose
@@ -45,6 +45,8 @@ public class Product implements Serializable {
     private long repayment_date;
     @Expose
     private long value_date;
+    @Expose
+    private long deadline;
     @Expose
     private String guarantors_name;
     @Expose
@@ -132,11 +134,11 @@ public class Product implements Serializable {
         this.pub_date = pub_date;
     }
 
-    public String getSeries() {
+    public int getSeries() {
         return series;
     }
 
-    public void setSeries(String series) {
+    public void setSeries(int series) {
         this.series = series;
     }
 
@@ -290,5 +292,13 @@ public class Product implements Serializable {
 
     public void setIs_welfare(int is_welfare) {
         this.is_welfare = is_welfare;
+    }
+
+    public long getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(long deadline) {
+        this.deadline = deadline;
     }
 }

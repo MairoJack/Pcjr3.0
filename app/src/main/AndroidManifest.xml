@@ -58,6 +58,8 @@
         <activity android:name=".ui.views.activity.CouponActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestTicketActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestTicketDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InterestTicketActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InterestTicketDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.RedPacketActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>

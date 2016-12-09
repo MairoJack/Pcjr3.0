@@ -63,242 +63,251 @@
                 android:background="@color/colorPrimary" />
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="0.8dp"
-                android:background="@color/color_content_background">
-
-                <TextView
-                    android:id="@+id/amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="充值金额"
-                    android:textSize="@dimen/text_size_16sp" />
-
-                <EditText
-                    android:id="@+id/txt_amount"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/amount"
-                    android:background="@null"
-                    android:inputType="numberDecimal"
-                    android:textColorHint="@color/color_text_light"
-                    android:textSize="@dimen/text_size_16sp"
-                    android:hint="免服务费" />
-
-                <ImageView
-                    android:id="@+id/info"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:src="@mipmap/icon_info" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="right|center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txt_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="账户余额：500.00元"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_14sp"
-                android:layout_marginRight="10dp"/>
-
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="0.8dp"
-                android:background="@color/color_content_background">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
 
-                <TextView
-                    android:id="@+id/realname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="真实姓名"
-                    android:textSize="@dimen/text_size_16sp" />
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txt_realname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/realname"
-                    android:textColor="#c6c6c6"
-                    android:textSize="@dimen/text_size_16sp"
-                    tools:text="马立" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0.8dp"
+                    android:background="@color/color_content_background">
 
-            </RelativeLayout>
-            <RelativeLayout
+                    <TextView
+                        android:id="@+id/amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="充值金额"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <EditText
+                        android:id="@+id/txt_amount"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/amount"
+                        android:background="@null"
+                        android:hint="免服务费"
+                        android:inputType="numberDecimal"
+                        android:textColorHint="@color/color_text_light"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <ImageView
+                        android:id="@+id/info"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/icon_info" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="0.8dp"
-                android:background="@color/color_content_background">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="right|center_horizontal"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/bank_card"
+                    android:id="@+id/txt_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="银  行  卡"
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_14sp"
+                    tools:text="账户余额：500.00元" />
 
-                <TextView
-                    android:id="@+id/txt_bank_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/bank_card"
-                    android:textColor="#c6c6c6"
-                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
 
-            </RelativeLayout>
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="0.8dp"
-                android:background="@color/color_content_background">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="银行预留手机"
-                    android:textSize="@dimen/text_size_16sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0.8dp"
+                    android:background="@color/color_content_background">
 
-                <TextView
-                    android:id="@+id/txt_mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/mobile"
-                    android:textColor="#c6c6c6"
-                    android:textSize="@dimen/text_size_16sp"
-                    tools:text="130****1122" />
+                    <TextView
+                        android:id="@+id/realname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="真实姓名"
+                        android:textSize="@dimen/text_size_16sp" />
 
-            </RelativeLayout>
-            <RelativeLayout
+                    <TextView
+                        android:id="@+id/txt_realname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/realname"
+                        android:textColor="#c6c6c6"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="马立" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0.8dp"
+                    android:background="@color/color_content_background">
+
+                    <TextView
+                        android:id="@+id/bank_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="银  行  卡"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_bank_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/bank_card"
+                        android:textColor="#c6c6c6"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0.8dp"
+                    android:background="@color/color_content_background">
+
+                    <TextView
+                        android:id="@+id/mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="银行预留手机"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/mobile"
+                        android:textColor="#c6c6c6"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="130****1122" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0.8dp"
+                    android:background="@color/color_content_background">
+
+                    <TextView
+                        android:id="@+id/verify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="验  证  码"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <EditText
+                        android:id="@+id/txt_verify"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/verify"
+                        android:background="@null"
+                        android:hint="验证码"
+                        android:inputType="number"
+                        android:textColorHint="@color/color_text_light"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <Button
+                        android:id="@+id/btn_verify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/btn_primary"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="获取验证码"
+                        android:textColor="@color/color_content_background" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_apply"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="0.8dp"
-                android:background="@color/color_content_background">
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/btn_primary"
+                android:text="充　值"
+                android:textColor="@color/color_content_background"
+                android:textSize="@dimen/text_size_18sp" />
 
-                <TextView
-                    android:id="@+id/verify"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp">
+
+                <CheckBox
+                    android:id="@+id/agree"
+                    style="@style/CustomCheckboxTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="验  证  码"
-                    android:textSize="@dimen/text_size_16sp" />
-
-                <EditText
-                    android:id="@+id/txt_verify"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/verify"
                     android:background="@null"
-                    android:hint="验证码"
-                    android:inputType="number"
-                    android:textColorHint="@color/color_text_light"
+                    android:checked="true"
+                    android:text=" 同意"
+                    android:textColor="@color/color_text"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <Button
-                    android:id="@+id/btn_verify"
+                <TextView
+                    android:id="@+id/service_agreement"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:textColor="@color/color_content_background"
-                    android:background="@drawable/btn_primary"
-                    android:text="获取验证码" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:text="《一键支付服务协议》"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
         </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btn_apply"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/btn_primary"
-            android:text="充　值"
-            android:textColor="@color/color_content_background"
-            android:textSize="@dimen/text_size_18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp">
-
-            <CheckBox
-                android:id="@+id/agree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="@dimen/text_size_16sp"
-                style="@style/CustomCheckboxTheme"
-                android:textColor="@color/color_text"
-                android:text=" 同意"
-                />
-
-            <TextView
-                android:id="@+id/service_agreement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_16sp"
-                android:text="《一键支付服务协议》"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

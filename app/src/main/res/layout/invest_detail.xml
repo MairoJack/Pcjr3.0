@@ -31,20 +31,32 @@
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 
-    <Button
-        android:id="@+id/btn_status"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/btn_primary"
-        android:text="立即投资"
-        android:textColor="@color/color_button"
-        android:textSize="@dimen/text_size_title"
-        />
-
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="5dp">
+        <ImageButton
+            android:id="@+id/btn_jxq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_jxq"
+            />
+        <Button
+            android:id="@+id/btn_status"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_primary"
+            android:text="立即投资"
+            android:textColor="@color/color_button"
+            android:textSize="@dimen/text_size_title"
+            />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_cv_countdown"
         android:layout_width="match_parent"
@@ -78,4 +90,6 @@
             app:timeTextColor="@color/white"
             app:timeTextSize="16dp" />
     </LinearLayout>
+
+
 </LinearLayout>

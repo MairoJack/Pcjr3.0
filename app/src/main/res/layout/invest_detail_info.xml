@@ -96,9 +96,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="90dp"
-                        android:text="10.00%"
+                        android:text="8.0+0.5%"
                         android:textColor="@color/color_text"
-                        android:textSize="50dp"
+                        android:textSize="43dp"
                         android:textStyle="bold" />
 
                     <TextView

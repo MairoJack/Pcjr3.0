@@ -147,7 +147,7 @@
                     android:id="@+id/month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="12"
+                    tools:text="8.00+0.5"
                     android:textColor="@color/item_product_text_color"
                     android:textSize="@dimen/item_product_text_size" />
 

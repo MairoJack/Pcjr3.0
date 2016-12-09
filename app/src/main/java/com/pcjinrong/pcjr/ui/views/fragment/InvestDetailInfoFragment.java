@@ -12,7 +12,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
@@ -26,6 +28,7 @@ import com.pcjinrong.pcjr.widget.ProgressWheel;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -216,6 +219,11 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
     @Override
     public void onInvestInfoSuccess(BaseBean<Withdraw> data) {
+
+    }
+
+    @Override
+    public void onInterestListSuccess(List<InterestTicket> list) {
 
     }
 

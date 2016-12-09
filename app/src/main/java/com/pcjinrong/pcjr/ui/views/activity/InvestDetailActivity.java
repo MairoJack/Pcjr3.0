@@ -3,39 +3,50 @@ package com.pcjinrong.pcjr.ui.views.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
-import com.pcjinrong.pcjr.core.mvp.MvpView;
-import com.pcjinrong.pcjr.ui.adapter.InvestRecordsListAdapter;
+import com.pcjinrong.pcjr.ui.adapter.InterestListAdapter;
 import com.pcjinrong.pcjr.ui.adapter.TabFragmentAdapter;
+import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 import com.pcjinrong.pcjr.ui.presenter.InvestDetailPresenter;
-import com.pcjinrong.pcjr.ui.presenter.InvestRecordsPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestDetailView;
 import com.pcjinrong.pcjr.ui.views.fragment.InvestDetailInfoFragment;
 import com.pcjinrong.pcjr.ui.views.fragment.InvestDetailRecordFragment;
 import com.pcjinrong.pcjr.ui.views.fragment.InvestDetailRiskFragment;
-import com.pcjinrong.pcjr.ui.views.fragment.InvestTicketFragment;
 import com.pcjinrong.pcjr.utils.DateUtils;
 import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +68,8 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     ViewPager viewPager;
     @BindView(R.id.btn_status)
     Button btn_status;
+    @BindView(R.id.btn_jxq)
+    ImageButton btn_jxq;
     @BindView(R.id.layout_cv_countdown)
     LinearLayout layout_cdv;
     @BindView(R.id.cv_countdown)
@@ -69,7 +82,10 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     private List<String> titleList;
 
     private ProgressDialog dialog;
+    private BottomSheetDialog bottomSheetDialog;
     private Product product;
+
+    private InterestListAdapter adapter;
 
     @Override
     protected int getLayoutId() {
@@ -81,6 +97,24 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         showBack();
         setTitle("投资详情");
         dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+        bottomSheetDialog = new BottomSheetDialog(this);
+        adapter = new InterestListAdapter();
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.interest_list, (ViewGroup) findViewById(R.id.dialog));
+        RecyclerView rv_list = (RecyclerView) view.findViewById(R.id.rv_list);
+        ImageView btn_close = (ImageView) view.findViewById(R.id.btn_close);
+
+        btn_close.setOnClickListener(v-> bottomSheetDialog.dismiss());
+
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv_list.setLayoutManager(manager);
+        rv_list.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL, 1, ContextCompat.getColor(this, R.color.color_background)));
+        rv_list.setItemAnimator(new DefaultItemAnimator());
+        rv_list.setAdapter(adapter);
+        bottomSheetDialog.setContentView(view);
+
     }
 
     @Override
@@ -103,6 +137,22 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             presenter.getWithdrawInvestInfo();
         });
 
+        btn_jxq.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            Intent intent;
+            if (!Constant.IS_LOGIN) {
+                intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
+                intent.putExtra("tag", "invest");
+                startActivity(intent);
+                return;
+            }
+            if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
+                startActivity(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class));
+                return;
+            }
+            bottomSheetDialog.show();
+        });
+
         cdv.setOnCountdownEndListener(cv -> {
             layout_cdv.setVisibility(View.GONE);
             btn_status.setVisibility(View.VISIBLE);
@@ -118,9 +168,12 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         this.presenter = new InvestDetailPresenter();
         this.presenter.attachView(this);
 
+
+
         dialog.setMessage("正在加载...");
         dialog.show();
         presenter.getProductDetail(id);
+
     }
 
     @Override
@@ -200,6 +253,9 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
+        if(Constant.IS_LOGIN) {
+            presenter.getInterestList();
+        }
         if (dialog.isShowing()) dialog.dismiss();
         this.product = data.getData();
         buildTabLayout(product);
@@ -220,6 +276,11 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         } else {
             Dialog.show(data.getMessage(), this);
         }
+    }
+
+    @Override
+    public void onInterestListSuccess(List<InterestTicket> list) {
+        adapter.setData(list,product);
     }
 
     @Override

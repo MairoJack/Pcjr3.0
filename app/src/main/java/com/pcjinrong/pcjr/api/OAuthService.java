@@ -1,14 +1,17 @@
 package com.pcjinrong.pcjr.api;
 
 import com.google.gson.JsonObject;
+import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
+import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
+import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
@@ -283,11 +286,12 @@ public interface OAuthService {
      * @param amount       投资金额
      * @param id           产品ID
      * @param password     密码
+     * @param interestTicketId     加息券ID
      * @return
      */
     @FormUrlEncoded
     @POST("member/invest_product")
-    Observable<BaseBean> investProduct(@Field("amount") String amount, @Field("id") String id, @Field("password") String password);
+    Observable<BaseBean> investProduct(@Field("amount") String amount, @Field("id") String id, @Field("password") String password, @Field("interest_ticket_id") String interestTicketId);
 
     /**
      * 领取红包
@@ -308,4 +312,33 @@ public interface OAuthService {
     @FormUrlEncoded
     @POST("member/refresh_device_token")
     Observable<BaseBean> refreshDeviceToken(@Field("device_token") String device_token);
+
+    /**
+     * 获取当前可用加息券列表
+     *
+     * @return
+     */
+    @GET("member/available_interest_ticket_list")
+    Observable<BaseBean<List<InterestTicket>>> getAvailableInterestTicketList();
+
+
+    /**
+     * 获取用户加息券列表
+     *
+     * @param type         0 未使用; 1 已使用; 2 已过期;
+     * @param page
+     * @return
+     */
+    @GET("member/interest_ticket_list")
+    Observable<BaseBean<List<InterestTicket>>> getInterestTicketList(@Query("type") int type, @Query("page") int page, @Query("page_size") int pageSize);
+
+    /**
+     * 获取用户加息券详情
+     *
+     * @param id
+     * @return
+     */
+    @GET("member/interest_ticket_detail")
+    Observable<BaseBean<InterestTicket>> getInterestTicketDetail(@Query("id") String id);
+
 }
