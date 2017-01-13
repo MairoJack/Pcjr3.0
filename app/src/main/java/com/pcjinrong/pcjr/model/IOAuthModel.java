@@ -17,6 +17,7 @@ import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
+import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
 
@@ -93,4 +94,6 @@ public interface IOAuthModel {
     Observable<BaseBean<List<InterestTicket>>> getInterestTicketList(int type, int page, int page_size);
 
     Observable<BaseBean<InterestTicket>> getInterestTicketDetail(String id);
+
+    Observable<RiskAssessmentScore> getRiskAssessmentScore();
 }

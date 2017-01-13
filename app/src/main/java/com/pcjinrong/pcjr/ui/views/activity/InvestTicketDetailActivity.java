@@ -21,7 +21,7 @@ import butterknife.BindView;
  */
 public class InvestTicketDetailActivity extends BaseToolbarActivity {
     @BindView(R.id.msg) TextView msg;
-    @BindView(R.id.title) TextView title;
+    @BindView(R.id.mTitle) TextView mTitle;
     @BindView(R.id.end_time) TextView end_time;
     @BindView(R.id.introduction) TextView introduction;
 
@@ -47,8 +47,8 @@ public class InvestTicketDetailActivity extends BaseToolbarActivity {
         InvestTicket investTicket = (InvestTicket) intent.getSerializableExtra("data");
 
         msg.setText("满 " + investTicket.getReach_amount() + " 元返 " + investTicket.getAmount() + " 元");
-        title.setText("来源:" + investTicket.getTitle());
-        end_time.setText(DateUtils.dateTimeToStr(new Date(investTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
+        mTitle.setText("来源:" + investTicket.getTitle());
+        end_time.setText("有效期至:"+DateUtils.dateTimeToStr(new Date(investTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
         introduction.setText(investTicket.getActivity().getIntroduction().replace("</br>", ""));
 
     }

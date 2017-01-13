@@ -259,6 +259,7 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
                 Intent intent = new Intent(WithdrawActivity.this, WebViewActivity.class);
                 intent.putExtra("title", Constant.RISK_ASSESS);
                 intent.putExtra("url", Constant.RISK_ASSESS_URL);
+                intent.putExtra("assessType",1);
                 startActivity(intent);
                 return;
             }

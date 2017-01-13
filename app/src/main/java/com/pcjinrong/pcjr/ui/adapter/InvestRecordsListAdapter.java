@@ -91,12 +91,18 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
 
             String amount = object.getAmount();
             String interestTotal = object.getInterest_total();
+            String extraInterestTotal = object.getExtra_interest_total();
 
             mIvAmount.setText(amount);
-            mIvYearIncome.setText(object.getYear_income());
+            if(object.getInterest_year_income().equals("0.00")){
+                mIvYearIncome.setText(object.getYear_income());
+            }else {
+                mIvYearIncome.setText(object.getYear_income() + "+" + object.getInterest_year_income());
+            }
             BigDecimal bd_amount = new BigDecimal(amount);
             BigDecimal bd_interestTotal = new BigDecimal(interestTotal);
-            mIvIncome.setText(String.valueOf(bd_amount.add(bd_interestTotal)));
+            BigDecimal bd_extraInterestTotal = new BigDecimal(extraInterestTotal);
+            mIvIncome.setText(String.valueOf(bd_amount.add(bd_interestTotal).add(bd_extraInterestTotal)));
             mIvDate.setText(joinDate+"起投-"+deadline+"到期");
         }
     }

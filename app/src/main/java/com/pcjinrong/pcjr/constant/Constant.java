@@ -4,6 +4,7 @@ import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 
 public class Constant {
 
+
     public static boolean IS_LOGIN = false;
     public static boolean IS_GESTURE_LOGIN = false;
 
@@ -42,7 +43,7 @@ public class Constant {
     public static final String TIPS = "温馨提示";
     public static final String COUPONS_TIPS_URL = "https://m.pcjr.com/appdeal/coupons";
     public static final String REDPACKET_TIPS_URL = "https://m.pcjr.com/appdeal/redpacket";
-    public static final String INTEREST_TIPS_URL = "https://m.pcjr.com/coupons/profittips";
+    public static final String INTEREST_TIPS_URL = "https://m.pcjr.com/appdeal/profittips";
 
     public static final String PLATFORM_ANNOUNCEMENT = "平台公告";
     public static final String PREPAYMENT_URL = "https://m.pcjr.com/platformnews/platformnewsdetail/index.html?id=87";
@@ -63,6 +64,7 @@ public class Constant {
 
     public static final String RISK_ASSESS = "风险评估";
     public static final String RISK_ASSESS_URL = "https://m.pcjr.com/riskassess";
+    public static final String RISK_ASSESS_RESULST_URL = "https://m.pcjr.com/riskassess/result?score=";
 
     public static final String SHARE_URL = " https://m.pcjr.com";
     public static final String SHARE_LIST_URL = "https://m.pcjr.com/invest";

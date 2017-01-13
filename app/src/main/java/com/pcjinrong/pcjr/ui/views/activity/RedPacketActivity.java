@@ -44,7 +44,7 @@ public class RedPacketActivity extends BaseToolbarActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         showBack();
-        setTitle("投资券");
+        setTitle("红包");
 
         fragmentList = new ArrayList<>();
         fragmentList.add(RedPacketFragment.newInstance(0));

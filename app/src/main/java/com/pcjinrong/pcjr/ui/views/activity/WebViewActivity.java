@@ -61,6 +61,14 @@ public class WebViewActivity extends BaseToolbarActivity {
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
                webView.addJavascriptInterface(jsInterface,"jsInterface");
 
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setCookie(".pcjr.com","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
+        if(intent.getIntExtra("assessType",0) == 1){
+            cookieManager.setCookie(".pcjr.com","type=1");
+        }else{
+            cookieManager.setCookie(".pcjr.com","type=0");
+        }
+
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
@@ -83,7 +91,6 @@ public class WebViewActivity extends BaseToolbarActivity {
                 webView.loadUrl("javascript:appdeletehead()");
                 jsInterface.setWvClientClickListener(new webViewClick());
                 CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setCookie(".pcjr.com","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
                 String c = cookieManager.getCookie(".pcjr.com");
                 System.out.println("oldCookie:"+c);
             }

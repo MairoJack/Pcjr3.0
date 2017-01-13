@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -99,6 +101,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
     private BigDecimal available_balance;
     private Product product;
     private String interestTicketId = "";
+    private long server_time;
     private List<InterestTicket> interestTicketList = new ArrayList<>();
 
     private InterestListSelectAdapter adapter;
@@ -130,6 +133,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         rv_list.setItemAnimator(new DefaultItemAnimator());
         rv_list.setAdapter(adapter);
         bottomSheetDialog.setContentView(view);
+        setBehaviorCallback();
     }
 
     @Override
@@ -211,6 +215,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
                 Dialog.show("可用余额不足", InvestActivity.this);
                 return;
             }
+            interest(amount);
             new MaterialDialog.Builder(InvestActivity.this)
                     .title("输入密码")
                     .content("投资金额：" + amount + "元")
@@ -238,6 +243,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         adapter.setOnItemClickListener((v, data) -> {
             if (data.getId().equals("00")) {
                 txt_interest.setText("无");
+                interestTicketId = "";
             } else {
                 if(!data.getSelectable()){
                     Dialog.show("该加息劵不可用",this);
@@ -264,38 +270,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
             public void afterTextChanged(Editable s) {
                 if (s != null && !s.toString().equals("")) {
                     double amount = Double.parseDouble(s.toString());
-                    double rate = 0;
-                    String check_id = "00";
-                    for (InterestTicket it : interestTicketList) {
-                        if (!it.getId().equals("00")) {
-                            double temp = Double.parseDouble(it.getRate());
-                            int investDays = (int) ((product.getDeadline() - product.getValue_date()) / 86400);
-                            double startAmount = new BigDecimal(it.getStart_amount()).doubleValue();
-                            double endAmount = new BigDecimal(it.getEnd_amount()).doubleValue();
-                            if (amount >= startAmount && amount <= endAmount
-                                    && investDays >= it.getStart_day()
-                                    && (it.getEnd_day() == 0 || investDays <= it.getEnd_day())
-                                    && (it.getSeries() == 0 || it.getSeries() == product.getSeries())
-                                    && System.currentTimeMillis()/1000 >= it.getStart_time()
-                                    && System.currentTimeMillis()/1000 <= it.getEnd_time()) {
-                                if(temp > rate){
-                                    rate = temp;
-                                    check_id = it.getId();
-                                }
-                                it.setSelectable(true);
-                            } else {
-                                it.setSelectable(false);
-                            }
-                        }
-                    }
-                    adapter.update(interestTicketList,check_id);
-                    if(rate == 0){
-                        txt_interest.setText("无");
-                    }else{
-                        txt_interest.setText(rate + "%");
-                    }
-
-                    interestTicketId = check_id;
+                    interest(amount);
                 }
             }
         });
@@ -306,7 +281,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         Intent intent = getIntent();
         Withdraw withdraw = (Withdraw) intent.getSerializableExtra("data");
         product = (Product) intent.getSerializableExtra("product");
-
+        server_time = intent.getLongExtra("server_time",0);
         setTitle(product.getName());
         txt_balance.setText(withdraw.getAvailable_balance() + "元");
         available_balance = new BigDecimal(withdraw.getAvailable_balance());
@@ -406,8 +381,65 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
     public void onInterestListSuccess(List<InterestTicket> list) {
         InterestTicket it = new InterestTicket();
         it.setId("00");
+        it.setSelectable(true);
         list.add(0, it);
         interestTicketList.addAll(list);
-        adapter.setData(list, product);
+        adapter.setData(list, product,server_time);
+    }
+
+    private void setBehaviorCallback() {
+        View view = bottomSheetDialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(view);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetDialog.dismiss();
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
+    }
+
+    public void interest(double amount){
+        double rate = 0;
+        long nowTime = server_time/1000;
+        long time = 0;
+        String check_id = "00";
+        for (InterestTicket it : interestTicketList) {
+            if (!it.getId().equals("00")) {
+                double temp = Double.parseDouble(it.getRate());
+                long tempTime = it.getEnd_time() - nowTime;
+                int investDays = (int) ((product.getDeadline() - product.getValue_date()) / 86400);
+                double startAmount = new BigDecimal(it.getStart_amount()).doubleValue();
+                double endAmount = new BigDecimal(it.getEnd_amount()).doubleValue();
+                if (amount >= startAmount && amount <= endAmount
+                        && investDays >= it.getStart_day()
+                        && (it.getEnd_day() == 0 || investDays <= it.getEnd_day())
+                        && (it.getSeries() == 0 || it.getSeries() == product.getSeries())
+                        && nowTime >= it.getStart_time()
+                        && nowTime <= it.getEnd_time()) {
+                    if(temp > rate || (temp == rate && tempTime < time )){
+                        rate = temp;
+                        time = tempTime;
+                        check_id = it.getId();
+                    }
+                    it.setSelectable(true);
+                } else {
+                    it.setSelectable(false);
+                }
+            }
+        }
+        adapter.update(interestTicketList,check_id);
+        if(rate == 0){
+            txt_interest.setText("无");
+        }else{
+            txt_interest.setText(rate + "%");
+        }
+
+        interestTicketId = check_id;
     }
 }

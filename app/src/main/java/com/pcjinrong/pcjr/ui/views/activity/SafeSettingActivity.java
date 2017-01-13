@@ -14,6 +14,7 @@ import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.MobileInfo;
+import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.ui.presenter.SafeSettingPresenter;
@@ -35,6 +36,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
     @BindView(R.id.bindphone) RelativeLayout bindphone;
     @BindView(R.id.changepswd) RelativeLayout changepswd;
     @BindView(R.id.gesture) RelativeLayout gesture;
+    @BindView(R.id.risk) RelativeLayout risk;
     @BindView(R.id.btn_switch) Switch btn_switch;
     private ProgressDialog dialog;
 
@@ -91,6 +93,11 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
         gesture.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             startActivityForResult(new Intent(SafeSettingActivity.this, GestureEditActivity.class),Constant.REQUSET);
+        });
+
+        risk.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            presenter.getRiskAssessmentScore();
         });
     }
 
@@ -183,6 +190,23 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
         }
 
 
+    }
+
+    @Override
+    public void onRiskAssessmentScoreSuccess(RiskAssessmentScore data) {
+        if(data.getScore()>0){
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("title", Constant.RISK_ASSESS);
+            intent.putExtra("url", Constant.RISK_ASSESS_RESULST_URL + data.getScore());
+            intent.putExtra("assessType",0);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("title", Constant.RISK_ASSESS);
+            intent.putExtra("url", Constant.RISK_ASSESS_URL);
+            intent.putExtra("assessType",0);
+            startActivity(intent);
+        }
     }
 
     @Override

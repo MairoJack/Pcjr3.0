@@ -24,10 +24,9 @@
                 android:id="@+id/msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="4dp"
                 tools:text="加息0.50%"
                 android:textColor="@color/color_text"
-                tools:textSize="@dimen/text_size_title" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/mTitle"
@@ -35,19 +34,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                tools:text="使用条件：单笔投资50000以下"
+                tools:text="单笔投资：50000以下"
                 android:textColor="@color/color_text_light"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textSize="@dimen/text_size_14sp" />
+
+            <TextView
+                android:id="@+id/mTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                tools:text="产品期限：31-100天"
+                android:textColor="@color/color_text_light"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <TextView
+                android:id="@+id/mSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                tools:text="产品系列：大城小爱"
+                android:textColor="@color/color_text_light"
+                android:textSize="@dimen/text_size_14sp" />
 
             <TextView
                 android:id="@+id/end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
                 tools:text="有效期至：2016-06-21"
                 android:textColor="@color/color_text_light"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textSize="@dimen/text_size_14sp" />
 
             <View
                 android:layout_width="match_parent"

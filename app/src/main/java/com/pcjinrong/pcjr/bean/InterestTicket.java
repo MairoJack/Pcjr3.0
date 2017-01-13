@@ -3,12 +3,13 @@ package com.pcjinrong.pcjr.bean;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * 加息券
  * Created by Mario on 2016/12/5.
  */
-public class InterestTicket implements Serializable{
+public class InterestTicket implements Serializable,Comparable<InterestTicket>{
     @Expose
     private String id;
     @Expose
@@ -128,5 +129,17 @@ public class InterestTicket implements Serializable{
 
     public void setSelectable(Boolean selectable) {
         this.selectable = selectable;
+    }
+
+
+    @Override
+    public int compareTo(InterestTicket another) {
+        if(this.getId().equals("00") || another.getId().equals("00")){
+            return 0;
+        }
+        if(this.getSelectable()){
+            return -1;
+        }
+        return 0;
     }
 }

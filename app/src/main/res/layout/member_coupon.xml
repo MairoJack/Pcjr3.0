@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="投资前请先勾选您要是使用的加息券"
+                android:text="投资时请勾选您要使用的加息券"
                 android:textColor="@color/color_text_light"
                 android:textSize="@dimen/text_size_14sp" />
         </LinearLayout>

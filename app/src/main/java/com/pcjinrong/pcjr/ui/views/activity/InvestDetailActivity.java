@@ -3,6 +3,8 @@ package com.pcjinrong.pcjr.ui.views.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -86,7 +88,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     private Product product;
 
     private InterestListAdapter adapter;
-
+    private long server_time;
     @Override
     protected int getLayoutId() {
         return R.layout.invest_detail;
@@ -98,6 +100,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         setTitle("投资详情");
         dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
         bottomSheetDialog = new BottomSheetDialog(this);
+
         adapter = new InterestListAdapter();
 
         LayoutInflater inflater = getLayoutInflater();
@@ -114,7 +117,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         rv_list.setItemAnimator(new DefaultItemAnimator());
         rv_list.setAdapter(adapter);
         bottomSheetDialog.setContentView(view);
-
+        setBehaviorCallback();
     }
 
     @Override
@@ -125,11 +128,11 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             if (!Constant.IS_LOGIN) {
                 intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
                 intent.putExtra("tag", "invest");
-                startActivity(intent);
+                startActivityForResult(intent,Constant.REQUSET);
                 return;
             }
             if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
-                startActivity(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class));
+                startActivityForResult(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
                 return;
             }
             dialog.setMessage("正在加载...");
@@ -143,11 +146,11 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             if (!Constant.IS_LOGIN) {
                 intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
                 intent.putExtra("tag", "invest");
-                startActivity(intent);
+                startActivityForResult(intent,Constant.REQUSET);
                 return;
             }
             if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
-                startActivity(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class));
+                startActivityForResult(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
                 return;
             }
             bottomSheetDialog.show();
@@ -208,6 +211,10 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
 
     public void refreshButton(final Product product, long current_time) {
+        if(Constant.IS_LOGIN) {
+            server_time = current_time;
+            presenter.getInterestList();
+        }
         this.product = product;
         btn_status.setClickable(false);
         if (product.getStatus() == 1) {
@@ -259,7 +266,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         if (dialog.isShowing()) dialog.dismiss();
         this.product = data.getData();
         buildTabLayout(product);
-        long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+        server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
         refreshButton(data.getData(),server_time);
     }
 
@@ -271,6 +278,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data.getData());
             bundle.putSerializable("product", this.product);
+            bundle.putLong("server_time", this.server_time);
             intent.putExtras(bundle);
             startActivityForResult(intent, Constant.REQUSET);
         } else {
@@ -280,7 +288,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     public void onInterestListSuccess(List<InterestTicket> list) {
-        adapter.setData(list,product);
+        adapter.setData(list,product,server_time);
     }
 
     @Override
@@ -293,7 +301,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_share, menu);
+        //getMenuInflater().inflate(R.menu.menu_share, menu);
         return true;
     }
 
@@ -311,5 +319,22 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             oks.show(this);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setBehaviorCallback() {
+        View view = bottomSheetDialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(view);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetDialog.dismiss();
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
     }
 }

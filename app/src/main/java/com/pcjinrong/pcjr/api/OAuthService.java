@@ -17,6 +17,7 @@ import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
+import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
 
@@ -341,4 +342,11 @@ public interface OAuthService {
     @GET("member/interest_ticket_detail")
     Observable<BaseBean<InterestTicket>> getInterestTicketDetail(@Query("id") String id);
 
+    /**
+     * 获取测评分数
+     *
+     * @return
+     */
+    @GET("member/risk_assessment_score")
+    Observable<RiskAssessmentScore> getRiskAssessmentScore();
 }

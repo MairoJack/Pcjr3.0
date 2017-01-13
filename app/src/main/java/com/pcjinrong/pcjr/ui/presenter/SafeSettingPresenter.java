@@ -4,6 +4,7 @@ import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.MobileInfo;
+import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.SafeSettingView;
 
@@ -62,6 +63,30 @@ public class SafeSettingPresenter extends BasePresenter<SafeSettingView> {
                     public void onNext(BaseBean<IdentityInfo> data) {
                         if (SafeSettingPresenter.this.getMvpView() != null)
                             SafeSettingPresenter.this.getMvpView().onIdentityInfoSuccess(data);
+                    }
+                }));
+    }
+
+    public void getRiskAssessmentScore() {
+        this.mCompositeSubscription.add(this.mDataManager.getRiskAssessmentScore()
+                .subscribe(new Subscriber<RiskAssessmentScore>() {
+                    @Override
+                    public void onCompleted() {
+                        if (SafeSettingPresenter.this.mCompositeSubscription != null) {
+                            SafeSettingPresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        SafeSettingPresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(RiskAssessmentScore data) {
+                        if (SafeSettingPresenter.this.getMvpView() != null)
+                            SafeSettingPresenter.this.getMvpView().onRiskAssessmentScoreSuccess(data);
                     }
                 }));
     }

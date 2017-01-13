@@ -24,8 +24,8 @@ android {
         applicationId "com.pcjinrong.pcjr"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 8
-        versionName "2.0.4"
+        versionCode 9
+        versionName "2.0.5"
     }
     buildTypes {
         release {
@@ -94,9 +94,9 @@ dependencies {
     //引导页
     compile 'com.github.paolorotolo:appintro:4.1.0'
     //信鸽推送
-    compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
     compile files('libs/jg_filter_sdk_1.1.jar')
     compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
+    compile files('libs/Xg_sdk_v2.47_20161026_0936.jar')
     //分享
     compile files('libs/MobCommons-2016.1020.1028.jar')
     compile files('libs/MobTools-2016.1020.1028.jar')

@@ -23,6 +23,7 @@ import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
+import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -338,6 +339,13 @@ public class DataManager {
     public Observable<BaseBean<InterestTicket>> getInterestTicketDetail(String id) {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getInterestTicketDetail(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<RiskAssessmentScore> getRiskAssessmentScore() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getRiskAssessmentScore())
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }

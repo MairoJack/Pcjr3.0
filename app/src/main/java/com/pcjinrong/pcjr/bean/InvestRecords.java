@@ -21,6 +21,10 @@ public class InvestRecords {
     private long join_date;
     @Expose
     private long deadline;
+    @Expose
+    private String extra_interest_total;
+    @Expose
+    private String interest_year_income;
 
     public String getProduct_name() {
         return product_name;
@@ -76,5 +80,21 @@ public class InvestRecords {
 
     public void setDeadline(long deadline) {
         this.deadline = deadline;
+    }
+
+    public String getExtra_interest_total() {
+        return extra_interest_total;
+    }
+
+    public void setExtra_interest_total(String extra_interest_total) {
+        this.extra_interest_total = extra_interest_total;
+    }
+
+    public String getInterest_year_income() {
+        return interest_year_income;
+    }
+
+    public void setInterest_year_income(String interest_year_income) {
+        this.interest_year_income = interest_year_income;
     }
 }

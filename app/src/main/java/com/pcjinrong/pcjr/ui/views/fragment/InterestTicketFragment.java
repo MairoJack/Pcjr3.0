@@ -114,7 +114,7 @@ public class InterestTicketFragment extends BaseSwipeFragment implements Interes
     public void onFailure(Throwable e) {
         if(dialog.isShowing())dialog.dismiss();
         mPtrFrame.refreshComplete();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 401){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(getActivity(), LoginActivity.class));
             return;

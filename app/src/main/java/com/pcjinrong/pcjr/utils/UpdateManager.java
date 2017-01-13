@@ -131,6 +131,7 @@ public class UpdateManager {
 			URL url = new URL(path);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5000);
+			//conn.setRequestProperty("Accept-Encoding", "identity");
 			// 获取到文件的大小
 			pd.setMax(conn.getContentLength());
 			InputStream is = conn.getInputStream();

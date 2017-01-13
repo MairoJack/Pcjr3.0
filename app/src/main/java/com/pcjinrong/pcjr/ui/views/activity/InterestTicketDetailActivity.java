@@ -21,6 +21,8 @@ import butterknife.BindView;
 public class InterestTicketDetailActivity extends BaseToolbarActivity {
     @BindView(R.id.msg) TextView msg;
     @BindView(R.id.mTitle) TextView mTitle;
+    @BindView(R.id.mTime) TextView mTime;
+    @BindView(R.id.mSeries) TextView mSeries;
     @BindView(R.id.end_time) TextView end_time;
     @BindView(R.id.introduction) TextView introduction;
 
@@ -45,9 +47,26 @@ public class InterestTicketDetailActivity extends BaseToolbarActivity {
         Intent intent = getIntent();
         InterestTicket interestTicket = (InterestTicket) intent.getSerializableExtra("data");
 
-        msg.setText("单笔投资 "+interestTicket.getStart_amount()+" - "+interestTicket.getEnd_amount()+" 元");
-        mTitle.setText("来源:" + interestTicket.getTitle());
-        end_time.setText(DateUtils.dateTimeToStr(new Date(interestTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
+        msg.setText("加息"+interestTicket.getRate()+"%");
+        mTitle.setText("单笔投资："+interestTicket.getStart_amount()+" - "+interestTicket.getEnd_amount()+"元");
+        mTime.setText("产品期限："+interestTicket.getStart_day()+" - "+interestTicket.getEnd_day()+"天");
+        String series = "";
+        switch (interestTicket.getSeries()) {
+            case 1:
+                series = "大城小爱";
+                break;
+            case 2:
+                series = "国泰民安";
+                break;
+            case 3:
+                series = "珠联璧合";
+                break;
+            default:
+                series = "不限产品系列";
+                break;
+        }
+        mSeries.setText("产品系列："+ series);
+        end_time.setText("有效期至："+DateUtils.dateTimeToStr(new Date(interestTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
         introduction.setText(interestTicket.getActivity().getIntroduction().replace("</br>", ""));
 
     }

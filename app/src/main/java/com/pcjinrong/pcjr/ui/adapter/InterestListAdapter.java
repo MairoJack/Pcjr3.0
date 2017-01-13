@@ -13,6 +13,7 @@ import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.utils.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -27,19 +28,35 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
 
     private List<InterestTicket> list;
     private Product product;
-    private int type;
-
+    private long server_time;
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     public InterestListAdapter() {
         list = new ArrayList<>();
-        this.type = type;
+
     }
 
-    public void setData(List<InterestTicket> list,Product product) {
+    public void setData(List<InterestTicket> list,Product product,long server_time) {
         this.list.clear();
         this.list = list;
         this.product = product;
+        this.server_time = server_time;
+        int investDays = (int)((product.getDeadline() - product.getValue_date()) / 86400);
+        for(InterestTicket object : list){
+            if(!object.getId().equals("00")) {
+                if (investDays < object.getStart_day() || (object.getEnd_day() != 0 && investDays > object.getEnd_day())
+                        || (object.getSeries() != 0 && product.getSeries() != object.getSeries())
+                        || server_time / 1000 < object.getStart_time()
+                        || server_time / 1000 > object.getEnd_time()) {
+                    object.setSelectable(false);
+                }else{
+                    object.setSelectable(true);
+                }
+            }else{
+                object.setSelectable(true);
+            }
+        }
+        Collections.sort(this.list);
         notifyDataSetChanged();
     }
 
@@ -59,7 +76,7 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindTo((list.get(position)),product);
+        holder.bindTo((list.get(position)));
         holder.itemView.setTag(list.get(position));
     }
 
@@ -86,8 +103,7 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindTo(InterestTicket object, Product product) {
-            int investDays = (int)((product.getDeadline() - product.getValue_date()) / 86400);
+        public void bindTo(InterestTicket object) {
             String series;
             switch (object.getSeries()) {
                 case 1:
@@ -104,21 +120,14 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
                     break;
             }
             String limit = "期限:";
-            if(object.getEnd_day() == 0){
-                limit += "≥"+object.getStart_day()+"天；";
-            }else{
-                limit += object.getStart_day()+"-"+object.getEnd_day()+"天；";
-            }
+            limit += object.getStart_day()+"-"+object.getEnd_day()+"天；";
             mIvInterest.setText(object.getRate() + "%");
             mIvDescription.setText("单笔投资:" + object.getStart_amount().replace(".00","") + "-"
                     + object.getEnd_amount().replace(".00","") + "元；有效期至"
-                    + DateUtils.dateTimeToStr(new Date(object.getEnd_time() * 1000), "yyyy-MM-dd")
+                    + DateUtils.dateTimeToStr(new Date(object.getEnd_time() * 1000), "yyyy-MM-dd；")
                     + limit + series);
 
-            if(investDays<object.getStart_day() || (object.getEnd_day() != 0 && investDays>object.getEnd_day())
-                    || (object.getSeries() != 0 && product.getSeries() != object.getSeries())
-                    || System.currentTimeMillis()/1000 < object.getStart_time()
-                    || System.currentTimeMillis()/1000 > object.getEnd_time()){
+            if(!object.getSelectable()){
                 mIvInterest.setTextColor(Color.parseColor("#cacaca"));
                 mIvDescription.setTextColor(Color.parseColor("#cacaca"));
             }
