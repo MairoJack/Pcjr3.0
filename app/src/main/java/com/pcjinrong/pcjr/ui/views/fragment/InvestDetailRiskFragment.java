@@ -1,10 +1,12 @@
 package com.pcjinrong.pcjr.ui.views.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 
 import butterknife.BindView;
@@ -35,8 +37,15 @@ public class InvestDetailRiskFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        String risk_control = getArguments().getString("risk");
-        txt_risk_control.setText(risk_control);
+        if(!Constant.IS_LOGIN){
+            txt_risk_control.setText("查看项目详情请先【注册】或【登录】");
+        }else if(!Constant.IS_REALNAME){
+            txt_risk_control.setText("查看项目详情请先前往【我的】-【安全设置】完成实名认证");
+        } else {
+            String risk_control = getArguments().getString("risk");
+            txt_risk_control.setText(risk_control);
+        }
+
     }
 
     @Override
@@ -53,7 +62,18 @@ public class InvestDetailRiskFragment extends BaseFragment {
         return fragment;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        txt_risk_control.setText("");
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+            }
+        }, 2000);
+    }
 
 
 }

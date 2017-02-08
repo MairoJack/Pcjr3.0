@@ -286,7 +286,11 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         txt_balance.setText(withdraw.getAvailable_balance() + "元");
         available_balance = new BigDecimal(withdraw.getAvailable_balance());
         if (product.getIs_preview_repayment() == 1) {
-            String html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font> ，如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人";
+            String tqhk = "";
+            if(product.getPub_date() <= 1485100800){
+                tqhk = "平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font>,";
+            }
+            String html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人";
             preview_repayment.setVisibility(View.VISIBLE);
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));
         }

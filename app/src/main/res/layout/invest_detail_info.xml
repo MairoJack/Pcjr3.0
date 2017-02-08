@@ -77,18 +77,18 @@
                         ProgressWheel:pwTextSize="14sp" />
 
                     <TextView
+                        android:id="@+id/welfare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="70dp"
+                        android:background="@drawable/bg_corner_orange"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="福利产品"
                         android:textColor="@color/item_product_repayment_text_color"
                         android:textSize="@dimen/item_product_repayment_text_size"
-                        android:background="@drawable/bg_corner_orange"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/welfare"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/year_income"
@@ -404,6 +404,14 @@
                             android:text="海宁皮革城担保有限公司"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/important"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -446,8 +454,8 @@
                         android:textSize="@dimen/text_size_14sp"
                         tools:text="借款人拥有海宁中国皮革城多处商铺的租赁权，具有较大的市场价值。借款人企业主要从事裘皮服装的生产销售，经营状况良好。借款人从事皮革行业十多年，个人经济实力雄厚；每年按时缴纳商铺租金，信用记录良好。" />
 
-
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>

@@ -7,6 +7,7 @@ public class Constant {
 
     public static boolean IS_LOGIN = false;
     public static boolean IS_GESTURE_LOGIN = false;
+    public static boolean IS_REALNAME = false;
 
     public static int TYPE;
     public static String DEVICE_TOKEN;
@@ -70,4 +71,5 @@ public class Constant {
     public static final String SHARE_LIST_URL = "https://m.pcjr.com/invest";
     public static final String SHARE_DETAIL_URL = "https://m.pcjr.com/productdetail/index?id=";
     public static final String SHARE_IMG_URL = "https://m.pcjr.com/lib/wap/images/tips/logo_256.png";
+
 }

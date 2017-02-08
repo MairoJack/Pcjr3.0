@@ -169,6 +169,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
             setResult(RESULT_OK);
             Constant.IS_LOGIN = false;
             Constant.IS_GESTURE_LOGIN = false;
+            Constant.IS_REALNAME = false;
             SPUtils.clear(this);
             finish();
         } else {

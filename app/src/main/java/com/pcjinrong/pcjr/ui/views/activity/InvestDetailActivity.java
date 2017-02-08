@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -86,7 +87,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     private ProgressDialog dialog;
     private BottomSheetDialog bottomSheetDialog;
     private Product product;
-
+    private List<InterestTicket> interestTicketList;
     private InterestListAdapter adapter;
     private long server_time;
     @Override
@@ -142,18 +143,15 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
         btn_jxq.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            Intent intent;
             if (!Constant.IS_LOGIN) {
-                intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
-                intent.putExtra("tag", "invest");
-                startActivityForResult(intent,Constant.REQUSET);
+                Dialog.show("请先登录账号后查看加息券",this);
                 return;
             }
-            if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
-                startActivityForResult(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
-                return;
+            if(interestTicketList == null || interestTicketList.size() == 0){
+                Dialog.show("您没有可用的加息券",this);
+            }else {
+                bottomSheetDialog.show();
             }
-            bottomSheetDialog.show();
         });
 
         cdv.setOnCountdownEndListener(cv -> {
@@ -167,11 +165,17 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     protected void initData() {
+
+
         String id = getIntent().getStringExtra("id");
         this.presenter = new InvestDetailPresenter();
         this.presenter.attachView(this);
 
-
+        if(!Constant.IS_LOGIN){
+            Dialog.show("查看项目详情请先【注册】或【登录】",this);
+        }else{
+            presenter.getIdentityInfo();
+        }
 
         dialog.setMessage("正在加载...");
         dialog.show();
@@ -288,14 +292,28 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
     @Override
     public void onInterestListSuccess(List<InterestTicket> list) {
+        interestTicketList = list;
         adapter.setData(list,product,server_time);
+    }
+
+    @Override
+    public void onIdentityInfoSuccess(BaseBean<IdentityInfo> data) {
+        if(data.isSuccess()){
+            Constant.IS_REALNAME = true;
+        }else{
+            Dialog.show("查看项目详情请先前往【我的】-【安全设置】完成实名认证",this);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
-            initData();
+            if(!Constant.IS_LOGIN){
+                Dialog.show("查看项目详情请先【注册】或【登录】",this);
+            }else{
+                presenter.getIdentityInfo();
+            }
         }
     }
 

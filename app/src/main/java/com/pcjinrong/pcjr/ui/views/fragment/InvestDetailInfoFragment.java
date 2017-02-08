@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.Withdraw;
@@ -65,6 +66,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     @BindView(R.id.welfare) TextView welfare;
 
     @BindView(R.id.preview_repayment) LinearLayout preview_repayment;
+    @BindView(R.id.important) LinearLayout important;
     @BindView(R.id.debx) LinearLayout debx;
 
     private InvestDetailPresenter presenter;
@@ -117,7 +119,11 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
             if (product.getFinish_preview_repayment() == 1) {
                 html_preview_repayment = "* 此为 <font color='#dc4d07'>提前回款</font> 产品，原借款时长为 <font color='#dc4d07'>" + product.getMonth() + "</font> ，现提前至 <font color='#dc4d07'>" + DateUtils.dateTimeToStr(new Date(product.getPreview_repayment_date() * 1000),"yyyy-MM-dd") + "</font> ，故补偿<font color='#dc4d07'>" + product.getPay_interest_day() + "</font>天利息 于投资人,利息计算方法请 点击此处";
             } else {
-                html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font> ，如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人,利息计算方法请 点击此处";
+                String tqhk = "";
+                if(product.getPub_date() <= 1485100800){
+                    tqhk = "平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font>,";
+                }
+                html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人,利息计算方法请 点击此处";
             }
             preview_repayment.setVisibility(View.VISIBLE);
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));
@@ -186,6 +192,18 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
                 }
             }
         }, 1000);
+
+        Handler Handler2 = new Handler();
+        Handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!Constant.IS_LOGIN || !Constant.IS_REALNAME){
+                    important.setVisibility(View.GONE);
+                }else{
+                    important.setVisibility(View.VISIBLE);
+                }
+            }
+        }, 2000);
     }
 
     @Override
@@ -224,6 +242,11 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
     @Override
     public void onInterestListSuccess(List<InterestTicket> list) {
+
+    }
+
+    @Override
+    public void onIdentityInfoSuccess(BaseBean<IdentityInfo> data) {
 
     }
 
