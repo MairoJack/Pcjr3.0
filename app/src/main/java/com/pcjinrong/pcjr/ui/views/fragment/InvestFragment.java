@@ -55,10 +55,12 @@ public class InvestFragment extends BaseFragment
 		fragmentList.add(InvestListFragment.newInstance(1));
 		fragmentList.add(InvestListFragment.newInstance(2));
 		fragmentList.add(InvestListFragment.newInstance(3));
+		fragmentList.add(InvestListFragment.newInstance(4));
 
 		titleList = new ArrayList<>();
 		titleList.add("全部");
 		titleList.add("大城小爱");
+		titleList.add("商通保盈");
 		titleList.add("国泰民安");
 		titleList.add("珠联璧合");
 
@@ -66,10 +68,11 @@ public class InvestFragment extends BaseFragment
 		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(1)));
 		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(2)));
 		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(3)));
+		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(4)));
 		fragmentPagerAdapter = new TabChildFragmentAdapter(this,fragmentList,titleList);
 
 		viewPager.setAdapter(fragmentPagerAdapter);
-		viewPager.setOffscreenPageLimit(4);
+		viewPager.setOffscreenPageLimit(5);
 		tabLayout.setupWithViewPager(viewPager);
 		tabLayout.getTabAt(Constant.TYPE).select();
 	}

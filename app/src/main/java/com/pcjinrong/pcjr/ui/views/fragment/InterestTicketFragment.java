@@ -149,7 +149,7 @@ public class InterestTicketFragment extends BaseSwipeFragment implements Interes
     }
 
     @Override
-    public void onInterestTicketDetailSuccess(InterestTicket data) {
+    public void onInterestTicketDetailSuccess (InterestTicket data) {
         dialog.dismiss();
         Intent intent = new  Intent(getActivity(), InterestTicketDetailActivity.class);
         Bundle bundle = new Bundle();

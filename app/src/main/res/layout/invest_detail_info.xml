@@ -218,6 +218,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
                             android:text="项目总额(万元)"
+                            android:textSize="@dimen/text_size_14sp"
                             android:textColor="@color/color_text" />
 
                         <LinearLayout
@@ -253,6 +254,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
                             android:text="项目期限"
+                            android:textSize="@dimen/text_size_14sp"
                             android:textColor="@color/color_text" />
 
                         <LinearLayout
@@ -288,6 +290,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
                             android:text="可投金额(万元)"
+                            android:textSize="@dimen/text_size_14sp"
                             android:textColor="@color/color_text" />
 
                         <LinearLayout

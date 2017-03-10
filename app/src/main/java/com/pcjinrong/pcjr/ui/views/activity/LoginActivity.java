@@ -21,6 +21,7 @@ import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * 登陆
@@ -125,7 +126,11 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
-        Dialog.show("用户名或密码错误",this);
+        if(e instanceof HttpException && ((HttpException)e).code() == 401){
+            Dialog.show("用户名或密码错误",this);
+            return;
+        }
+       showToast(R.string.network_anomaly);
     }
 
     @Override

@@ -27,6 +27,7 @@ import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.model.impl.OAuthModel;
 import com.pcjinrong.pcjr.model.impl.PayModel;
@@ -430,6 +431,9 @@ public class DataManager {
                             })
                             .doOnError(e -> {
                                 Logger.e(e.getMessage());
+                                Constant.IS_LOGIN = false;
+                                Constant.IS_REALNAME = false;
+                                Constant.IS_GESTURE_LOGIN = false;
                                 SPUtils.clear(App.getContext());
 
                             });

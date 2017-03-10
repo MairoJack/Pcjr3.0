@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             tools:text="￥3485.68"
-            android:textSize="35sp"
+            android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/color_text_light" />
         <TextView
@@ -29,7 +29,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             tools:text="来源：全民大战红包(个人)"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:textColor="@color/color_text_light" />
         <TextView
             android:id="@+id/join_date"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
+            android:textSize="15dp"
             tools:text="红包获得时间：2016-05-23"
             android:textColor="@color/color_text_light" />
 
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已领取"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="@color/color_text_light" />
     </LinearLayout>
 

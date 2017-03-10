@@ -88,6 +88,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/annual_earnings"
+                android:textSize="@dimen/text_size_14sp"
                 android:textColor="@color/item_product_text_color_gray" />
 
             <LinearLayout
@@ -132,6 +133,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/project_duration"
+                android:textSize="@dimen/text_size_14sp"
                 android:textColor="@color/item_product_text_color_gray" />
 
             <LinearLayout
@@ -173,6 +175,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/total_amount"
+                android:textSize="@dimen/text_size_14sp"
                 android:textColor="@color/item_product_text_color_gray" />
 
             <TextView

@@ -89,7 +89,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/annual_earnings"
-                android:textColor="@color/item_product_text_color_gray" />
+                android:textColor="@color/item_product_text_color_gray"
+                android:textSize="@dimen/text_size_14sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -133,7 +134,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/project_duration"
-                android:textColor="@color/item_product_text_color_gray" />
+                android:textColor="@color/item_product_text_color_gray"
+                android:textSize="@dimen/text_size_14sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -174,7 +176,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/total_amount"
-                android:textColor="@color/item_product_text_color_gray" />
+                android:textColor="@color/item_product_text_color_gray"
+                android:textSize="@dimen/text_size_14sp"/>
 
             <TextView
                 android:id="@+id/amount"

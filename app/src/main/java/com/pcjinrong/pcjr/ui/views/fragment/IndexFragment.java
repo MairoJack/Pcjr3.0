@@ -98,6 +98,12 @@ public class IndexFragment extends BaseFragment implements MainView {
         Constant.TYPE = 1;
     }
 
+    @OnClick(R.id.stby) void stby() {
+        MainActivity mainActivity  = (MainActivity) getContext();
+        mainActivity.tabSelect(1);
+        Constant.TYPE = 2;
+    }
+
     @OnClick(R.id.gtma) void gtma() {
         MainActivity mainActivity  = (MainActivity) getContext();
         mainActivity.tabSelect(1);

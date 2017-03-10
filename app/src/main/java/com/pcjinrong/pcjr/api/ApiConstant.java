@@ -11,15 +11,15 @@ public class ApiConstant {
     /**
      * test
      */
-    //public final static String BASE_URL = "http://api.pcjr.test/mapi/";
-    //public final static String CLIENT_ID = "1";
-    //public final static String CLIENT_SECRET =  "123";
+    public final static String BASE_URL = "http://api.pcjr.test/mapi/";
+    public final static String CLIENT_ID = "1";
+    public final static String CLIENT_SECRET =  "123";
     /** 
      * pro
      */
-    public final static String BASE_URL = "https://www.pcjr.com/mapi/";
-    public final static String CLIENT_ID = "JkXitPIFMbhQwjyP6kx5pARvwVbTQD874kv2hbRn";
-    public final static String CLIENT_SECRET = "41nkgMbf3yJ7UtzWLFxWOtvmDxREGJL4CwjkkAwY";
+    //public final static String BASE_URL = "https://www.pcjr.com/mapi/";
+    //public final static String CLIENT_ID = "JkXitPIFMbhQwjyP6kx5pARvwVbTQD874kv2hbRn";
+    //public final static String CLIENT_SECRET = "41nkgMbf3yJ7UtzWLFxWOtvmDxREGJL4CwjkkAwY";
 
     public final static String BEARER = "Bearer";
     public final static String ACCEPT = "application/x.pcjr.v2+json";

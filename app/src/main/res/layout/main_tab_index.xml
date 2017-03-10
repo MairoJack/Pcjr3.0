@@ -98,6 +98,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/main_marigin_top"
                                 android:text="@string/cpyg"
+                                android:textSize="@dimen/text_size_14sp"
                                 android:textColor="@color/color_text" />
                         </RelativeLayout>
 
@@ -121,6 +122,31 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/main_marigin_top"
                                 android:text="@string/dcxa"
+                                android:textSize="@dimen/text_size_14sp"
+                                android:textColor="@color/color_text" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/stby"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0">
+
+                            <ImageView
+                                android:id="@+id/img_stby"
+                                android:layout_width="@dimen/main_image_width"
+                                android:layout_height="@dimen/main_image_height"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/icon_dcxa" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/img_stby"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/main_marigin_top"
+                                android:text="@string/stby"
+                                android:textSize="@dimen/text_size_14sp"
                                 android:textColor="@color/color_text" />
                         </RelativeLayout>
 
@@ -144,6 +170,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/main_marigin_top"
                                 android:text="@string/gtma"
+                                android:textSize="@dimen/text_size_14sp"
                                 android:textColor="@color/color_text" />
                         </RelativeLayout>
 
@@ -167,6 +194,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/main_marigin_top"
                                 android:text="@string/zlbh"
+                                android:textSize="@dimen/text_size_14sp"
                                 android:textColor="@color/color_text" />
                         </RelativeLayout>
 
@@ -198,7 +226,7 @@
                         android:layout_marginLeft="7dp"
                         android:text="@string/tzjx"
                         android:textColor="#5B5B5A"
-                        android:textSize="18sp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
 

@@ -21,14 +21,14 @@
             android:layout_marginLeft="3dp"
             tools:text="0.50"
             android:textStyle="bold"
-            android:textSize="28sp"
+            android:textSize="28dp"
             android:textColor="#FF4A44" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="%"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textColor="#FF4A44" />
 
     </LinearLayout>
@@ -56,14 +56,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             tools:text="来源：皮城金融周年庆，颠覆你的生日观"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_12sp"
             android:textColor="#b7b7b7" />
         <TextView
             android:id="@+id/end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_12sp"
             tools:text="有效期至：2016-06-21"
             android:textColor="#b7b7b7" />
     </LinearLayout>
