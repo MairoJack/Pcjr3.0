@@ -200,7 +200,7 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
     @Override
     public void onFailure(Throwable e) {
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(getContext(), LoginActivity.class));
             return;

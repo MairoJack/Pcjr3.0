@@ -133,6 +133,9 @@ public class InterestListSelectAdapter extends RecyclerView.Adapter<InterestList
                     case 3:
                         series = "仅限珠联璧合系列";
                         break;
+                    case 4:
+                        series = "仅限商通保盈系列";
+                        break;
                     default:
                         series = "全部产品通用";
                         break;

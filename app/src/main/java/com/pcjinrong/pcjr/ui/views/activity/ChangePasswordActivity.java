@@ -97,7 +97,7 @@ public class ChangePasswordActivity extends BaseToolbarActivity implements MvpVi
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class));
             return;

@@ -100,6 +100,8 @@
 
 -keep class com.tencent.android.tpush.**  {* ;}
 -keep class com.tencent.mid.**  {* ;}
+-keep class com.qq.taf.jce.**  {* ;}
+-keep class com.jq.**  {* ;}
 -keep class com.bigkoo.alertview.** {*;}
 -keep class com.bigkoo.convenientbanner.** {*;}
 -keep class com.afollestad.materialdialogs.** {*;}

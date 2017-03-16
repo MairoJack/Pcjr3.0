@@ -120,7 +120,7 @@ public class PaymentPlanActivity extends BaseSwipeActivity implements MvpView<Ba
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(PaymentPlanActivity.this, LoginActivity.class));
             return;

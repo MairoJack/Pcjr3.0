@@ -90,7 +90,7 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(TradeRecordsActivity.this, LoginActivity.class));
             return;

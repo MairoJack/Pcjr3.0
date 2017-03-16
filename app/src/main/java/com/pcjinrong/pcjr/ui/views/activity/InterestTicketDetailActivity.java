@@ -61,6 +61,9 @@ public class InterestTicketDetailActivity extends BaseToolbarActivity {
             case 3:
                 series = "珠联璧合";
                 break;
+            case 4:
+                series = "商通保盈";
+                break;
             default:
                 series = "不限产品系列";
                 break;

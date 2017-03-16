@@ -340,7 +340,8 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
     @Override
     public void onFailure(Throwable e) {
-        if (e instanceof HttpException) {
+        if (dialog.isShowing()) dialog.dismiss();
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(InvestActivity.this, LoginActivity.class));
             return;

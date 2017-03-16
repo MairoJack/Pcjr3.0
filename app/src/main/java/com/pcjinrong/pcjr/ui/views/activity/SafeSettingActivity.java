@@ -213,7 +213,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(SafeSettingActivity.this, LoginActivity.class));
             return;

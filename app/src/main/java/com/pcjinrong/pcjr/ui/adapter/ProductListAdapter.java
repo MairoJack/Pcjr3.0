@@ -94,8 +94,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         if (product.getStatus() == 2 || product.getStatus() == 3 || product.getStatus() == 4) {
             type = Constant.TYPE_SUCCESS;
         } else {
-            long current_time = server_time + System.currentTimeMillis() - sys_time;
-            Date date = new Date(current_time);
+            Date date = new Date(server_time * 1000);
             Date pub_date = new Date(product.getPub_date() * 1000);
             if (DateUtils.isStartDateBeforeEndDate(date, pub_date)) {
                 if (DateUtils.getHoursOfTowDiffDate(date, pub_date) > 1) {
@@ -220,8 +219,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public void bindTo(Product object, long server_time, long sys_time) {
             super.bindTo(object);
-            long current_time = server_time + System.currentTimeMillis() - sys_time;
-            mIvCountdown.start(object.getPub_date() * 1000 - current_time);
+            //long current_time = server_time + System.currentTimeMillis() - sys_time;
+            mIvCountdown.start(object.getPub_date() * 1000 - server_time * 1000 + 800);
         }
     }
 

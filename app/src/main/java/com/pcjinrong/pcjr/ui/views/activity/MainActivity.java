@@ -18,7 +18,7 @@ import com.pcjinrong.pcjr.widget.FragmentNavigator;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
-import com.tencent.android.tpush.service.XGPushService;
+import com.tencent.android.tpush.service.XGPushServiceV3;
 
 import butterknife.BindView;
 
@@ -159,9 +159,10 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
             }
         });
 
-        Intent service = new Intent(context, XGPushService.class);
+        Intent service = new Intent(context, XGPushServiceV3.class);
         context.startService(service);
 
         Constant.DEVICE_TOKEN = XGPushConfig.getToken(context);
+        Logger.i("DEVICE_TOKEN:"+XGPushConfig.getToken(context));
     }
 }

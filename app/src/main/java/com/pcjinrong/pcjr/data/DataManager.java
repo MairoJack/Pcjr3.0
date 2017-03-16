@@ -424,7 +424,7 @@ public class DataManager {
         @Override
         public Observable<?> call(Observable<? extends Throwable> observable) {
             return observable.flatMap(throwable -> {
-                if (throwable instanceof HttpException && ++retryCount <= ApiConstant.MAX_RETRY_COUNT) {
+                if (throwable instanceof HttpException && ((HttpException)throwable).code() == 401 && ++retryCount <= ApiConstant.MAX_RETRY_COUNT) {
                     return apiModel.refreshToken(SPUtils.getToken(App.getContext()).getRefresh_token())
                             .doOnNext(token -> {
                                 SPUtils.putToken(App.getContext(), token);

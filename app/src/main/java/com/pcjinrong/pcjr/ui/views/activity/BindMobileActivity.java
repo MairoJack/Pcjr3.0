@@ -134,7 +134,7 @@ public class BindMobileActivity extends BaseToolbarActivity implements BindMobil
 
     @Override
     public void onFailure(Throwable e) {
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(BindMobileActivity.this, LoginActivity.class));
             return;

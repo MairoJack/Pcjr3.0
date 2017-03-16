@@ -97,7 +97,7 @@ public class MsgCenterActivity extends BaseSwipeActivity implements MsgCenterVie
     @Override
     public void onFailure(Throwable e) {
         mPtrFrame.refreshComplete();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(MsgCenterActivity.this, LoginActivity.class));
             return;

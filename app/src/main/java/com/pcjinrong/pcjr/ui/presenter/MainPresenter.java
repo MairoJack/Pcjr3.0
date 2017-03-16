@@ -47,7 +47,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                     @Override
                     public void onNext(BaseBean<List<Product>> data) {
                         if (MainPresenter.this.getMvpView() != null){
-                            data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
+                            //data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
                             MainPresenter.this.getMvpView().onGetIndexListSuccess(data.getData(),data.getCurrent_time());
                         }
                     }

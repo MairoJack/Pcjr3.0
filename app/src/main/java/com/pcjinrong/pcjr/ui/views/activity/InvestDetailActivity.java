@@ -231,7 +231,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
                 } else {
                     btn_status.setVisibility(View.GONE);
                     layout_cdv.setVisibility(View.VISIBLE);
-                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date));
+                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date) + 500);
                 }
             } else {
                 btn_status.setBackgroundResource(R.drawable.btn_primary);
@@ -270,7 +270,8 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         if (dialog.isShowing()) dialog.dismiss();
         this.product = data.getData();
         buildTabLayout(product);
-        server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+        //server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+        server_time = data.getCurrent_time() * 1000;
         refreshButton(data.getData(),server_time);
     }
 

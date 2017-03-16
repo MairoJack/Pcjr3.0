@@ -1,11 +1,15 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,6 +36,7 @@ import com.pcjinrong.pcjr.widget.Dialog;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.adapter.rxjava.HttpException;
 
 
 /**
@@ -146,6 +151,7 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
             Dialog.show("请先阅读并同意《一键支付服务协议》", this);
             return;
         }
+
         presenter.recharge(member_id, order_no, verify);
     }
 
@@ -189,7 +195,12 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
 
     @Override
     public void onFailure(Throwable e) {
-
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
+            showToast(getString(R.string.login_expired));
+            startActivity(new Intent(RechargeActivity.this, LoginActivity.class));
+            return;
+        }
+        showToast(R.string.network_anomaly);
     }
 
     @Override

@@ -53,9 +53,9 @@ public class InvestFragment extends BaseFragment
 		fragmentList = new ArrayList<>();
 		fragmentList.add(InvestListFragment.newInstance(0));
 		fragmentList.add(InvestListFragment.newInstance(1));
+		fragmentList.add(InvestListFragment.newInstance(4));
 		fragmentList.add(InvestListFragment.newInstance(2));
 		fragmentList.add(InvestListFragment.newInstance(3));
-		fragmentList.add(InvestListFragment.newInstance(4));
 
 		titleList = new ArrayList<>();
 		titleList.add("全部");
@@ -112,6 +112,8 @@ public class InvestFragment extends BaseFragment
 		super.onHiddenChanged(hidden);
 		if(!hidden) {
 			tabLayout.getTabAt(Constant.TYPE).select();
+		}else{
+			Constant.TYPE = 0;
 		}
 	}
 }

@@ -230,7 +230,8 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         product = data.getData();
         bindData(product);
         if(getActivity()!=null) {
-            long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+            //long server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
+            long server_time = data.getCurrent_time() * 1000 ;
             ((InvestDetailActivity) getActivity()).refreshButton(data.getData(), server_time);
         }
     }

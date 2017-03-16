@@ -49,7 +49,7 @@ public class InvestListPresenter extends BasePresenter<MvpView<BaseBean<List<Pro
                     @Override
                     public void onNext(BaseBean<List<Product>> data) {
                         if (InvestListPresenter.this.getMvpView() != null) {
-                            data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
+                            //data.setCurrent_time(data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time);
                             InvestListPresenter.this.getMvpView().onSuccess(data);
                         }
                     }

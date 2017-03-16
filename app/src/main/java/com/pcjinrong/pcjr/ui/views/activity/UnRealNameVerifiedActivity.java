@@ -89,7 +89,7 @@ public class UnRealNameVerifiedActivity extends BaseToolbarActivity implements M
     @Override
     public void onFailure(Throwable e) {
         dialog.dismiss();
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(UnRealNameVerifiedActivity.this, LoginActivity.class));
             return;

@@ -174,6 +174,10 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
             Dialog.show("提现金额必须大于0", this);
             return;
         }
+        if(bank_id == null){
+            Dialog.show("未绑定银行卡", WithdrawActivity.this);
+            return;
+        }
         if (verify.equals("")) {
             Dialog.show("请输入验证码", this);
             return;
@@ -190,6 +194,10 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         }
         if (Double.parseDouble(amount) <= 0) {
             Dialog.show("提现金额必须大于0", WithdrawActivity.this);
+            return;
+        }
+        if(bank_id == null){
+            Dialog.show("未绑定银行卡", WithdrawActivity.this);
             return;
         }
         btn_verify.setClickable(false);
@@ -211,7 +219,7 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @Override
     public void onFailure(Throwable e) {
-        if(e instanceof HttpException){
+        if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
             startActivity(new Intent(WithdrawActivity.this, LoginActivity.class));
             return;

@@ -20,10 +20,14 @@ import butterknife.BindView;
  * Created by Mario on 2016/5/24.
  */
 public class InvestTicketDetailActivity extends BaseToolbarActivity {
-    @BindView(R.id.msg) TextView msg;
-    @BindView(R.id.mTitle) TextView mTitle;
-    @BindView(R.id.end_time) TextView end_time;
-    @BindView(R.id.introduction) TextView introduction;
+    @BindView(R.id.msg)
+    TextView msg;
+    @BindView(R.id.mTitle)
+    TextView mTitle;
+    @BindView(R.id.end_time)
+    TextView end_time;
+    @BindView(R.id.introduction)
+    TextView introduction;
 
     @Override
     protected int getLayoutId() {
@@ -48,8 +52,10 @@ public class InvestTicketDetailActivity extends BaseToolbarActivity {
 
         msg.setText("满 " + investTicket.getReach_amount() + " 元返 " + investTicket.getAmount() + " 元");
         mTitle.setText("来源:" + investTicket.getTitle());
-        end_time.setText("有效期至:"+DateUtils.dateTimeToStr(new Date(investTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
-        introduction.setText(investTicket.getActivity().getIntroduction().replace("</br>", ""));
+        end_time.setText("有效期至:" + DateUtils.dateTimeToStr(new Date(investTicket.getEnd_time() * 1000), "yyyy-MM-dd HH:mm:ss"));
+        if (investTicket.getActivity() != null && investTicket.getActivity().getIntroduction() != null) {
+            introduction.setText(investTicket.getActivity().getIntroduction().replace("</br>", ""));
+        }
 
     }
 
