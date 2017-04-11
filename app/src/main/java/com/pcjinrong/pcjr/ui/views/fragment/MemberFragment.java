@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.pcjinrong.pcjr.ui.views.activity.SafeSettingActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawRechargeActivity;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
@@ -63,11 +65,12 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @BindView(R.id.available_balance) TextView available_balance;
     @BindView(R.id.sum_assets) TextView sum_assets;
     @BindView(R.id.uncollected_interest_sum) TextView uncollected_interest_sum;
-
+    @BindView(R.id.btn_eye) ImageView btn_eye;
 
     private MemberPresenter presenter;
     private ProgressDialog dialog;
 
+    private MemberIndex memberIndex;
     @Override
     protected int getLayoutId() {
         return R.layout.main_tab_usercenter;
@@ -105,6 +108,24 @@ public class MemberFragment extends BaseFragment implements MemberView{
             dialog.setMessage("正在加载...");
             dialog.show();
             presenter.getUnusedCouponsNum();
+        });
+        btn_eye.setOnClickListener( v -> {
+            if((boolean)SPUtils.get(getContext(),"isOpenEye",true)){
+                available_balance.setText("******");
+                sum_assets.setText("******");
+                uncollected_interest_sum.setText("******");
+                SPUtils.put(getContext(),"isOpenEye",false);
+                btn_eye.setImageResource(R.mipmap.icon_close_eye);
+            }else{
+                if(memberIndex!=null) {
+                    available_balance.setText(memberIndex.getAvailable_balance());
+                    sum_assets.setText(memberIndex.getTotal());
+                    uncollected_interest_sum.setText(memberIndex.getInterest());
+                    SPUtils.put(getContext(),"isOpenEye",true);
+                    btn_eye.setImageResource(R.mipmap.icon_open_eye);
+                }
+            }
+
         });
     }
 
@@ -154,10 +175,21 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @Override
     public void onMemberIndexSuccess(MemberIndex data) {
         mPtrFrame.refreshComplete();
+        memberIndex = data;
         username.setText(data.getUser_name());
-        available_balance.setText(data.getAvailable_balance());
-        sum_assets.setText(data.getTotal());
-        uncollected_interest_sum.setText(data.getInterest());
+
+        if((boolean)SPUtils.get(getContext(),"isOpenEye",true)){
+            available_balance.setText(memberIndex.getAvailable_balance());
+            sum_assets.setText(memberIndex.getTotal());
+            uncollected_interest_sum.setText(memberIndex.getInterest());
+            btn_eye.setImageResource(R.mipmap.icon_open_eye);
+        }else{
+            available_balance.setText("******");
+            sum_assets.setText("******");
+            uncollected_interest_sum.setText("******");
+            btn_eye.setImageResource(R.mipmap.icon_close_eye);
+        }
+
     }
 
     @Override

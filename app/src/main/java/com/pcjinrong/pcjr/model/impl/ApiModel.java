@@ -7,6 +7,7 @@ import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.model.IApiModel;
 
@@ -74,6 +75,11 @@ public class ApiModel implements IApiModel {
     @Override
     public Observable<BaseBean<List<BankCard>>> getBankCardList() {
         return RetrofitManager.getInstance().getApiService().getBankCardList();
+    }
+
+    @Override
+    public Observable<RechargeDifficult> getRechargeDifficult() {
+        return RetrofitManager.getInstance().getApiService().getRechargeDifficult();
     }
 
 

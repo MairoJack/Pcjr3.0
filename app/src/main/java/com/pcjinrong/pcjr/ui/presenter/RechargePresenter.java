@@ -4,6 +4,7 @@ import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.PayBean;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
 
@@ -69,4 +70,27 @@ public class RechargePresenter extends BasePresenter<RechargeView> {
                 }));
     }
 
+    public void difficult() {
+        this.mCompositeSubscription.add(this.mDataManager.rechargeDifficult()
+                .subscribe(new Subscriber<RechargeDifficult>() {
+                    @Override
+                    public void onCompleted() {
+                        if (RechargePresenter.this.mCompositeSubscription != null) {
+                            RechargePresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        RechargePresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(RechargeDifficult data) {
+                        if (RechargePresenter.this.getMvpView() != null)
+                            RechargePresenter.this.getMvpView().onDifficultSuccess(data);
+                    }
+                }));
+    }
 }

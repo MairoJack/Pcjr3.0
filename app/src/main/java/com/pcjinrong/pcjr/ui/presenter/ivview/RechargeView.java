@@ -1,6 +1,7 @@
 package com.pcjinrong.pcjr.ui.presenter.ivview;
 
 import com.pcjinrong.pcjr.bean.PayBean;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 
 
@@ -13,4 +14,5 @@ public interface RechargeView extends MvpView {
 
     void onRechargeSuccess(PayBean data);
 
+    void onDifficultSuccess(RechargeDifficult data);
 }

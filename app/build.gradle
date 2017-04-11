@@ -3,7 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 def releaseTime() {
-    return new Date().format("yyyyMMdd_HHmm")
+    return new Date().format("yyyy-MM-dd_HHmm")
 }
 
 android {
@@ -112,6 +112,4 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-2.7.8.jar')
     compile files('libs/ShareSDK-Wechat-Core-2.7.8.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.8.jar')
-
-
 }

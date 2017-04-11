@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
-import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.constant.Constant;
@@ -20,6 +19,7 @@ import com.pcjinrong.pcjr.ui.presenter.LoginPresenter;
 import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
+
 import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -92,6 +92,7 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
                 break;
             case R.id.loginbtn:
                 if(ViewUtil.isFastDoubleClick()) return;
+                Logger.d("abc");
                 login();
                 break;
         }

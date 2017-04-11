@@ -70,6 +70,6 @@ public class Constant {
     public static final String SHARE_URL = " https://m.pcjr.com";
     public static final String SHARE_LIST_URL = "https://m.pcjr.com/invest";
     public static final String SHARE_DETAIL_URL = "https://m.pcjr.com/productdetail/index?id=";
-    public static final String SHARE_IMG_URL = "https://m.pcjr.com/lib/wap/images/tips/logo_256.png";
+    public static final String SHARE_IMG_URL = "https://m.pcjr.com/lib /wap/images/tips/logo_256.png";
 
 }

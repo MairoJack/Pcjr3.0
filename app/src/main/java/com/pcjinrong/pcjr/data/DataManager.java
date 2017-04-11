@@ -21,6 +21,7 @@ import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
@@ -104,6 +105,11 @@ public class DataManager {
 
     public Observable<BaseBean<List<BankCard>>> getBankCardList() {
         return this.apiModel.getBankCardList()
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<RechargeDifficult> rechargeDifficult() {
+        return this.apiModel.getRechargeDifficult()
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
     /*
@@ -406,7 +412,7 @@ public class DataManager {
     }
 
     /*
-     * -------------------------- ApiModel Over ------------------------------
+     * -------------------------- PayModel Over ------------------------------
      */
 
 

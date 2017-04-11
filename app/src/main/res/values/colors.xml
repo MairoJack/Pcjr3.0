@@ -26,6 +26,9 @@
     <!-- color-->
     <color name="white">#FFF</color>
     <color name="light_white">#EEEEEE</color>
+    <color name="yellow">#FCCE33</color>
+    <color name="yellow_light">#ECCE33</color>
+    <color name="transparent">#00000000</color>
 
     <!-- tab color-->
     <color name="tab_text_color">#666666</color>

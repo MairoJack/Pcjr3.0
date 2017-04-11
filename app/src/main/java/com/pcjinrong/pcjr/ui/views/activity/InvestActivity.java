@@ -75,6 +75,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
     TextView txt_preview_repayment;
     @BindView(R.id.txt_threshold_amount)
     TextView txt_threshold_amount;
+
     @BindView(R.id.txt_balance)
     TextView txt_balance;
     @BindView(R.id.txt_repayment)
@@ -145,28 +146,58 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
             BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount()));
             final String amount = txt_invest_amount.getText().toString().trim();
             if (amount.equals("")) {
-                Dialog.show("请输入投资金额", this);
+                Dialog.show("请输入金额", this);
                 return;
             }
             BigDecimal bd_amount = new BigDecimal(amount);
             BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
             BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
-            if (bd_amount.compareTo(can_invest_amount) > 0) {
-                Dialog.show("金额超过可投最大值", this);
-                return;
-            }
-            if (bd_amount.compareTo(bd_threshold_amount) < 0) {
-                Dialog.show("金额不能小于起投金额", this);
-                return;
-            }
-            if (bd_amount.compareTo(available_balance) > 0) {
-                Dialog.show("可用余额不足", this);
-                return;
-            }
-            if (bd_increasing_amount.compareTo(BigDecimal.ZERO) != 0) {
-                if ((bd_amount.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) != 0)) {
-                    Dialog.show("金额没有按递增金额填写", this);
+            BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
+
+            //可投小于起投
+            if(can_invest_amount.compareTo(bd_threshold_amount) < 0){
+                //投资金额不等于可投
+                if(available_balance.compareTo(bd_amount) < 0){
+                    Dialog.show("超出可用余额", this);
                     return;
+                }
+                if(bd_amount.compareTo(can_invest_amount)!=0){
+                    Dialog.show("可投资金额小于起投金额时，投资金额应等于剩余可投金额，请修改金额或点击全投", this);
+                    return;
+                }
+            }else {
+                //可投小于递增，投资金额不等于起投金额
+                if (can_invest_amount.compareTo(bd_increasing_amount) < 0 && bd_amount.compareTo(bd_threshold_amount) != 0) {
+                    Dialog.show("可投资金额小于递增金额时，投资金额应等于起投金额，请修改金额或点击全投", this);
+                    return;
+                }
+                //投资金额大于最大投资额
+                if (bd_max_amount.compareTo(BigDecimal.ZERO) > 0) {
+                    if (bd_amount.compareTo(bd_max_amount) > 0) {
+                        Dialog.show("超出单笔投资限额", this);
+                        return;
+                    }
+                }
+                //投资金额大于可投金额
+                if (bd_amount.compareTo(can_invest_amount) > 0) {
+                    Dialog.show("超出可投金额", this);
+                    return;
+                }
+                //投资金额小于起投金额
+                if (bd_amount.compareTo(bd_threshold_amount) < 0) {
+                    Dialog.show("不能小于起投金额", this);
+                    return;
+                }
+                //投资金额大于余额
+                if (bd_amount.compareTo(available_balance) > 0) {
+                    Dialog.show("超出可用余额", this);
+                    return;
+                }
+                if (bd_increasing_amount.compareTo(BigDecimal.ZERO) != 0) {
+                    if (((bd_amount.subtract(bd_threshold_amount)).remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) != 0)) {
+                        Dialog.show("超出起投金额的部分须为递增金额的倍数", this);
+                        return;
+                    }
                 }
             }
             new MaterialDialog.Builder(InvestActivity.this)
@@ -185,47 +216,66 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
         btn_allin.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            int amount;
+            BigDecimal bd_amount;
+            BigDecimal bd_min;
+            BigDecimal bd_multiple;
             BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount()));
             BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
             BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
-            if (available_balance.compareTo(bd_threshold_amount) < 0) {
-                Dialog.show("可用余额不足", InvestActivity.this);
-                return;
-            }
-            if (can_invest_amount.compareTo(available_balance) > 0) {
-                if (bd_increasing_amount.compareTo(BigDecimal.ZERO) == 0) {
-                    amount = available_balance.intValue();
-                } else if (available_balance.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) == 0) {
-                    amount = available_balance.intValue();
-                } else {
-                    amount = available_balance.subtract(available_balance.remainder(bd_increasing_amount)).intValue();
-                }
-            } else {
-                if (bd_increasing_amount.compareTo(BigDecimal.ZERO) == 0) {
-                    amount = can_invest_amount.intValue();
-                } else if (can_invest_amount.remainder(bd_increasing_amount).compareTo(BigDecimal.ZERO) == 0) {
-                    amount = can_invest_amount.intValue();
-                } else {
-                    amount = can_invest_amount.subtract(can_invest_amount.remainder(bd_increasing_amount)).intValue();
-                }
+            BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
 
+            // 可投 < 起投
+            if (can_invest_amount.compareTo(bd_threshold_amount) < 0) {
+                // 余额 < 可投
+                if (available_balance.compareTo(can_invest_amount) < 0) {
+                    Dialog.show("可用余额不够投资该产品", InvestActivity.this);
+                    return;
+                // 余额 ≥ 可投 : 金额 = 可投
+                } else {
+                    bd_amount = can_invest_amount;
+                }
+            // 可投 》 起投
+            } else {
+                // 余额 < 起投
+                if (available_balance.compareTo(bd_threshold_amount) < 0) {
+                    Dialog.show("可用余额不够投资该产品", InvestActivity.this);
+                    return;
+                }
+                // 可投 < 递增 : 金额 = 起投
+                if (can_invest_amount.compareTo(bd_increasing_amount) < 0) {
+                    bd_amount = bd_threshold_amount;
+                // 可投 ≥ 递增
+                } else {
+                    // 无限额
+                    if (bd_max_amount.compareTo(BigDecimal.ZERO) == 0) {
+                        bd_min = available_balance.compareTo(can_invest_amount) < 0 ? available_balance : can_invest_amount;
+                    // 有限额
+                    } else {
+                        bd_min = bd_max_amount.compareTo(can_invest_amount) < 0 ? bd_max_amount : can_invest_amount;
+                        bd_min = bd_min.compareTo(available_balance) < 0 ? bd_min : available_balance;
+                    }
+                    // 递增 = 0
+                    if (bd_increasing_amount.compareTo(BigDecimal.ZERO) == 0) {
+                        bd_amount = bd_min;
+                    // 递增 != 0
+                    } else {
+                        bd_multiple = (bd_min.subtract(bd_threshold_amount)).divideToIntegralValue(bd_increasing_amount);
+                        bd_amount = (bd_multiple.multiply(bd_increasing_amount)).add(bd_threshold_amount);
+                    }
+                }
             }
-            if (amount <= 0) {
-                Dialog.show("可用余额不足", InvestActivity.this);
-                return;
-            }
-            interest(amount);
+            int finalAmount = bd_amount.intValue();
+            interest(finalAmount);
             new MaterialDialog.Builder(InvestActivity.this)
                     .title("输入密码")
-                    .content("投资金额：" + amount + "元")
+                    .content("投资金额：" + finalAmount + "元")
                     .positiveColor(Color.parseColor("#FF6602"))
                     .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
                     .input("请输入密码", "", (dialog, input) -> {
                         if (input.toString().equals("")) {
                             Dialog.show("请输入密码", InvestActivity.this);
                         } else {
-                            invest(input.toString(), String.valueOf(amount));
+                            invest(input.toString(), String.valueOf(finalAmount));
                         }
                     }).show();
         });
@@ -295,7 +345,12 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));
         }
         txt_invest_amount.setHint("可投" + String.format("%.2f", (new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount())))) + "元");
-        txt_threshold_amount.setText("起投/递增金额:" + product.getThreshold_amount() + "元/" + product.getIncreasing_amount() + " 元");
+        if(new BigDecimal(product.getMax_amount()).compareTo(BigDecimal.ZERO) == 0){
+            txt_threshold_amount.setText("起投/递增/单笔限额:" + new BigDecimal(product.getThreshold_amount()).intValue() + "/" + new BigDecimal(product.getIncreasing_amount()).intValue()  + "元/无限额");
+        }else{
+            txt_threshold_amount.setText("起投/递增/单笔限额:" + new BigDecimal(product.getThreshold_amount()).intValue() + "/" + new BigDecimal(product.getIncreasing_amount()).intValue()  + "/" + new BigDecimal(product.getMax_amount()).intValue() +"元");
+        }
+
         int repayment = product.getRepayment();
         switch (repayment) {
             case 0:
@@ -393,7 +448,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
     }
 
     private void setBehaviorCallback() {
-        View view = bottomSheetDialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet);
+        View view = bottomSheetDialog.getDelegate().findViewById(R.id.design_bottom_sheet);
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(view);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override

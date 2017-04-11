@@ -22,6 +22,7 @@ import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BankInfo;
 import com.pcjinrong.pcjr.bean.PayBean;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
@@ -32,6 +33,7 @@ import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
 import com.pcjinrong.pcjr.utils.BankUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
+import com.pcjinrong.pcjr.widget.RBDialog;
 
 import java.util.List;
 
@@ -128,11 +130,12 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
         txt_bank_card.setText(BankUtils.getBankNameById(bankInfo.getBank())+" "+bankInfo.getCard_top()+" **** **** "+bankInfo.getCard_last());
         presenter = new RechargePresenter();
         presenter.attachView(this);
-
+        presenter.difficult();
     }
 
 
     public void apply() {
+
         String amount = txt_amount.getText().toString().trim();
         String verify = txt_verify.getText().toString().trim();
         if (amount.equals("")) {
@@ -190,6 +193,14 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
             finish();
         }else{
             Dialog.show(data.getMessage(),this);
+        }
+    }
+
+    @Override
+    public void onDifficultSuccess(RechargeDifficult data) {
+        if(data.getIsShow() != 0) {
+            RBDialog dialog = new RBDialog(this, R.style.RatingBarDialog, data);
+            dialog.show();
         }
     }
 

@@ -12,6 +12,7 @@ import com.pcjinrong.pcjr.bean.InterestTicket;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.utils.DateUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -47,7 +48,9 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
                 if (investDays < object.getStart_day() || (object.getEnd_day() != 0 && investDays > object.getEnd_day())
                         || (object.getSeries() != 0 && product.getSeries() != object.getSeries())
                         || server_time / 1000 < object.getStart_time()
-                        || server_time / 1000 > object.getEnd_time()) {
+                        || server_time / 1000 > object.getEnd_time()
+                        || new BigDecimal(object.getEnd_amount()).compareTo(new BigDecimal(product.getThreshold_amount())) < 0
+                        || (new BigDecimal(product.getMax_amount()).compareTo(BigDecimal.ZERO)>0 && new BigDecimal(object.getStart_amount()).compareTo(new BigDecimal(product.getMax_amount())) > 0)){
                     object.setSelectable(false);
                 }else{
                     object.setSelectable(true);
@@ -71,6 +74,7 @@ public class InterestListAdapter extends RecyclerView.Adapter<InterestListAdapte
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_interest, parent, false);
         view.setOnClickListener(this);
+
         return new ViewHolder(view);
     }
 

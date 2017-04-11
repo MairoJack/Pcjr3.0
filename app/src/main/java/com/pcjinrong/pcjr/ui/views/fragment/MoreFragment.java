@@ -14,6 +14,7 @@ import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
 import com.pcjinrong.pcjr.utils.ViewUtil;
+import com.pcjinrong.pcjr.widget.RBDialog;
 
 import butterknife.BindView;
 
@@ -43,6 +44,10 @@ public class MoreFragment extends BaseFragment {
     protected void initListeners() {
         news.setOnClickListener(v->{
             if(ViewUtil.isFastDoubleClick()) return;
+            /*RBDialog dialog = new RBDialog(getContext(),
+                    R.style.RatingBarDialog);
+
+            dialog.show();*/
             Intent intent = new Intent(getActivity(), WebViewActivity.class);
             intent.putExtra("title", Constant.PLATFORM_ANNOUNCEMENT);
             intent.putExtra("url", Constant.PLATFORM_NEWS_URL);

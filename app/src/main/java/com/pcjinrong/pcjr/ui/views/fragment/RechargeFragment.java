@@ -17,6 +17,7 @@ import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.PayBean;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
@@ -188,6 +189,11 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
         }else{
             Dialog.show(data.getMessage(),getContext());
         }
+    }
+
+    @Override
+    public void onDifficultSuccess(RechargeDifficult data) {
+
     }
 
     @Override

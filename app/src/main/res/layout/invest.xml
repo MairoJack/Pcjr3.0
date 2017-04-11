@@ -95,7 +95,7 @@
                     android:id="@+id/txt_threshold_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="起投/递增金额:1000.00元/1000.00 元"
+                    tools:text="起投/递增金额:1000元/1000元；"
                     android:textColor="#e8542d"
                     android:textSize="15dp" />
 
@@ -110,7 +110,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:background="@color/color_content_background">
 
                     <TextView
@@ -138,7 +138,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="0.8dp"
                     android:background="@color/color_content_background">
 
@@ -165,7 +165,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="0.8dp"
                     android:background="@color/color_content_background">
 
@@ -191,7 +191,7 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="0.8dp"
                     android:background="@color/color_content_background">
 
@@ -218,7 +218,7 @@
                 <RelativeLayout
                     android:id="@+id/btn_interest"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="0.8dp"
                     android:background="@drawable/list_selector">
 
@@ -250,7 +250,7 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="0.8dp"
                     android:background="#FFFFFF">
 

@@ -302,7 +302,7 @@ public interface OAuthService {
      */
     @FormUrlEncoded
     @POST("member/get_red_packet_reward")
-    Observable<BaseBean> getRedPacketReward(@Field("id") String id);
+    Observable<BaseBean> getRedPacketReward(@Field("id")  String id);
 
     /**
      * 绑定设备

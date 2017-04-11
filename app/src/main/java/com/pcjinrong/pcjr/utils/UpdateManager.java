@@ -102,7 +102,7 @@ public class UpdateManager {
 		// 构造对话框
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle("软件更新");
-		builder.setMessage("检测到新版本，立即更新吗？");
+		builder.setMessage("检测到新版本，为了保障您的数据安全，获取完整的用户体验，建议立即更新！");
 		// 更新
 		builder.setPositiveButton("更新", new OnClickListener() {
 			@Override
@@ -113,12 +113,13 @@ public class UpdateManager {
 			}
 		});
 		// 稍后更新
-		builder.setNegativeButton("以后", new OnClickListener() {
+		/*builder.setNegativeButton("以后", new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
-		});
+		});*/
+		builder.setCancelable(false);
 		AlertDialog noticeDialog = builder.create();
 		noticeDialog.show();
 	}
@@ -166,6 +167,7 @@ public class UpdateManager {
 	protected void downLoadApk() {
 		final ProgressDialog pd; // 进度条对话框
 		pd = new ProgressDialog(mContext);
+		pd.setCancelable(false);
 		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		pd.setMessage("正在下载更新");
 		pd.setButton("取消", new OnClickListener() {

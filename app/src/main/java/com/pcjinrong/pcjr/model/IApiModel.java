@@ -5,6 +5,7 @@ import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public interface IApiModel {
     Observable<BaseBean<List<ProductTradingRecord>>> getProductTradingRecordList(String id, int page, int page_size);
 
     Observable<BaseBean<List<BankCard>>> getBankCardList();
+
+    Observable<RechargeDifficult> getRechargeDifficult();
 
 
 }

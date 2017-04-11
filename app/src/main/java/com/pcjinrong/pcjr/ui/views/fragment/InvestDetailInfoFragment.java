@@ -54,6 +54,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
     @BindView(R.id.name) TextView name;
     @BindView(R.id.threshold_amount) TextView threshold_amount;
     @BindView(R.id.increasing_amount) TextView increasing_amount;
+    @BindView(R.id.max_amount) TextView max_amount;
     @BindView(R.id.txt_repayment) TextView txt_repayment;
     @BindView(R.id.month) TextView month;
     @BindView(R.id.invest_amount) TextView invest_amount;
@@ -162,8 +163,14 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
         year_income.setText(product.getYear_income() + "%");
         name.setText(product.getName());
-        threshold_amount.setText(product.getThreshold_amount() + "元起购");
-        increasing_amount.setText(product.getIncreasing_amount() + "元递增");
+        threshold_amount.setText(new BigDecimal(product.getThreshold_amount()).intValue() + "元起购");
+        increasing_amount.setText(new BigDecimal(product.getIncreasing_amount()).intValue() + "元递增");
+        BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
+        if(bd_max_amount.compareTo(BigDecimal.ZERO) == 0){
+            max_amount.setText("单笔投资无限额");
+        }else{
+            max_amount.setText("单笔限额"+new BigDecimal(product.getMax_amount()).intValue()+"元");
+        }
         month.setText(product.getMonth());
 
         amount.setText(String.format("%.2f", bd_amount.divide(new BigDecimal(10000))));

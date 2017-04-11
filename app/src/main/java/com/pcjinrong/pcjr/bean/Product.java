@@ -40,6 +40,8 @@ public class Product implements Serializable {
     @Expose
     private String increasing_amount;
     @Expose
+    private String max_amount;
+    @Expose
     private String product_no;
     @Expose
     private long repayment_date;
@@ -300,5 +302,13 @@ public class Product implements Serializable {
 
     public void setDeadline(long deadline) {
         this.deadline = deadline;
+    }
+
+    public String getMax_amount() {
+        return max_amount;
+    }
+
+    public void setMax_amount(String max_amount) {
+        this.max_amount = max_amount;
     }
 }

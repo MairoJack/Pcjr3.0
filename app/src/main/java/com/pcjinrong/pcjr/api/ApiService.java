@@ -6,6 +6,7 @@ import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
+import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.List;
@@ -122,5 +123,11 @@ public interface ApiService {
      */
     @GET("androidVersion/getNewstVersion")
     Call<JsonObject> getNewstVersion();
+
+    /**
+     * 获取充值难度
+     */
+    @GET("recharge_difficult")
+    Observable<RechargeDifficult> getRechargeDifficult();
 
 }
