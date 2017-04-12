@@ -154,23 +154,23 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
             BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
             BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
 
+            if(available_balance.compareTo(bd_amount) < 0){
+                Dialog.show("超出可用余额", this);
+                return;
+            }
             //可投小于起投
             if(can_invest_amount.compareTo(bd_threshold_amount) < 0){
                 //投资金额不等于可投
-                if(available_balance.compareTo(bd_amount) < 0){
-                    Dialog.show("超出可用余额", this);
-                    return;
-                }
                 if(bd_amount.compareTo(can_invest_amount)!=0){
                     Dialog.show("可投资金额小于起投金额时，投资金额应等于剩余可投金额，请修改金额或点击全投", this);
                     return;
                 }
             }else {
-                //可投小于递增，投资金额不等于起投金额
-                if (can_invest_amount.compareTo(bd_increasing_amount) < 0 && bd_amount.compareTo(bd_threshold_amount) != 0) {
-                    Dialog.show("可投资金额小于递增金额时，投资金额应等于起投金额，请修改金额或点击全投", this);
+                if(bd_amount.compareTo(bd_threshold_amount) < 0){
+                    Dialog.show("须大于等于起投金额", this);
                     return;
                 }
+
                 //投资金额大于最大投资额
                 if (bd_max_amount.compareTo(BigDecimal.ZERO) > 0) {
                     if (bd_amount.compareTo(bd_max_amount) > 0) {
