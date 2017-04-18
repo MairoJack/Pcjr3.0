@@ -19,6 +19,7 @@ import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
@@ -357,6 +358,12 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
+    public Observable<BaseBean<List<PaymentRecords>>> getPaymentRecords(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getPaymentRecords(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
     /*
      * -------------------------- OAuthModel Over ------------------------------
      */

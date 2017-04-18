@@ -16,6 +16,7 @@ import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
@@ -212,6 +213,11 @@ public class OAuthModel implements IOAuthModel {
     @Override
     public Observable<RiskAssessmentScore> getRiskAssessmentScore() {
         return RetrofitManager.getInstance().getAuthService().getRiskAssessmentScore();
+    }
+
+    @Override
+    public Observable<BaseBean<List<PaymentRecords>>> getPaymentRecords(String id) {
+        return RetrofitManager.getInstance().getAuthService().getPaymentRecords(id);
     }
 
 }

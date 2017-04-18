@@ -48,6 +48,9 @@ android {
                 }
             }
         }
+        debug {
+            debuggable true
+        }
     }
     sourceSets {
         main {

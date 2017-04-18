@@ -44,6 +44,8 @@
         <activity android:name=".ui.views.activity.RegistActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.FinancialRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.InvestRecordsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.InvestRecordsDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.views.activity.PaymentRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.TradeRecordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.PaymentPlanActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.SafeSettingActivity" android:screenOrientation="portrait"/>

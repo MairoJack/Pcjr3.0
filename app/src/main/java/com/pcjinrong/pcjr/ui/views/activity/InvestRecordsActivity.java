@@ -45,7 +45,11 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<
 
     @Override
     protected void initListeners() {
-
+        adapter.setOnItemClickListener((view, id) -> {
+            Intent intent = new Intent(this, InvestRecordsDetailActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
+        });
     }
 
     @Override

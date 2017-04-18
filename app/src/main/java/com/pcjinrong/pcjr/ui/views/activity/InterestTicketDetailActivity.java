@@ -15,8 +15,8 @@ import java.util.Date;
 import butterknife.BindView;
 
 /**
- * 加息券-详情
- * Created by Mario on 2016/12/5.
+ * 投资券-详情
+ * Created by Mario on 2016/5/24.
  */
 public class InterestTicketDetailActivity extends BaseToolbarActivity {
     @BindView(R.id.msg) TextView msg;

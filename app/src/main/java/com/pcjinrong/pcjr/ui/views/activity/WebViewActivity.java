@@ -7,17 +7,16 @@ import android.view.KeyEvent;
 import android.webkit.CookieManager;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.utils.JsInterface;
 import com.pcjinrong.pcjr.utils.SPUtils;
-import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
 
@@ -54,12 +53,13 @@ public class WebViewActivity extends BaseToolbarActivity {
         Intent intent = getIntent();
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setSaveFormData(false);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webSettings
                 .setUserAgentString(webSettings.getUserAgentString() + "NewpcjrApp");
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-               webView.addJavascriptInterface(jsInterface,"jsInterface");
+        webView.addJavascriptInterface(jsInterface,"jsInterface");
 
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setCookie(".pcjr.com","access_token="+ SPUtils.getToken(App.getContext()).getAccess_token());
@@ -78,9 +78,9 @@ public class WebViewActivity extends BaseToolbarActivity {
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 view.loadUrl(url);
-                return super.shouldOverrideUrlLoading(view, url);
+                return super.shouldOverrideUrlLoading(view, request);
             }
 
 

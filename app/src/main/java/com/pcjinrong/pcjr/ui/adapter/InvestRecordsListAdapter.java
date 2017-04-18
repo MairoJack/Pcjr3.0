@@ -19,9 +19,11 @@ import butterknife.ButterKnife;
  * 投资记录适配器
  * Created by Mario on 2016/8/1.
  */
-public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecordsListAdapter.ViewHolder> {
+public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecordsListAdapter.ViewHolder> implements View.OnClickListener{
 
     private List<InvestRecords> list;
+
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     public InvestRecordsListAdapter() {
         list = new ArrayList<>();
@@ -42,17 +44,26 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_invest_records, parent, false);
+        view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindTo((list.get(position)));
+        holder.itemView.setTag(list.get(position).getProduct_name());
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(view, (String) view.getTag());
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -105,6 +116,14 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
             mIvIncome.setText(String.valueOf(bd_amount.add(bd_interestTotal).add(bd_extraInterestTotal)));
             mIvDate.setText(joinDate+"起投-"+deadline+"到期");
         }
+    }
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view, String id);
     }
 
 }

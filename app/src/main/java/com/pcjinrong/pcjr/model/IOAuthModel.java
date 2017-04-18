@@ -15,6 +15,7 @@ import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
+import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
@@ -96,4 +97,6 @@ public interface IOAuthModel {
     Observable<BaseBean<InterestTicket>> getInterestTicketDetail(String id);
 
     Observable<RiskAssessmentScore> getRiskAssessmentScore();
+
+    Observable<BaseBean<List<PaymentRecords>>> getPaymentRecords(String id);
 }
