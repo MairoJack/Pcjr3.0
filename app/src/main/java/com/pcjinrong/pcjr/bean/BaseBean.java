@@ -23,6 +23,9 @@ public class BaseBean<T> implements Serializable {
     private T data;
 
     @Expose
+    private T info;
+
+    @Expose
     private Pager pager;
 
     public long getCurrent_time() {
@@ -79,5 +82,13 @@ public class BaseBean<T> implements Serializable {
 
     public void setInvest_ticket_num(int invest_ticket_num) {
         this.invest_ticket_num = invest_ticket_num;
+    }
+
+    public T getInfo() {
+        return info;
+    }
+
+    public void setInfo(T info) {
+        this.info = info;
     }
 }

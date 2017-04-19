@@ -8,6 +8,10 @@ import com.google.gson.annotations.Expose;
  */
 public class InvestRecords {
     @Expose
+    private String id;
+    @Expose
+    private String product_id;
+    @Expose
     private String product_name;
     @Expose
     private int repayment;
@@ -96,5 +100,21 @@ public class InvestRecords {
 
     public void setInterest_year_income(String interest_year_income) {
         this.interest_year_income = interest_year_income;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 }

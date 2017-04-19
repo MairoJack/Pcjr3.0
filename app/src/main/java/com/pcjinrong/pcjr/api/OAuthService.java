@@ -8,6 +8,8 @@ import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InterestTicket;
+import com.pcjinrong.pcjr.bean.InvestProductDetail;
+import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
@@ -352,11 +354,21 @@ public interface OAuthService {
     Observable<RiskAssessmentScore> getRiskAssessmentScore();
 
     /**
-     * 获取用户回款记录
+     * 获取投资产品详情
      *
      * @param id
      * @return
      */
-    @GET("member/interest_ticket_detail")
-    Observable<BaseBean<List<PaymentRecords>>> getPaymentRecords(@Query("id") String id);
+    @GET("member/invest_product_detail")
+    Observable<BaseBean<InvestProductDetail>> getInvestProductDetail(@Query("id") String id);
+
+
+    /**
+     * 获取投资产品回款详情
+     *
+     * @param id
+     * @return
+     */
+    @GET("member/invest_product_repayment_info")
+    Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(@Query("id") String id);
 }

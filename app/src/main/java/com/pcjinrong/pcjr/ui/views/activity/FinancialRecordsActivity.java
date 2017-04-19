@@ -5,8 +5,9 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
-import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.utils.ViewUtil;
+import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
 
@@ -27,6 +28,8 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
     @BindView(R.id.invest_success_amount) TextView invest_success_amount;
     @BindView(R.id.withdraw_success_amount) TextView withdraw_success_amount;
 
+    @BindView(R.id.but_eye) TextView but_eye;
+    @BindView(R.id.but_tips) TextView but_tips;
     @Override
     protected int getLayoutId() {
         return R.layout.member_financial_records;
@@ -41,14 +44,22 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
 
     @Override
     protected void initListeners() {
+        but_eye.setOnClickListener(v->{
+            if(ViewUtil.isFastDoubleClick())return;
 
+        });
+
+        but_tips.setOnClickListener(v->{
+            if(ViewUtil.isFastDoubleClick())return;
+            Dialog.show("该金额会因提前还款有所变动，具体以实际到账为准",this);
+        });
     }
 
     @Override
     protected void initData() {
         FinanceRecords data = (FinanceRecords) getIntent().getSerializableExtra("data");
 
-        total_amount.setText(data.getTotal_amount()+"元");
+        total_amount.setText("总资产（元） "+data.getTotal_amount()+"元");
         available_balance.setText(data.getAvailable_balance()+"元");
         capital.setText(data.getCapital()+"元");
         interest.setText(data.getInterest()+"元");

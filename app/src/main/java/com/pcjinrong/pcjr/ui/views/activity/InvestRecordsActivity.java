@@ -10,11 +10,14 @@ import android.view.View;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.InvestProductDetail;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.InvestRecordsListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.InvestRecordsPresenter;
+import com.pcjinrong.pcjr.ui.presenter.ivview.InvestRecordsView;
+
 import java.util.List;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -23,12 +26,13 @@ import retrofit2.adapter.rxjava.HttpException;
  * 投资记录
  * Created by Mario on 2016/5/24.
  */
-public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<BaseBean<List<InvestRecords>>>{
+public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRecordsView{
 
     private InvestRecordsPresenter presenter;
     private InvestRecordsListAdapter adapter;
     private int type = 0;
-
+    private String id;
+    private String product_id;
     @Override
     protected int getLayoutId() {
         return R.layout.member_invest_records;
@@ -45,10 +49,11 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<
 
     @Override
     protected void initListeners() {
-        adapter.setOnItemClickListener((view, id) -> {
-            Intent intent = new Intent(this, InvestRecordsDetailActivity.class);
-            intent.putExtra("id",id);
-            startActivity(intent);
+        adapter.setOnItemClickListener((view, record) -> {
+            id = record.getId();
+            product_id = record.getProduct_id();
+            presenter.getInvestProductDetail(record.getId());
+
         });
     }
 
@@ -108,22 +113,10 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<
     }
 
     @Override
-    public void onSuccess(BaseBean<List<InvestRecords>> data) {
-        mPtrFrame.refreshComplete();
-        if(refresh){
-            if(data.getData().size() == 0) {
-                empty.setVisibility(View.VISIBLE);
-                rv_list.setVisibility(View.INVISIBLE);
-            }else{
-                empty.setVisibility(View.INVISIBLE);
-                rv_list.setVisibility(View.VISIBLE);
-                adapter.setData(data.getData());
-            }
-        }else{
-            adapter.addAll(data.getData());
-        }
-        if(data.getData().size() == 0 ) emptyCount++;
+    public void onSuccess(Object data) {
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,5 +129,36 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements MvpView<
         mTitle.setText(item.getTitle());
         mPtrFrame.post(()-> mPtrFrame.autoRefresh());
         return true;
+    }
+
+    @Override
+    public void onInvestRecordsListSuccess(List<InvestRecords> data) {
+        mPtrFrame.refreshComplete();
+        if(refresh){
+            if(data.size() == 0) {
+                empty.setVisibility(View.VISIBLE);
+                rv_list.setVisibility(View.INVISIBLE);
+            }else{
+                empty.setVisibility(View.INVISIBLE);
+                rv_list.setVisibility(View.VISIBLE);
+                adapter.setData(data);
+            }
+        }else{
+            adapter.addAll(data);
+        }
+        if(data.size() == 0 ) emptyCount++;
+    }
+
+    @Override
+    public void onInvestProductDetailSuccess(InvestProductDetail data) {
+        if(data != null){
+            Intent intent = new Intent(this,InvestRecordsDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            intent.putExtras(bundle);
+            intent.putExtra("id",id);
+            intent.putExtra("product_id",product_id);
+            startActivity(intent);
+        }
     }
 }

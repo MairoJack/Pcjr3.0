@@ -29,6 +29,7 @@
                 android:padding="10dp"
                 android:textColor="#F5BAA2"
                 android:textSize="14dp"
+                android:visibility="gone"
                 tools:text="* 本产品具有 提前回款 可能， 如提前回款则补偿本产品 10天利息 于投资人，利息计算方法请点击此处" />
 
             <LinearLayout
@@ -155,6 +156,7 @@
                             android:id="@+id/txt_jxq"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:visibility="gone"
                             android:gravity="bottom">
 
                             <TextView

@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.pcjinrong.pcjr.R;
+import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
@@ -22,7 +23,7 @@ import retrofit2.adapter.rxjava.HttpException;
  * 回款记录
  * Created by Mario on 2017/4/14.
  */
-public class PaymentRecordsActivity extends BaseSwipeActivity implements MvpView<List<PaymentRecords>> {
+public class PaymentRecordsActivity extends BaseSwipeActivity implements MvpView<List<InvestProductRepaymentInfo>> {
 
     private PaymentRecordsPresenter presenter;
     private PaymentRecordsListAdapter adapter;
@@ -75,14 +76,7 @@ public class PaymentRecordsActivity extends BaseSwipeActivity implements MvpView
     protected void refresh() {
         refresh = true;
         emptyCount = 0;
-        List<PaymentRecords> list = new ArrayList<>();
-        PaymentRecords paymentRecords = new PaymentRecords();
-        paymentRecords.setAmount("123");
-        list.add(paymentRecords);
-        list.add(paymentRecords);
-        list.add(paymentRecords);
-        adapter.setData(list);
-       // this.presenter.getPaymentRecords(id);
+        this.presenter.getInvestProductRepaymentInfo(id);
     }
 
     @Override
@@ -102,7 +96,7 @@ public class PaymentRecordsActivity extends BaseSwipeActivity implements MvpView
     }
 
     @Override
-    public void onSuccess(List<PaymentRecords> list) {
+    public void onSuccess(List<InvestProductRepaymentInfo> list) {
         mPtrFrame.refreshComplete();
         if (refresh) {
             if (list.size() == 0) {

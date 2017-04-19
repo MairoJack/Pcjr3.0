@@ -1,335 +1,393 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_background"
     android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar"/>
+    <include layout="@layout/include_toolbar" />
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none" >
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginTop="0.5dp"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
+                android:layout_height="20dp"
+                android:background="@drawable/bg_user_center"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/but_eye"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="账户总资产"
-                    android:textColor="@color/color_text" />
+                    android:src="@mipmap/icon_open_eye" />
 
-                <TextView
-                    android:id="@+id/total_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="0.00元"
-                    android:textColor="@color/color_text" />
+            </LinearLayout>
+œå
 
-                <View
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_user_center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_16sp"
+                        android:text="可用余额(元)" />
+
+                    <TextView
+                        android:id="@+id/available_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        tools:text="99990000.00" />
+
+                    <TextView
+                        android:id="@+id/total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="总资产(元)64323232.00"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_content_background"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="可用余额"
-                    android:textColor="@color/color_text" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/available_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
-                <View
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_weight="2"
+                            android:text="待收利息（元）"
+                            android:textSize="@dimen/text_size_14sp" />
+
+                        <ImageView
+                            android:id="@+id/but_tips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_tips"/>
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_title"
+                        tools:text="8888" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/color_line"/>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="待收本金"
-                    android:textColor="@color/color_text" />
-
-                <TextView
-                    android:id="@+id/capital"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
-
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="待收利息"
-                    android:textColor="@color/color_text" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/interest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="待收本金（元）"
+                        android:textSize="@dimen/text_size_14sp" />
 
-            <RelativeLayout
+                    <TextView
+                        android:id="@+id/capital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/color_text"
+                        android:textSize="@dimen/text_size_title"
+                        tools:text="5066.84" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/color_content_background" >
+                android:background="@color/color_content_background"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="累计收益"
-                    android:textColor="@color/color_text" />
 
-                <TextView
-                    android:id="@+id/earned_interest"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
+
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title"
+                            android:text="累计收益" />
+
+                        <TextView
+                            android:id="@+id/earned_interest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title"
+                            android:text="累计投资" />
+
+                        <TextView
+                            android:id="@+id/invest_success_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
+                    android:layout_height="1dp"
                     android:layout_marginLeft="20dp"
-                    android:text="累计投资"
-                    android:textColor="@color/color_text" />
-
-                <TextView
-                    android:id="@+id/invest_success_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
+                    android:background="@color/color_list_divider" />
 
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
 
-            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title"
+                            android:text="累计充值" />
+
+                        <TextView
+                            android:id="@+id/recharge_success_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title"
+                            android:text="累计提现" />
+
+                        <TextView
+                            android:id="@+id/withdraw_success_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="累计充值"
-                    android:textColor="@color/color_text" />
-
-                <TextView
-                    android:id="@+id/recharge_success_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="累计提现"
-                    android:textColor="@color/color_text" />
-
-                <TextView
-                    android:id="@+id/withdraw_success_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/color_content_background" >
+                android:background="@color/color_content_background"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="可用奖励金"
-                    android:textColor="@color/color_text" />
 
-                <TextView
-                    android:id="@+id/reward_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
-
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_content_background" >
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="累计获得奖励金"
-                    android:textColor="@color/color_text" />
 
-                <TextView
-                    android:id="@+id/total_reward_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    tools:text="1000000.00元"
-                    android:textColor="@color/color_text" />
+                    android:orientation="horizontal"
+                    android:padding="15dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/color_line" />
-            </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title"
+                            android:text="可用奖励金" />
+
+                        <TextView
+                            android:id="@+id/reward_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:text="累计获得奖励金"
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_title" />
+
+                        <TextView
+                            android:id="@+id/total_reward_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            tools:text="8888"
+                            android:textSize="@dimen/text_size_14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

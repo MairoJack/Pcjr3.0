@@ -9,6 +9,8 @@ import com.pcjinrong.pcjr.bean.Coupon;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InterestTicket;
+import com.pcjinrong.pcjr.bean.InvestProductDetail;
+import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
@@ -216,8 +218,14 @@ public class OAuthModel implements IOAuthModel {
     }
 
     @Override
-    public Observable<BaseBean<List<PaymentRecords>>> getPaymentRecords(String id) {
-        return RetrofitManager.getInstance().getAuthService().getPaymentRecords(id);
+    public Observable<BaseBean<InvestProductDetail>> getInvestProductDetail(String id) {
+        return RetrofitManager.getInstance().getAuthService().getInvestProductDetail(id);
     }
+
+    @Override
+    public Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(String id) {
+        return RetrofitManager.getInstance().getAuthService().getInvestProductRepaymentInfo(id);
+    }
+
 
 }

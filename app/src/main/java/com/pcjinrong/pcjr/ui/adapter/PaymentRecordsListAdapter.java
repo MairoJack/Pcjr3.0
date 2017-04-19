@@ -8,9 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.bean.PaymentRecords;
+import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
+import com.pcjinrong.pcjr.utils.DateUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,20 +25,20 @@ import butterknife.ButterKnife;
  */
 public class PaymentRecordsListAdapter extends RecyclerView.Adapter<PaymentRecordsListAdapter.ViewHolder> {
 
-    private List<PaymentRecords> list;
+    private List<InvestProductRepaymentInfo> list;
 
 
     public PaymentRecordsListAdapter() {
         list = new ArrayList<>();
     }
 
-    public void setData(List<PaymentRecords> list) {
+    public void setData(List<InvestProductRepaymentInfo> list) {
         this.list.clear();
         this.list = list;
         notifyDataSetChanged();
     }
 
-    public void addAll(List<PaymentRecords> list) {
+    public void addAll(List<InvestProductRepaymentInfo> list) {
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -71,13 +74,31 @@ public class PaymentRecordsListAdapter extends RecyclerView.Adapter<PaymentRecor
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindTo(PaymentRecords object) {
-            mIvImgStatus.setImageResource(R.mipmap.icon_yes);
-            mIvTxtDate.setText("2017-05-16");
-            mIvTxtTerm.setText("第一期");
-            mIvTxtStatus.setText("已回款");
-            mIvTxtEstimatedAmount.setText("85490.61");
-            mIvTxtActualAmount.setText("85490.61");
+        public void bindTo(InvestProductRepaymentInfo object) {
+
+            BigDecimal bd_estimated_capital = new BigDecimal(object.getEstimated_capital());
+            BigDecimal bd_estimated_interest = new BigDecimal(object.getEstimated_interest());
+            BigDecimal bd_actual_capital = new BigDecimal(object.getActual_capital());
+            BigDecimal bd_actual_interest = new BigDecimal(object.getActual_interest());
+
+
+            mIvTxtTerm.setText("第"+object.getTerm()+"期");
+
+            if(object.getStatus() == 1){
+                mIvTxtStatus.setText("已回款");
+                mIvImgStatus.setImageResource(R.mipmap.icon_yes);
+                mIvTxtDate.setText(DateUtils.dateTimeToStr(new Date(object.getActual_time() * 1000), "yyyy-MM-dd"));
+            }else{
+                mIvTxtStatus.setText("未回款");
+                mIvImgStatus.setImageResource(R.mipmap.icon_no);
+                mIvTxtDate.setText(DateUtils.dateTimeToStr(new Date(object.getEstimated_time() * 1000), "yyyy-MM-dd"));
+            }
+
+            mIvTxtEstimatedAmount.setText(bd_estimated_capital.add(bd_estimated_interest).toString());
+            mIvTxtActualAmount.setText(bd_actual_capital.add(bd_actual_interest).toString());
+
+
+
         }
     }
 

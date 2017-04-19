@@ -6,7 +6,7 @@ package com.pcjinrong.pcjr.api;
 public class ApiConstant {
 
     /**
-     * api接口
+     * api接口  0x05ac
      */
     /**
      * test

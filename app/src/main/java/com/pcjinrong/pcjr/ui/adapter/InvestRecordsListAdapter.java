@@ -51,7 +51,7 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bindTo((list.get(position)));
-        holder.itemView.setTag(list.get(position).getProduct_name());
+        holder.itemView.setTag(list.get(position));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
     @Override
     public void onClick(View view) {
         if (mOnItemClickListener != null) {
-            mOnItemClickListener.onItemClick(view, (String) view.getTag());
+            mOnItemClickListener.onItemClick(view, (InvestRecords) view.getTag());
         }
     }
 
@@ -123,7 +123,7 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
     }
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, String id);
+        void onItemClick(View view, InvestRecords record);
     }
 
 }
