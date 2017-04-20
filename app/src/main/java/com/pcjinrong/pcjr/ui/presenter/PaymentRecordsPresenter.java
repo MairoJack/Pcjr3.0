@@ -47,7 +47,7 @@ public class PaymentRecordsPresenter extends BasePresenter<MvpView<List<InvestPr
                     @Override
                     public void onNext(BaseBean<List<InvestProductRepaymentInfo>> data) {
                         if (PaymentRecordsPresenter.this.getMvpView() != null) {
-                            PaymentRecordsPresenter.this.getMvpView().onSuccess(data.getData());
+                            PaymentRecordsPresenter.this.getMvpView().onSuccess(data.getInfo());
                         }
                     }
                 }));

@@ -22,16 +22,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_user_center"
                 android:gravity="right|center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/but_eye"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_open_eye" />
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_open_eye_48" />
 
             </LinearLayout>
 œå
@@ -196,7 +197,7 @@
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_18sp"
                             android:text="累计收益" />
 
                         <TextView
@@ -225,7 +226,7 @@
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_18sp"
                             android:text="累计投资" />
 
                         <TextView
@@ -267,7 +268,7 @@
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_18sp"
                             android:text="累计充值" />
 
                         <TextView
@@ -296,7 +297,7 @@
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_18sp"
                             android:text="累计提现" />
 
                         <TextView
@@ -341,7 +342,7 @@
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_18sp"
                             android:text="可用奖励金" />
 
                         <TextView
@@ -372,7 +373,7 @@
                             android:layout_weight="1"
                             android:text="累计获得奖励金"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title" />
+                            android:textSize="@dimen/text_size_18sp" />
 
                         <TextView
                             android:id="@+id/total_reward_amount"

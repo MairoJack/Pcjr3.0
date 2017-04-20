@@ -2,10 +2,13 @@ package com.pcjinrong.pcjr.ui.views.activity;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
+import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -28,8 +31,10 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
     @BindView(R.id.invest_success_amount) TextView invest_success_amount;
     @BindView(R.id.withdraw_success_amount) TextView withdraw_success_amount;
 
-    @BindView(R.id.but_eye) TextView but_eye;
-    @BindView(R.id.but_tips) TextView but_tips;
+    @BindView(R.id.but_eye) ImageView but_eye;
+    @BindView(R.id.but_tips) ImageView but_tips;
+
+    private FinanceRecords data;
     @Override
     protected int getLayoutId() {
         return R.layout.member_financial_records;
@@ -46,7 +51,17 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
     protected void initListeners() {
         but_eye.setOnClickListener(v->{
             if(ViewUtil.isFastDoubleClick())return;
-
+            if((boolean)SPUtils.get(this,"isOpenEye48",true)){
+                hide();
+                SPUtils.put(this,"isOpenEye48",false);
+                but_eye.setImageResource(R.mipmap.icon_close_eye_48);
+            }else{
+                if(data!=null) {
+                    show(data);
+                    SPUtils.put(this,"isOpenEye48",true);
+                    but_eye.setImageResource(R.mipmap.icon_open_eye_48);
+                }
+            }
         });
 
         but_tips.setOnClickListener(v->{
@@ -57,18 +72,18 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
 
     @Override
     protected void initData() {
-        FinanceRecords data = (FinanceRecords) getIntent().getSerializableExtra("data");
+        data = (FinanceRecords) getIntent().getSerializableExtra("data");
 
-        total_amount.setText("总资产（元） "+data.getTotal_amount()+"元");
-        available_balance.setText(data.getAvailable_balance()+"元");
-        capital.setText(data.getCapital()+"元");
-        interest.setText(data.getInterest()+"元");
-        earned_interest.setText(data.getEarned_interest()+"元");
-        reward_amount.setText(data.getReward_amount()+"元");
-        total_reward_amount.setText(data.getTotal_reward_amount()+"元");
-        recharge_success_amount.setText(data.getRecharge_success_amount()+"元");
-        invest_success_amount.setText(data.getInvest_success_amount()+"元");
-        withdraw_success_amount.setText(data.getWithdraw_success_amount()+"元");
+        if((boolean) SPUtils.get(this,"isOpenEye48",true)){
+            show(data);
+            but_eye.setImageResource(R.mipmap.icon_open_eye_48);
+        }else{
+            hide();
+            but_eye.setImageResource(R.mipmap.icon_close_eye_48);
+        }
+
+
+
     }
 
     @Override
@@ -83,4 +98,29 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
 
     }
 
+    private void show(FinanceRecords data){
+        total_amount.setText("总资产（元） "+data.getTotal_amount());
+        available_balance.setText(data.getAvailable_balance()+"元");
+        capital.setText(data.getCapital());
+        interest.setText(data.getInterest());
+        earned_interest.setText(data.getEarned_interest()+"元");
+        reward_amount.setText(data.getReward_amount()+"元");
+        total_reward_amount.setText(data.getTotal_reward_amount()+"元");
+        recharge_success_amount.setText(data.getRecharge_success_amount()+"元");
+        invest_success_amount.setText(data.getInvest_success_amount()+"元");
+        withdraw_success_amount.setText(data.getWithdraw_success_amount()+"元");
+    }
+
+    private void hide(){
+        total_amount.setText("总资产（元） ******");
+        available_balance.setText("******");
+        capital.setText("******");
+        interest.setText("******");
+        earned_interest.setText("******");
+        reward_amount.setText("******");
+        total_reward_amount.setText("******");
+        recharge_success_amount.setText("******");
+        invest_success_amount.setText("******");
+        withdraw_success_amount.setText("******");
+    }
 }
