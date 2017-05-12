@@ -110,7 +110,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
     @OnClick(R.id.btn_logout)
     void logout_btn() {
         new AlertDialog.Builder(this)
-                .setTitle("确认注销?")
+                .setTitle("确认退出?")
                 .setPositiveButton("确认", (dialog, which) -> {
                     logout();
                     dialog.dismiss();
@@ -165,7 +165,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
     public void onLogoutSuccess(BaseBean data) {
         dialog.dismiss();
         if (data.isSuccess()) {
-            showToast("注销成功");
+            showToast("退出成功");
             setResult(RESULT_OK);
             Constant.IS_LOGIN = false;
             Constant.IS_GESTURE_LOGIN = false;
@@ -173,7 +173,7 @@ public class SafeSettingActivity extends BaseToolbarActivity implements SafeSett
             SPUtils.clear(this);
             finish();
         } else {
-            showToast("注销失败:" + data.getMessage());
+            showToast("退出失败:" + data.getMessage());
         }
     }
 

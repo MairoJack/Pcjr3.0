@@ -153,6 +153,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
             if (object.getFinish_preview_repayment() == 1) {
                 mIvTqhk.setImageResource(R.mipmap.ic_tqhk);
+                mIvTqhk.setVisibility(View.VISIBLE);
             } else {
                 if (preview_repayment == 0) {
                     mIvTqhk.setVisibility(View.GONE);
@@ -162,12 +163,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     } else {
                         mIvTqhk.setImageResource(R.mipmap.ic_kntqhk_gray);
                     }
+                    mIvTqhk.setVisibility(View.VISIBLE);
                 }
             }
             mIvIncome.setText(String.valueOf(object.getYear_income()));
-            BigDecimal amount = new BigDecimal(object.getAmount());
+            BigDecimal amount = new BigDecimal(object.getThreshold_amount());
             BigDecimal tenThousand = new BigDecimal(10000);
-            mIvAmount.setText(String.format("%.2f", amount.divide(tenThousand)));
+            mIvAmount.setText(String.valueOf(amount.intValue()));
             mIvMonth.setText(object.getMonth());
 
         }

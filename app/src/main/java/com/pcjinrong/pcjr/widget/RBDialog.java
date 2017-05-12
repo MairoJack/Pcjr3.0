@@ -7,6 +7,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -23,10 +25,10 @@ import butterknife.ButterKnife;
 
 public class RBDialog extends android.app.Dialog implements android.view.View.OnClickListener{
 
-    @BindView(R.id.ratingBar) RatingBar mRb;
     @BindView(R.id.message) TextView message;
     @BindView(R.id.btn_apply) Button btn_apply;
 
+    @BindView(R.id.group_star) LinearLayout group_star;
 
     private MyDialogListener listener;
 
@@ -54,10 +56,21 @@ public class RBDialog extends android.app.Dialog implements android.view.View.On
         this.setContentView(R.layout.rb_dialog);
         ButterKnife.bind(this);
 
-        LayerDrawable ld_stars = (LayerDrawable) mRb.getProgressDrawable();
-        ld_stars.getDrawable(2).setColorFilter(Color.parseColor("#FCCE33"), PorterDuff.Mode.SRC_ATOP);
-        ld_stars.getDrawable(1).setColorFilter(Color.parseColor("#FCCE33"), PorterDuff.Mode.SRC_ATOP);
-        mRb.setRating(rd.getDifficult());
+        group_star.removeAllViews();
+        for(int i = 1;i<=rd.getDifficult();i++){
+            ImageView star = new ImageView(context);
+            star.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1.0f));
+            star.setImageResource(R.mipmap.icon_star);
+            group_star.addView(star);
+        }
+        for(int i = rd.getDifficult()+1;i<=5;i++){
+            ImageView star_gray = new ImageView(context);
+            star_gray.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1.0f));
+            star_gray.setImageResource(R.mipmap.icon_star_gray);
+            group_star.addView(star_gray);
+        }
         message.setText(rd.getMessage());
         btn_apply.setOnClickListener( view-> dismiss());
     }

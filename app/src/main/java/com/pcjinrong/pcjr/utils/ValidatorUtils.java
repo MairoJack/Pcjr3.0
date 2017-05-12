@@ -19,7 +19,7 @@ public class ValidatorUtils {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    public static final String REGEX_MOBILE = "^(1)\\d{10}$";
 
     /**
      * 正则表达式：验证邮箱
@@ -41,6 +41,9 @@ public class ValidatorUtils {
      * 正则表达式：验证IP地址
      */
     public static final String REGEX_IP_ADDR = "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)";
+
+
+    public static final String REGEX_TWO_DECIMAL_NUMBER = "^\\d+(\\.\\d{1,2}(0*))?$";
 
     /**
      * 校验用户名
@@ -113,7 +116,18 @@ public class ValidatorUtils {
         return Pattern.matches(REGEX_IP_ADDR, ipAddr);
     }
 
-    public static void main(String[] args) {
 
+    /**
+     * 校验带两位小数的正数
+     *
+     * @param number
+     * @return
+     */
+    public static boolean isCorrectTwoDecimalNumber(String number) {
+        return Pattern.matches(REGEX_TWO_DECIMAL_NUMBER, number);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isCorrectTwoDecimalNumber("0.33"));
     }
 }

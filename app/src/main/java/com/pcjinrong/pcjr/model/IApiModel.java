@@ -2,15 +2,17 @@ package com.pcjinrong.pcjr.model;
 
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Empty;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.Token;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import rx.Observable;
 
 /**
@@ -37,5 +39,6 @@ public interface IApiModel {
 
     Observable<RechargeDifficult> getRechargeDifficult();
 
+    Observable<Response<Empty>> getCurrentTime();
 
 }

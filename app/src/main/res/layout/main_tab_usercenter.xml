@@ -159,14 +159,30 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center"
                                 android:layout_weight="2"
-                                android:gravity="center"
-                                android:text="待收收益（元）"
-                                android:textColor="#FFFFFF" />
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:text="待收利息（元）"
+                                    android:textColor="#FFFFFF" />
+
+                                <ImageView
+                                    android:id="@+id/btn_tips"
+                                    android:layout_marginTop="7dp"
+                                    android:layout_width="30dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/icon_tips_48"/>
+                            </LinearLayout>
+
 
                             <TextView
                                 android:id="@+id/uncollected_interest_sum"

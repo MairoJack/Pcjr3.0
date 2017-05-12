@@ -318,7 +318,16 @@
                 </RelativeLayout>
             </LinearLayout>
 
-
+            <Button
+                android:id="@+id/btn_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/btn_primary"
+                android:text="一键全提"
+                android:textColor="@color/color_content_background"
+                android:textSize="@dimen/text_size_18sp"
+                android:visibility="gone"/>
             <Button
                 android:id="@+id/btn_apply"
                 android:layout_width="match_parent"

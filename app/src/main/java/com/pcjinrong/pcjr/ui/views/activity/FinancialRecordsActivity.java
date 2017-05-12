@@ -54,12 +54,12 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
             if((boolean)SPUtils.get(this,"isOpenEye48",true)){
                 hide();
                 SPUtils.put(this,"isOpenEye48",false);
-                but_eye.setImageResource(R.mipmap.icon_close_eye_48);
+                but_eye.setImageResource(R.mipmap.icon_close_eye);
             }else{
                 if(data!=null) {
                     show(data);
                     SPUtils.put(this,"isOpenEye48",true);
-                    but_eye.setImageResource(R.mipmap.icon_open_eye_48);
+                    but_eye.setImageResource(R.mipmap.icon_open_eye);
                 }
             }
         });
@@ -76,10 +76,10 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
 
         if((boolean) SPUtils.get(this,"isOpenEye48",true)){
             show(data);
-            but_eye.setImageResource(R.mipmap.icon_open_eye_48);
+            but_eye.setImageResource(R.mipmap.icon_open_eye);
         }else{
             hide();
-            but_eye.setImageResource(R.mipmap.icon_close_eye_48);
+            but_eye.setImageResource(R.mipmap.icon_close_eye);
         }
 
 
@@ -99,8 +99,8 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
     }
 
     private void show(FinanceRecords data){
-        total_amount.setText("总资产（元） "+data.getTotal_amount());
-        available_balance.setText(data.getAvailable_balance()+"元");
+        total_amount.setText("总资产 "+data.getTotal_amount() +"元");
+        available_balance.setText(data.getAvailable_balance());
         capital.setText(data.getCapital());
         interest.setText(data.getInterest());
         earned_interest.setText(data.getEarned_interest()+"元");
@@ -112,7 +112,7 @@ public class FinancialRecordsActivity extends BaseToolbarActivity{
     }
 
     private void hide(){
-        total_amount.setText("总资产（元） ******");
+        total_amount.setText("总资产 ******");
         available_balance.setText("******");
         capital.setText("******");
         interest.setText("******");

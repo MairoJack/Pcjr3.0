@@ -12,12 +12,51 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="建议充值指数"
         android:textColor="@color/color_text_tag"
         android:textSize="20dp"/>
 
-    <RatingBar
+
+    <LinearLayout
+        android:id="@+id/group_star"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_star"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_star"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_star"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_star"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_star"
+            android:layout_weight="1"/>-->
+    </LinearLayout>
+
+    <!--<RatingBar
         android:id="@+id/ratingBar"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
@@ -26,7 +65,7 @@
         android:rating="4"
         android:isIndicator="true"
         android:progressTint="@color/yellow"
-        android:secondaryProgressTint="@color/yellow"
+        android:secondaryProgressTint="@color/yellow"-->
         />
     <TextView
         android:id="@+id/message"
@@ -42,7 +81,7 @@
     <Button
         android:id="@+id/btn_apply"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="15dp"
         android:background="@drawable/btn_yellow"
         android:text="好"

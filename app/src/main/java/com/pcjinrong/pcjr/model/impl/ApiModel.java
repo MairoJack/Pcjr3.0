@@ -4,6 +4,7 @@ import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Empty;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
@@ -13,6 +14,8 @@ import com.pcjinrong.pcjr.model.IApiModel;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import rx.Observable;
 
 /**
@@ -80,6 +83,11 @@ public class ApiModel implements IApiModel {
     @Override
     public Observable<RechargeDifficult> getRechargeDifficult() {
         return RetrofitManager.getInstance().getApiService().getRechargeDifficult();
+    }
+
+    @Override
+    public Observable<Response<Empty>> getCurrentTime() {
+        return RetrofitManager.getInstance().getApiService().get_current_time();
     }
 
 

@@ -73,6 +73,10 @@ public class BindMobileActivity extends BaseToolbarActivity implements BindMobil
             Dialog.show("请输入手机号", this);
             return;
         }
+        if (!ValidatorUtils.isMobile(mobile)) {
+            Dialog.show("手机号格式错误", this);
+            return;
+        }
         if (checkCode.equals("")) {
             Dialog.show("请输入验证码", this);
             return;

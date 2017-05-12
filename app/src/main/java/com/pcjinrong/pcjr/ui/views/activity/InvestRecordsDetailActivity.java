@@ -82,6 +82,7 @@ public class InvestRecordsDetailActivity extends BaseToolbarActivity {
         InvestProductDetail object = (InvestProductDetail) intent.getSerializableExtra("data");
 
         int repayment = object.getRepayment();
+        int status = object.getStatus();
 
         txt_title.setText(object.getName());
         txt_invest_amount.setText(object.getAmount());
@@ -113,15 +114,19 @@ public class InvestRecordsDetailActivity extends BaseToolbarActivity {
 
         switch (repayment) {
             case 0:txt_repayment_type.setText("一次还本付息");break;
-            case 1:txt_repayment_type.setText("先息后本(月)");break;
+            case 1:txt_repayment_type.setText("先息后本(按月付息)");break;
             case 2:txt_repayment_type.setText("等额本息");break;
-            case 3:txt_repayment_type.setText("先息后本(季)");break;
+            case 3:txt_repayment_type.setText("先息后本(按季付息)");break;
         }
-        if(object.getStatus() == 1){
-            txt_status.setText("正在回款");
-        }else{
-            txt_status.setText("未回款");
+
+        switch (status) {
+            case 1:txt_status.setText("正在募集");break;
+            case 2:txt_status.setText("募集成功");break;
+            case 3:txt_status.setText("正在回款");break;
+            case 4:txt_status.setText("回款完毕");break;
+            case 5:txt_status.setText("已流标");break;
         }
+
 
         if(new BigDecimal(object.getInterest_year_income()).compareTo(BigDecimal.ZERO)>0){
             txt_interest.setText("+"+object.getInterest_year_income());

@@ -37,8 +37,12 @@ public class UpdateManager {
 	private boolean cancel = false;
 	private String appname = "PcjinrongApp.apk";
 	private String updateurl = "https://m.pcjr.com/";
-
+	//private String updateurl = "http://m.pcjr.test/";
 	private String apk_url = "";
+	private int type;
+	private String title;
+	private String message;
+
 	public UpdateManager(Context context) {
 		this.mContext = context;
 	}
@@ -65,7 +69,10 @@ public class UpdateManager {
 					JsonObject json = response.body();
 					int version = json.get("Version").getAsInt();
 					apk_url = json.get("Url").getAsString();
-					if (version > versionCode) {
+					type = json.get("type").getAsInt();
+					title = json.get("title").getAsString();
+					message = json.get("message").getAsString();
+					if (version > versionCode || type == 0) {
 						showNoticeDialog();
 					}
 				}
@@ -101,17 +108,28 @@ public class UpdateManager {
 	private void showNoticeDialog() {
 		// 构造对话框
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setTitle("软件更新");
-		builder.setMessage("检测到新版本，为了保障您的数据安全，获取完整的用户体验，建议立即更新！");
-		// 更新
-		builder.setPositiveButton("更新", new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				// 显示下载对话框
-				downLoadApk();
-			}
-		});
+		builder.setTitle(title);
+		builder.setMessage(message);
+
+		if(type == 1) {
+			// 更新
+			builder.setPositiveButton("更新", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					// 显示下载对话框
+					downLoadApk();
+				}
+			});
+		} else if (type == 0){
+			// 系统维护
+			builder.setPositiveButton("好", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+		}
 		// 稍后更新
 		/*builder.setNegativeButton("以后", new OnClickListener() {
 			@Override

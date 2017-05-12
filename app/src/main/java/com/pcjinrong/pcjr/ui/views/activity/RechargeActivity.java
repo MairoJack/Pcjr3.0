@@ -31,6 +31,7 @@ import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.ui.presenter.RechargePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
 import com.pcjinrong.pcjr.utils.BankUtils;
+import com.pcjinrong.pcjr.utils.ValidatorUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 import com.pcjinrong.pcjr.widget.RBDialog;
@@ -73,7 +74,7 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
     private String bank_id;
     private String order_no;
     private String member_id;
-
+    private String amount;
     @Override
     protected int getLayoutId() {
         return R.layout.member_recharge;
@@ -135,19 +136,28 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
 
 
     public void apply() {
-
-        String amount = txt_amount.getText().toString().trim();
+        String confirm_amount = txt_amount.getText().toString().trim();
         String verify = txt_verify.getText().toString().trim();
-        if (amount.equals("")) {
+        if (confirm_amount.equals("")) {
             Dialog.show("请输入充值金额", this);
             return;
         }
-        if (Double.parseDouble(amount) <= 0) {
+
+        if(!ValidatorUtils.isCorrectTwoDecimalNumber(confirm_amount)){
+            Dialog.show("请正确输入充值金额", this);
+            return;
+        }
+
+        if (Double.parseDouble(confirm_amount) <= 0) {
             Dialog.show("充值金额必须大于0", this);
             return;
         }
         if (verify.equals("")) {
             Dialog.show("请输入验证码", this);
+            return;
+        }
+        if(amount!=null && !amount.equals("") && Double.parseDouble(confirm_amount)!=(Double.parseDouble(amount))){
+            Dialog.show("充值金额应与获取验证码时的充值金额相同，请正确输入充值金额或者重新获取验证码", this);
             return;
         }
         if(!agree.isChecked()){
@@ -159,11 +169,18 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
     }
 
     public void send_verify() {
-        String amount = txt_amount.getText().toString().trim();
+        amount = txt_amount.getText().toString().trim();
+
         if (amount.equals("")) {
             Dialog.show("请输入充值金额", this);
             return;
         }
+
+        if(!ValidatorUtils.isCorrectTwoDecimalNumber(amount)){
+            Dialog.show("请正确输入充值金额", this);
+            return;
+        }
+
         if (Double.parseDouble(amount) <= 0) {
             Dialog.show("充值金额必须大于0", this);
             return;

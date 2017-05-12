@@ -31,6 +31,7 @@ import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawRechargeActivity;
 import com.pcjinrong.pcjr.utils.SPUtils;
+import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
 import butterknife.BindView;
@@ -66,6 +67,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
     @BindView(R.id.sum_assets) TextView sum_assets;
     @BindView(R.id.uncollected_interest_sum) TextView uncollected_interest_sum;
     @BindView(R.id.btn_eye) ImageView btn_eye;
+    @BindView(R.id.btn_tips) ImageView btn_tips;
 
     private MemberPresenter presenter;
     private ProgressDialog dialog;
@@ -126,6 +128,11 @@ public class MemberFragment extends BaseFragment implements MemberView{
                 }
             }
 
+        });
+
+        btn_tips.setOnClickListener(v->{
+            if(ViewUtil.isFastDoubleClick())return;
+            Dialog.show("该金额会因提前还款有所变动，具体以实际到账为准",getActivity());
         });
     }
 

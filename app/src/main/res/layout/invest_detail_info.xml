@@ -14,7 +14,8 @@
         <ScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/color_background">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,7 +164,7 @@
                             android:layout_centerInParent="true"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_12sp"
-                            tools:text="1000元起购" />
+                            tools:text="1000元起投" />
 
                         <View
                             android:layout_width="1dp"
@@ -228,41 +229,6 @@
                     android:background="@color/color_content_background"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="10dp"
-                            android:text="项目总额(万元)"
-                            android:textSize="@dimen/text_size_14sp"
-                            android:textColor="@color/color_text" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="15dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/amount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="100.00"
-                                android:textColor="@color/color_text"
-                                android:textSize="@dimen/text_size_title" />
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -300,6 +266,20 @@
 
                     </RelativeLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/color_list_divider"/>
+                    </LinearLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -374,6 +354,28 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="产品金额："
+                            android:textColor="@color/color_text"
+                            android:textSize="@dimen/text_size_16sp" />
+
+                          <TextView
+                            android:id="@+id/amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_14sp"
+                            tools:text="100万元" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="首次还息日："
                             android:textColor="@color/color_text"
                             android:textSize="@dimen/text_size_16sp" />
@@ -435,6 +437,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@color/color_content_background"
                     android:id="@+id/important"
                     android:visibility="gone">
 

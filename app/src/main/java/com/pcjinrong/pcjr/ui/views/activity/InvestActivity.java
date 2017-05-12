@@ -44,6 +44,7 @@ import com.pcjinrong.pcjr.ui.decorator.RecycleViewDivider;
 import com.pcjinrong.pcjr.ui.presenter.InvestPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.InvestView;
 import com.pcjinrong.pcjr.utils.DateUtils;
+import com.pcjinrong.pcjr.utils.ValidatorUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -149,6 +150,12 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
                 Dialog.show("请输入金额", this);
                 return;
             }
+
+            if(!ValidatorUtils.isCorrectTwoDecimalNumber(amount)){
+                Dialog.show("请正确输入金额", this);
+                return;
+            }
+
             BigDecimal bd_amount = new BigDecimal(amount);
             BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
             BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
@@ -318,7 +325,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null && !s.toString().equals("")) {
+                if (s != null && !s.toString().equals("") && ValidatorUtils.isCorrectTwoDecimalNumber(s.toString())) {
                     double amount = Double.parseDouble(s.toString());
                     interest(amount);
                 }
@@ -397,7 +404,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
     public void onFailure(Throwable e) {
         if (dialog.isShowing()) dialog.dismiss();
         if(e instanceof HttpException && ((HttpException)e).code() == 400){
-            showToast(getString(R.string.login_expired));
+            showToast(R.string.login_expired);
             startActivity(new Intent(InvestActivity.this, LoginActivity.class));
             return;
         }

@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -33,6 +34,9 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRe
     private int type = 0;
     private String id;
     private String product_id;
+
+    private ProgressDialog dialog;
+
     @Override
     protected int getLayoutId() {
         return R.layout.member_invest_records;
@@ -42,6 +46,7 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRe
     protected void initViews(Bundle savedInstanceState) {
         this.showBack();
         this.setTitle("投资记录");
+        dialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
         mToolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.mipmap.ic_more_horiz_white_24dp));
         dividerHeight = (int) getResources().getDimension(R.dimen.list_divider_height);
     }
@@ -50,6 +55,8 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRe
     @Override
     protected void initListeners() {
         adapter.setOnItemClickListener((view, record) -> {
+            dialog.setMessage("正在加载...");
+            dialog.show();
             id = record.getId();
             product_id = record.getProduct_id();
             presenter.getInvestProductDetail(record.getId());
@@ -103,6 +110,7 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRe
 
     @Override
     public void onFailure(Throwable e) {
+        if(dialog.isShowing())dialog.dismiss();
         mPtrFrame.refreshComplete();
         if(e instanceof HttpException && ((HttpException)e).code() == 400){
             showToast(getString(R.string.login_expired));
@@ -151,6 +159,7 @@ public class InvestRecordsActivity extends BaseSwipeActivity implements InvestRe
 
     @Override
     public void onInvestProductDetailSuccess(InvestProductDetail data) {
+        if(dialog.isShowing())dialog.dismiss();
         if(data != null){
             Intent intent = new Intent(this,InvestRecordsDetailActivity.class);
             Bundle bundle = new Bundle();

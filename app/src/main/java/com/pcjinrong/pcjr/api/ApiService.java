@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.api;
 import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Empty;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
@@ -11,7 +12,9 @@ import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -130,4 +133,10 @@ public interface ApiService {
     @GET("recharge_difficult")
     Observable<RechargeDifficult> getRechargeDifficult();
 
+
+    /**
+     * 获取服务器时间
+     */
+    @GET("current_time/t.json")
+    Observable<Response<Empty>> get_current_time();
 }

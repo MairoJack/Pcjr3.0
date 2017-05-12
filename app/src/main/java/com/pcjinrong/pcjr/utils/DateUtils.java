@@ -859,7 +859,7 @@ public class DateUtils {
 	}
 
 	public final static Date getDate(String strNowDate) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat();
 		return sdf.parse(strNowDate);
 	}
 

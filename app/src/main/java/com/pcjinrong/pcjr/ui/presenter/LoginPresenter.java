@@ -1,13 +1,14 @@
 package com.pcjinrong.pcjr.ui.presenter;
 
 import com.orhanobut.logger.Logger;
-import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Empty;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
-import com.pcjinrong.pcjr.utils.SPUtils;
-
+import com.pcjinrong.pcjr.utils.DateUtils;
+import java.util.Date;
+import retrofit2.Response;
 import rx.Subscriber;
 
 /**
@@ -61,6 +62,34 @@ public class LoginPresenter extends BasePresenter<MvpView<Token>> {
                     @Override
                     public void onNext(BaseBean data) {
                         Logger.i(data.getMessage());
+                    }
+                }));
+    }
+
+    public void getCurrentTime() {
+        this.mCompositeSubscription.add(this.mDataManager.getCurrentTime()
+                .subscribe(new Subscriber<Response<Empty>>() {
+                    @Override
+                    public void onCompleted() {
+                        if (LoginPresenter.this.mCompositeSubscription != null) {
+                            LoginPresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        LoginPresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(Response<Empty> response) {
+                        if (LoginPresenter.this.getMvpView() != null) {
+                            Date date = response.headers().getDate("date");
+                            Logger.d("date:" + date.getTime());
+                            Logger.d("responseBody:" + DateUtils.dateTimeToStr(date, "yyyy-MM-dd HH:mm:ss"));
+                        }
+                        //LoginPresenter.this.getMvpView().onSuccess(token);
                     }
                 }));
     }

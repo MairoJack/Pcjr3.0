@@ -20,7 +20,13 @@ import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
+import java.io.IOException;
+
 import butterknife.BindView;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
 /**
@@ -92,10 +98,10 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
                 break;
             case R.id.loginbtn:
                 if(ViewUtil.isFastDoubleClick()) return;
-                Logger.d("abc");
                 login();
                 break;
-        }
+            }
+
     }
 
     public void login() {

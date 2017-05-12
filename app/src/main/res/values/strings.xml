@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">皮城金融</string>
 
+
     <!-- main  -->
     <string name="cpyg">产品预告</string>
     <string name="dcxa">大城小爱</string>
@@ -22,7 +23,7 @@
     <!--item product-->
     <string name="annual_earnings">年化收益</string>
     <string name="project_duration">项目期限</string>
-    <string name="total_amount">金额(万元)</string>
+    <string name="total_amount">起投金额(元)</string>
 
     <!-- error info -->
     <string name="login_expired">登陆过期,请重新登陆</string>
@@ -38,4 +39,7 @@
     <string name="set_gesture_pattern_reason">设置手势密码，防止他人未经授权查看</string>
     <string name="reset_gesture_code">重新设置手势密码</string>
     <!-- End -->
+
+    <!-- other info -->
+    <string name="realname_info">一个身份信息只能绑定一个账号；\n请确保已满16周岁，本平台充值/提现仅支持二代身份证办理的银行卡；\n每账户最多提交三次验证申请,如被锁定,请联系在线客服或拨打400-101-3339。</string>
 </resources>

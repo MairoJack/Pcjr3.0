@@ -3,10 +3,10 @@ package com.pcjinrong.pcjr.data;
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.api.ApiConstant;
-import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
+import com.pcjinrong.pcjr.bean.Empty;
 import com.pcjinrong.pcjr.bean.FinanceRecords;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
@@ -16,12 +16,10 @@ import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
-import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
-import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.Product;
 import com.pcjinrong.pcjr.bean.ProductTradingRecord;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
@@ -38,8 +36,11 @@ import com.pcjinrong.pcjr.model.impl.PayModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
 import com.pcjinrong.pcjr.utils.SPUtils;
 
+import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.functions.Func1;
@@ -83,7 +84,17 @@ public class DataManager {
 
     public Observable<BaseBean<List<Product>>> getIndexProductList() {
         return this.apiModel.getIndexProductList()
-                .compose(RxUtils.applyIOToMainThreadSchedulers());
+                .flatMap(new Func1<BaseBean<List<Product>>, Observable<BaseBean<List<Product>>>>() {
+                    @Override
+                    public Observable<BaseBean<List<Product>>> call(BaseBean<List<Product>> productList) {
+                        Observable<Response<Empty>> o = apiModel.getCurrentTime();
+                        return o.map(response-> {
+                            long current_time = response.headers().getDate("date").getTime() / 1000;
+                            productList.setCurrent_time(current_time);
+                            return productList;
+                        });
+                    }
+                }).compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
     public Observable<IndexFocusInfo> getIndexFocusInfo() {
@@ -93,12 +104,32 @@ public class DataManager {
 
     public Observable<BaseBean<List<Product>>> getInvestProductList(int type, int page, int page_size) {
         return this.apiModel.getInvestProductList(type, page, page_size)
-                .compose(RxUtils.applyIOToMainThreadSchedulers());
+                    .flatMap(new Func1<BaseBean<List<Product>>, Observable<BaseBean<List<Product>>>>() {
+                    @Override
+                    public Observable<BaseBean<List<Product>>> call(BaseBean<List<Product>> productList) {
+                        Observable<Response<Empty>> o = apiModel.getCurrentTime();
+                        return o.map(response-> {
+                            long current_time = response.headers().getDate("date").getTime() / 1000;
+                            productList.setCurrent_time(current_time);
+                            return productList;
+                        });
+                    }
+                }).compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
     public Observable<BaseBean<Product>> getProductDetail(String id) {
         return this.apiModel.getProductDetail(id)
-                .compose(RxUtils.applyIOToMainThreadSchedulers());
+                .flatMap(new Func1<BaseBean<Product>, Observable<BaseBean<Product>>>() {
+                    @Override
+                    public Observable<BaseBean<Product>> call(BaseBean<Product> product) {
+                        Observable<Response<Empty>> o = apiModel.getCurrentTime();
+                        return o.map(response -> {
+                            long current_time = response.headers().getDate("date").getTime() / 1000;
+                            product.setCurrent_time(current_time);
+                            return product;
+                        });
+                    }
+                }).compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
     public Observable<BaseBean<List<ProductTradingRecord>>> getProductTradingRecordList(String id, int page, int page_size) {
@@ -113,6 +144,11 @@ public class DataManager {
 
     public Observable<RechargeDifficult> rechargeDifficult() {
         return this.apiModel.getRechargeDifficult()
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<Response<Empty>> getCurrentTime() {
+        return this.apiModel.getCurrentTime()
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
     /*

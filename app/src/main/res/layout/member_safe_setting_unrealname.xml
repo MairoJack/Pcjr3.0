@@ -85,7 +85,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:lineSpacingExtra="3dp"
-        android:text="一个身份信息（一张身份证）只能绑定一个账号；\n每个账户最多提交三次身份信息验证申请,如果超过三次您的账户将被锁定,请联系在线客服或拨打400-101-3339解绑."
+        android:text="@string/realname_info"
         android:textColor="@color/color_text"
         android:textSize="@dimen/text_size_14sp" />
 

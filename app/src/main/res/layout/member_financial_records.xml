@@ -32,7 +32,7 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:scaleType="centerInside"
-                    android:src="@mipmap/icon_open_eye_48" />
+                    android:src="@mipmap/icon_open_eye" />
 
             </LinearLayout>
 œå
@@ -76,7 +76,7 @@
                         android:layout_weight="2"
                         android:gravity="center"
                         android:text="总资产(元)64323232.00"
-                        android:textColor="@color/white"
+                        android:textColor="#fbc2a6"
                         android:textSize="@dimen/text_size_16sp" />
 
             </LinearLayout>
@@ -131,14 +131,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:orientation="vertical">
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/color_line"/>
+                        android:background="@color/color_list_divider"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -213,6 +213,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_list_divider"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -223,6 +227,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
@@ -233,6 +238,7 @@
                             android:id="@+id/invest_success_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
                             android:layout_gravity="left"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
@@ -283,7 +289,10 @@
 
 
                     </LinearLayout>
-
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_list_divider"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -295,6 +304,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="left"
+                            android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
                             android:textSize="@dimen/text_size_18sp"
@@ -304,6 +314,7 @@
                             android:id="@+id/withdraw_success_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
                             android:layout_gravity="left"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
@@ -358,6 +369,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_list_divider"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -369,6 +384,7 @@
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
                             android:layout_gravity="left"
                             android:layout_weight="1"
                             android:text="累计获得奖励金"
@@ -379,6 +395,7 @@
                             android:id="@+id/total_reward_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
                             android:layout_gravity="left"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"

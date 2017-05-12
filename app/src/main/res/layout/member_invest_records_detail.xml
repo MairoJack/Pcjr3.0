@@ -62,7 +62,7 @@
                         android:background="@drawable/border_white_orange"
                         android:padding="5dp"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14sp"
+                        android:textSize="@dimen/text_size_12sp"
                         tools:text="先息后本(按月付息)" />
 
                 </LinearLayout>
@@ -217,7 +217,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_16sp"
                             tools:text="3个月" />
 
                         <TextView
@@ -227,6 +227,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="2"
                             android:text="项目期限"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -243,8 +244,8 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
-                            tools:text="0.00" />
+                            android:textSize="@dimen/text_size_16sp"
+                            tools:text="11111111.00" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -253,6 +254,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="2"
                             android:text="已收总额（元）"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -269,8 +271,8 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
-                            tools:text="5066.84" />
+                            android:textSize="@dimen/text_size_16sp"
+                            tools:text="50661111.84" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -279,6 +281,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:text="待收总额（元）"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -311,7 +314,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_16sp"
                             tools:text="2017-03-13" />
 
                         <TextView
@@ -321,6 +324,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="2"
                             android:text="投资时间"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -337,7 +341,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_16sp"
                             tools:text="2017-03-14" />
 
                         <TextView
@@ -347,6 +351,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="2"
                             android:text="起息时间"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -363,7 +368,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:textColor="@color/color_text"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_16sp"
                             tools:text="2017-06-14" />
 
                         <TextView
@@ -373,6 +378,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:text="结束时间"
+                            android:textColor="@color/color_text_intro"
                             android:textSize="@dimen/text_size_14sp" />
                     </LinearLayout>
 
@@ -388,22 +394,26 @@
 
                     <Button
                         android:id="@+id/but_item_detail"
+                        android:background="@drawable/btn_gray"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:textColor="#5A5A5D"
                         android:text="项目详情">
 
                     </Button>
 
                     <Button
                         android:id="@+id/but_payment_records"
+                        android:background="@drawable/btn_gray"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:textColor="#5A5A5D"
                         android:text="回款记录">
 
                     </Button>
@@ -415,6 +425,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:textColor="#BBBBBE"
+                android:textSize="@dimen/text_size_12sp"
                 android:text="请登录官网www.pcjr.com查看合同及委托授权书" />
         </LinearLayout>
     </ScrollView>

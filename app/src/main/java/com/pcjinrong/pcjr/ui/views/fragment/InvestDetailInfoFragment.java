@@ -163,7 +163,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
         year_income.setText(product.getYear_income() + "%");
         name.setText(product.getName());
-        threshold_amount.setText(new BigDecimal(product.getThreshold_amount()).intValue() + "元起购");
+        threshold_amount.setText(new BigDecimal(product.getThreshold_amount()).intValue() + "元起投");
         increasing_amount.setText(new BigDecimal(product.getIncreasing_amount()).intValue() + "元递增");
         BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
         if(bd_max_amount.compareTo(BigDecimal.ZERO) == 0){
@@ -173,7 +173,7 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         }
         month.setText(product.getMonth());
 
-        amount.setText(String.format("%.2f", bd_amount.divide(new BigDecimal(10000))));
+        amount.setText(String.format("%.2f", bd_amount.divide(new BigDecimal(10000)))+"万元");
         invest_amount.setText(String.format("%.2f", bd_amount.subtract(bd_product_amount).divide(new BigDecimal(10000))));
         product_no.setText(product.getProduct_no());
 

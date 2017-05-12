@@ -22,6 +22,7 @@ import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.ui.presenter.WithdrawPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
+import com.pcjinrong.pcjr.utils.ValidatorUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 
@@ -56,6 +57,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
     @BindView(R.id.txt_bank_card) TextView txt_bank_card;
 
+    @BindView(R.id.btn_all) Button btn_all;
+
     private TimeCount time;
     private WithdrawPresenter presenter;
     private ProgressDialog dialog;
@@ -63,6 +66,8 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
     private String bank_id;
     private BigDecimal free_withdraw;
     private BigDecimal available_balance;
+
+    private String amount;
 
     @Override
     protected int getLayoutId() {
@@ -108,20 +113,18 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null && !s.toString().equals("")) {
-                    double amount = Double.parseDouble(s.toString());
-                    if(amount > available_balance.doubleValue()){
+                if (s != null && !s.toString().equals("") && ValidatorUtils.isCorrectTwoDecimalNumber(s.toString())) {
+                    BigDecimal amount = new BigDecimal(s.toString());
+                    if(amount.compareTo(available_balance) > 0){
                         txt_mention_amount.setText(String.valueOf(available_balance));
-                        amount = available_balance.doubleValue();
+                        amount = available_balance;
                     }
-                    if (amount > free_withdraw.doubleValue()) {
-                        double fee = (amount - free_withdraw.doubleValue()) * 0.15 / 100;
-                        BigDecimal b = new BigDecimal(String.valueOf(fee));
-                        double f = b.setScale(2, RoundingMode.HALF_UP).doubleValue();
-                        if(f<=0){
+                    if (amount.compareTo(free_withdraw) > 0 ) {
+                        BigDecimal fee = (amount.subtract(free_withdraw)).multiply(new BigDecimal("0.15")).divide(new BigDecimal("100"),2,RoundingMode.HALF_UP);
+                        if(fee.compareTo(BigDecimal.ZERO) <= 0){
                             txt_fee.setText("0.01");
                         }else {
-                            txt_fee.setText(String.valueOf(f));
+                            txt_fee.setText(String.valueOf(fee));
                         }
                     }else{
                         txt_fee.setText("0.00");
@@ -132,7 +135,6 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
             }
         });
 
-
         btn_verify.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             send_verify();
@@ -141,6 +143,42 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         btn_apply.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             apply();
+        });
+
+        btn_all.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            //可用 <= 免费可提
+            if(available_balance.compareTo(free_withdraw) <= 0){
+                txt_mention_amount.setText(String.valueOf(available_balance));
+                txt_fee.setText("0.00");
+                return;
+            }
+            BigDecimal no_free = available_balance.subtract(free_withdraw);
+            if(no_free.compareTo(BigDecimal.ZERO) > 0
+                    && no_free.compareTo(new BigDecimal("10")) <= 0){
+                if(available_balance.subtract(new BigDecimal("0.01")).compareTo(BigDecimal.ZERO) <= 0){
+                    Dialog.show("余额不足，无法提现",this);
+                } else if(available_balance.subtract(free_withdraw).compareTo(new BigDecimal("0.01")) == 0){
+                    txt_mention_amount.setText(String.valueOf(free_withdraw));
+                    txt_fee.setText("0.00");
+                } else {
+                    txt_mention_amount.setText(String.valueOf(available_balance.subtract(new BigDecimal("0.01"))));
+                    txt_fee.setText("0.01");
+                }
+                return;
+            }
+            BigDecimal fee = new BigDecimal("0.15").multiply(free_withdraw);
+            BigDecimal amount = (new BigDecimal("100").multiply(available_balance).add(fee))
+                    .divide(new BigDecimal("100.15"),2,RoundingMode.HALF_UP);
+
+            BigDecimal fee_result = available_balance.subtract(amount);
+            BigDecimal act_result = (amount.subtract(free_withdraw)).multiply(new BigDecimal("0.0015")).setScale(2,RoundingMode.HALF_UP);
+
+            if(fee_result.compareTo(act_result) < 0){
+                amount = amount.subtract(new BigDecimal("0.01")).setScale(2,RoundingMode.HALF_UP);
+            }
+            txt_mention_amount.setText(String.valueOf(amount));
+            txt_fee.setText(String.valueOf(fee_result));
         });
     }
 
@@ -164,13 +202,19 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
     }
 
     public void apply() {
-        String amount = txt_mention_amount.getText().toString().trim();
+        String confirm_amount = txt_mention_amount.getText().toString().trim();
         String verify = txt_verify.getText().toString().trim();
-        if (amount.equals("")) {
+        if (confirm_amount.equals("")) {
             Dialog.show("请输入提现金额", this);
             return;
         }
-        if (Double.parseDouble(amount) <= 0) {
+
+        if(!ValidatorUtils.isCorrectTwoDecimalNumber(confirm_amount)){
+            Dialog.show("请正确输入提现金额", this);
+            return;
+        }
+
+        if (Double.parseDouble(confirm_amount) <= 0) {
             Dialog.show("提现金额必须大于0", this);
             return;
         }
@@ -183,15 +227,26 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
             return;
         }
 
-        presenter.withdraw(amount, bank_id, verify);
+        if(amount!=null && !amount.equals("") && Double.parseDouble(confirm_amount)!=(Double.parseDouble(amount))){
+            Dialog.show("提现金额应与获取验证码时的提现金额相同，请正确输入提现金额或者重新获取验证码", this);
+            return;
+        }
+
+        presenter.withdraw(confirm_amount, bank_id, verify);
     }
 
     public void send_verify() {
-        String amount = txt_mention_amount.getText().toString().trim();
+        amount = txt_mention_amount.getText().toString().trim();
         if (amount.equals("")) {
             Dialog.show("请输入提现金额", WithdrawActivity.this);
             return;
         }
+
+        if(!ValidatorUtils.isCorrectTwoDecimalNumber(amount)){
+            Dialog.show("请正确输入提现金额", this);
+            return;
+        }
+
         if (Double.parseDouble(amount) <= 0) {
             Dialog.show("提现金额必须大于0", WithdrawActivity.this);
             return;
