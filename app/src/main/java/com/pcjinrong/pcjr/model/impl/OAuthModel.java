@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.model.impl;
 
+import com.google.gson.JsonObject;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
 import com.pcjinrong.pcjr.bean.AvailableInterest;
@@ -24,10 +25,12 @@ import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.bean.WithdrawCancel;
 import com.pcjinrong.pcjr.model.IOAuthModel;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -227,5 +230,14 @@ public class OAuthModel implements IOAuthModel {
         return RetrofitManager.getInstance().getAuthService().getInvestProductRepaymentInfo(id);
     }
 
+    @Override
+    public Observable<BaseBean<List<WithdrawCancel>>> getTodayWithdrawList() {
+        return RetrofitManager.getInstance().getAuthService().getTodayWithdrawList();
+    }
+
+    @Override
+    public Observable<BaseBean> cancelWithdraw(String id) {
+        return RetrofitManager.getInstance().getAuthService().cancelWithdraw(id);
+    }
 
 }

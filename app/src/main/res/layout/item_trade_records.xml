@@ -1,68 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/color_content_background"
-    android:padding="8dp">
-
-    <TextView
-        android:id="@+id/remark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="申请提现"
-        android:textColor="@color/color_text"
-        android:textSize="@dimen/text_size_14sp" />
-
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="-1000000.000元"
-        android:layout_marginTop="7dp"
-        android:textColor="@color/color_text_light"
-        android:textSize="@dimen/text_size_14sp" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        tools:text="2015-08-18"
-        android:textColor="@color/color_text_light"
-        android:textSize="@dimen/text_size_14sp" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:orientation="horizontal" >
+        android:background="#F0F0F3"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/fee"
+            android:id="@+id/header_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+10000.00元"
-            android:textColor="@color/color_text_light"
+            android:layout_marginTop="5dp"
+            android:text="2017年4月"
+            android:textColor="#8787BA"
             android:textSize="@dimen/text_size_14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:textColor="@color/color_text"
-            android:textSize="@dimen/text_size_14sp" />
-
-        <TextView
-            android:id="@+id/balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="999999.00元"
-            android:textColor="@color/color_text"
-            android:textSize="@dimen/text_size_14sp" />
     </LinearLayout>
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_weight="2"
+            tools:src="@mipmap/icon_income" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#595959"
+                android:textSize="@dimen/text_size_14sp"
+                tools:text="申请提现申请提现请提现申请提请提现申请提申" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#A8A8A8"
+                android:textSize="@dimen/text_size_14sp"
+                tools:text="2015-08-18" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-1000000.000元"
+                android:textColor="#595959"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#A8A8A8"
+                android:textSize="@dimen/text_size_14sp"
+                tools:text="手续费:120000.00" />
+
+            <TextView
+                android:id="@+id/balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="余额:999999699.00"
+                android:textColor="#A8A8A8"
+                android:textSize="@dimen/text_size_14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

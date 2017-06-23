@@ -1,14 +1,11 @@
 package com.pcjinrong.pcjr.ui.presenter;
 
 import com.orhanobut.logger.Logger;
-import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
-
-import java.util.List;
 
 import rx.Subscriber;
 
@@ -90,6 +87,30 @@ public class RechargePresenter extends BasePresenter<RechargeView> {
                     public void onNext(RechargeDifficult data) {
                         if (RechargePresenter.this.getMvpView() != null)
                             RechargePresenter.this.getMvpView().onDifficultSuccess(data);
+                    }
+                }));
+    }
+
+    public void getRechargeInfo() {
+        this.mCompositeSubscription.add(this.mDataManager.getRechargeInfo()
+                .subscribe(new Subscriber<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        if (RechargePresenter.this.mCompositeSubscription != null) {
+                            RechargePresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        RechargePresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(BaseBean data) {
+                        if (RechargePresenter.this.getMvpView() != null)
+                            RechargePresenter.this.getMvpView().onRechargeInfoSuccess(data);
                     }
                 }));
     }

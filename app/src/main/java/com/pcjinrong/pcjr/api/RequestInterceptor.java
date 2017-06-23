@@ -1,6 +1,5 @@
 package com.pcjinrong.pcjr.api;
 
-import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.utils.SPUtils;
@@ -20,9 +19,13 @@ public class RequestInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Token token = SPUtils.getToken(App.getContext());
         Request originalRequest = chain.request();
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         Request authorised = originalRequest.newBuilder()
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .header("User-Agent", "Android-" + currentApiVersion)
                 .header("Authorization", "Bearer " + token.getAccess_token())
                 .build();
+
         return chain.proceed(authorised);
     }
 }

@@ -1,7 +1,5 @@
 package com.pcjinrong.pcjr.api;
 
-import com.google.gson.JsonObject;
-import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
@@ -13,20 +11,18 @@ import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
-import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
-import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.bean.WithdrawCancel;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -371,4 +367,25 @@ public interface OAuthService {
      */
     @GET("member/invest_product_repayment_info")
     Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(@Query("id") String id);
+
+
+    /**
+     * 获取今日可取消提现列表
+     *
+     * @return
+     */
+    @GET("member/today_withdraw_list")
+    Observable<BaseBean<List<WithdrawCancel>>> getTodayWithdrawList();
+
+
+    /**
+     * 取消提现
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("member/cancel_withdraw")
+    Observable<BaseBean> cancelWithdraw(@Field("id")  String id);
+
 }

@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.api;
 
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -26,8 +27,9 @@ public class RetrofitManager {
 
     private RetrofitManager() {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.connectTimeout(5, TimeUnit.SECONDS);
-        client.readTimeout(5, TimeUnit.SECONDS);
+        client.connectTimeout(10, TimeUnit.SECONDS);
+        client.readTimeout(10, TimeUnit.SECONDS);
+        client.addInterceptor(new RequestHeaderInterceptor());
         Retrofit apiRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
                 .addCallAdapterFactory(
                         RxJavaCallAdapterFactory.create())
@@ -42,13 +44,17 @@ public class RetrofitManager {
                 .client(client.build())
                 .build();
 
+        client.interceptors().clear();
         client.addInterceptor(new RequestInterceptor());
+
         Retrofit authRetrofit = new Retrofit.Builder().baseUrl(ApiConstant.BASE_URL)
                 .addCallAdapterFactory(
                         RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build();
+
+
 
         this.apiService = apiRetrofit.create(ApiService.class);
         this.authService = authRetrofit.create(OAuthService.class);

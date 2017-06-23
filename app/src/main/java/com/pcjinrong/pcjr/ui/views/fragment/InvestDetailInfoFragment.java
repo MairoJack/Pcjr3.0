@@ -8,11 +8,9 @@ import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.bean.AvailableInterest;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.IdentityInfo;
 import com.pcjinrong.pcjr.bean.InterestTicket;
@@ -163,8 +161,22 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
 
         year_income.setText(product.getYear_income() + "%");
         name.setText(product.getName());
-        threshold_amount.setText(new BigDecimal(product.getThreshold_amount()).intValue() + "元起投");
-        increasing_amount.setText(new BigDecimal(product.getIncreasing_amount()).intValue() + "元递增");
+
+        BigDecimal bd_threshold_amount = new BigDecimal(product.getThreshold_amount());
+        BigDecimal bd_increasing_amount = new BigDecimal(product.getIncreasing_amount());
+        BigDecimal tenThousand = new BigDecimal("10000");
+        if(bd_threshold_amount.compareTo(tenThousand) >= 0){
+            bd_threshold_amount = bd_threshold_amount.divide(tenThousand,2,BigDecimal.ROUND_DOWN);
+            threshold_amount.setText(bd_threshold_amount.intValue() + "万元起投");
+        }else{
+            threshold_amount.setText(bd_threshold_amount.intValue() + "元起投");
+        }
+        if(bd_increasing_amount.compareTo(tenThousand) >= 0){
+            bd_increasing_amount = bd_increasing_amount.divide(tenThousand,2,BigDecimal.ROUND_DOWN);
+            increasing_amount.setText(bd_increasing_amount.intValue() + "万元递增");
+        }else{
+            increasing_amount.setText(bd_increasing_amount.intValue() + "元递增");
+        }
         BigDecimal bd_max_amount = new BigDecimal(product.getMax_amount());
         if(bd_max_amount.compareTo(BigDecimal.ZERO) == 0){
             max_amount.setText("单笔投资无限额");

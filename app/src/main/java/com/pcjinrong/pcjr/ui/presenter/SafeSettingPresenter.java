@@ -109,8 +109,9 @@ public class SafeSettingPresenter extends BasePresenter<SafeSettingView> {
 
                     @Override
                     public void onNext(BaseBean data) {
-                        if (SafeSettingPresenter.this.getMvpView() != null)
+                        if (SafeSettingPresenter.this.getMvpView() != null){
                             SafeSettingPresenter.this.getMvpView().onLogoutSuccess(data);
+                        }
                     }
                 }));
     }

@@ -61,7 +61,6 @@ public class InvestListFragment extends BaseSwipeFragment implements MvpView<Bas
         this.presenter.attachView(this);
         this.adapter = new ProductListAdapter();
         rv_list.setAdapter(this.adapter);
-
         isPrepared = true;
         lazyLoad();
     }

@@ -87,7 +87,7 @@ public class ApiModel implements IApiModel {
 
     @Override
     public Observable<Response<Empty>> getCurrentTime() {
-        return RetrofitManager.getInstance().getApiService().get_current_time();
+        return RetrofitManager.getInstance().getApiService().getCurrentTime();
     }
 
 

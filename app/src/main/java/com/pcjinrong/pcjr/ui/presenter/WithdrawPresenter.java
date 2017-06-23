@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.ui.presenter;
 import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.core.mvp.BasePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
 
@@ -112,6 +113,30 @@ public class WithdrawPresenter extends BasePresenter<WithdrawView> {
                     public void onNext(BaseBean data) {
                         if (WithdrawPresenter.this.getMvpView() != null)
                             WithdrawPresenter.this.getMvpView().onRechargeInfoSuccess(data);
+                    }
+                }));
+    }
+
+    public void getWithdrawInvestInfo() {
+        this.mCompositeSubscription.add(this.mDataManager.getWithdrawInvestInfo()
+                .subscribe(new Subscriber<BaseBean<Withdraw>>() {
+                    @Override
+                    public void onCompleted() {
+                        if (WithdrawPresenter.this.mCompositeSubscription != null) {
+                            WithdrawPresenter.this.mCompositeSubscription.remove(this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.getMessage());
+                        WithdrawPresenter.this.getMvpView().onFailure(e);
+                    }
+
+                    @Override
+                    public void onNext(BaseBean<Withdraw> data) {
+                        if (WithdrawPresenter.this.getMvpView() != null)
+                            WithdrawPresenter.this.getMvpView().onWithdrawInfoSuccess(data);
                     }
                 }));
     }

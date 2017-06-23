@@ -1,13 +1,11 @@
 package com.pcjinrong.pcjr.model.impl;
 
-import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.api.ApiConstant;
 import com.pcjinrong.pcjr.api.RetrofitManager;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.model.IPayModel;
 import com.pcjinrong.pcjr.utils.MD5Utils;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;

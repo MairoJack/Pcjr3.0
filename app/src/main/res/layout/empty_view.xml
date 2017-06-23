@@ -5,13 +5,13 @@
     android:background="@color/color_background"
     android:gravity="center"
     android:orientation="vertical"
-    android:id="@+id/empty"
     android:visibility="gone"
+    android:id="@+id/empty"
     >
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@mipmap/icon_no_record"/>
 
     <TextView

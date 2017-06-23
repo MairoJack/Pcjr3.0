@@ -102,9 +102,10 @@ public class MemberFragment extends BaseFragment implements MemberView{
         msg_center.setOnClickListener(v->startActivity(new Intent(getActivity(), MsgCenterActivity.class)));
         payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
         withdraw_recharge.setOnClickListener(v->{
-            dialog.setMessage("正在加载...");
-            dialog.show();
-            presenter.getWithdrawInvestInfo();
+            startActivity(new Intent(getActivity(), WithdrawRechargeActivity.class));
+//            dialog.setMessage("正在加载...");
+//            dialog.show();
+//            presenter.getWithdrawInvestInfo();
         });
         coupon.setOnClickListener(v->{
             dialog.setMessage("正在加载...");

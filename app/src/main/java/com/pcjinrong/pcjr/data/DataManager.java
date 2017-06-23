@@ -29,6 +29,7 @@ import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.Token;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.bean.WithdrawCancel;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.model.impl.ApiModel;
 import com.pcjinrong.pcjr.model.impl.OAuthModel;
@@ -36,10 +37,8 @@ import com.pcjinrong.pcjr.model.impl.PayModel;
 import com.pcjinrong.pcjr.utils.RxUtils;
 import com.pcjinrong.pcjr.utils.SPUtils;
 
-import java.util.Date;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
@@ -208,6 +207,7 @@ public class DataManager {
     }
 
     public Observable<BaseBean> revoke_access_token() {
+
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.revoke_access_token())
                 .retryWhen(new RetryWithUnAuth())
@@ -403,12 +403,28 @@ public class DataManager {
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
 
+    public Observable<BaseBean<List<WithdrawCancel>>> getTodayWithdrawList() {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.getTodayWithdrawList())
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
+    public Observable<BaseBean> cancelWithdraw(String id) {
+        return Observable.just(null)
+                .flatMap(o -> oAuthModel.cancelWithdraw(id))
+                .retryWhen(new RetryWithUnAuth())
+                .compose(RxUtils.applyIOToMainThreadSchedulers());
+    }
+
     public Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(String id) {
         return Observable.just(null)
                 .flatMap(o -> oAuthModel.getInvestProductRepaymentInfo(id))
                 .retryWhen(new RetryWithUnAuth())
                 .compose(RxUtils.applyIOToMainThreadSchedulers());
     }
+
+
     /*
      * -------------------------- OAuthModel Over ------------------------------
      */

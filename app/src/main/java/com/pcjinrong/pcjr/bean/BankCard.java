@@ -14,6 +14,8 @@ public class BankCard {
     @Expose
     private String bank;
     @Expose
+    private String bank_code;
+    @Expose
     private String name;
     @Expose
     private String card_top;
@@ -66,5 +68,13 @@ public class BankCard {
 
     public void setCard_last(String card_last) {
         this.card_last = card_last;
+    }
+
+    public String getBank_code() {
+        return bank_code;
+    }
+
+    public void setBank_code(String bank_code) {
+        this.bank_code = bank_code;
     }
 }

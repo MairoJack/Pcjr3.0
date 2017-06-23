@@ -258,6 +258,8 @@ public class IndexFragment extends BaseFragment implements MainView {
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO).build();
+
+
         ImageLoader.getInstance().init(config);
     }
 

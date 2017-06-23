@@ -24,5 +24,6 @@
                 android:layout_height="match_parent" />
 
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
     </RelativeLayout>
 </LinearLayout>

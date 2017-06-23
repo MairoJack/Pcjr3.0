@@ -684,11 +684,18 @@ public class DateUtils {
 	}
 
 	// 取得系统当前时间后n天,格式为yyyy-mm-dd
-	public final static String getNDayAfterCurrentDate(int n) {
+	public final static String getNDayAfterCurrentDate(int n,int type) {
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DAY_OF_MONTH, n);
-		return "" + c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1)
-				+ "-" + c.get(Calendar.DATE);
+		if(type == 0) {
+			return "" + c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1)
+					+ "-" + c.get(Calendar.DATE);
+		}else if(type == 1){
+			return "" + c.get(Calendar.YEAR) + "年" + (c.get(Calendar.MONTH) + 1)
+					+ "月" + c.get(Calendar.DATE)+"日";
+		}else{
+			return "";
+		}
 	}
 
 	// ---------------------------------------------------------------------

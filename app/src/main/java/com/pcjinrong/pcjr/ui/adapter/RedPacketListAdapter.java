@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * 红包适配器
  * Created by Mario on 2016/8/1.
  */
-public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdapter.ViewHolder>{
+public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdapter.ViewHolder> {
 
     private List<RedPacket> list;
     private int type;
@@ -81,6 +81,7 @@ public class RedPacketListAdapter extends RecyclerView.Adapter<RedPacketListAdap
     public int getItemCount() {
         return list.size();
     }
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

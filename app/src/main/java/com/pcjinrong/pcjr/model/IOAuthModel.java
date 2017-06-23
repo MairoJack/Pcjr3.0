@@ -1,7 +1,6 @@
 package com.pcjinrong.pcjr.model;
 
-import com.nostra13.universalimageloader.utils.L;
-import com.pcjinrong.pcjr.bean.AvailableInterest;
+
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.Coupon;
@@ -13,19 +12,17 @@ import com.pcjinrong.pcjr.bean.InvestProductRepaymentInfo;
 import com.pcjinrong.pcjr.bean.InvestRecords;
 import com.pcjinrong.pcjr.bean.InvestTicket;
 import com.pcjinrong.pcjr.bean.Letter;
-import com.pcjinrong.pcjr.bean.ListBean;
 import com.pcjinrong.pcjr.bean.MemberIndex;
 import com.pcjinrong.pcjr.bean.MobileInfo;
 import com.pcjinrong.pcjr.bean.PaymentPlan;
-import com.pcjinrong.pcjr.bean.PaymentRecords;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
 import com.pcjinrong.pcjr.bean.RedPacket;
 import com.pcjinrong.pcjr.bean.RiskAssessmentScore;
 import com.pcjinrong.pcjr.bean.TradeRecords;
 import com.pcjinrong.pcjr.bean.Withdraw;
+import com.pcjinrong.pcjr.bean.WithdrawCancel;
 
 import java.util.List;
-
 import rx.Observable;
 
 /**
@@ -103,4 +100,9 @@ public interface IOAuthModel {
     Observable<BaseBean<InvestProductDetail>> getInvestProductDetail(String id);
 
     Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(String id);
+
+    Observable<BaseBean<List<WithdrawCancel>>> getTodayWithdrawList();
+
+    Observable<BaseBean> cancelWithdraw(String id);
+
 }

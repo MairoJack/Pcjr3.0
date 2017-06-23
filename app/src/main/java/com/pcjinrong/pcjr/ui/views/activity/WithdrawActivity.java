@@ -336,6 +336,11 @@ public class WithdrawActivity extends BaseToolbarActivity implements WithdrawVie
         }
     }
 
+    @Override
+    public void onWithdrawInfoSuccess(BaseBean<Withdraw> data) {
+
+    }
+
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);

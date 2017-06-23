@@ -64,8 +64,9 @@ public class InvestRecordsPresenter extends BasePresenter<InvestRecordsView> {
 
                     @Override
                     public void onNext(BaseBean<InvestProductDetail> data) {
-                        if (InvestRecordsPresenter.this.getMvpView() != null)
+                        if (InvestRecordsPresenter.this.getMvpView() != null) {
                             InvestRecordsPresenter.this.getMvpView().onInvestProductDetailSuccess(data.getInfo());
+                        }
                     }
                 }));
     }

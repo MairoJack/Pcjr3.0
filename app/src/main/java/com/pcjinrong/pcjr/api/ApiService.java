@@ -12,6 +12,7 @@ import com.pcjinrong.pcjr.bean.Token;
 
 import java.util.List;
 
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -114,7 +115,6 @@ public interface ApiService {
     @POST("register")
     Observable<BaseBean> register(@Field("name") String name, @Field("password") String password, @Field("recommend_person") String recommend_person);
 
-
     /**
      * 获取银行卡信息
      */
@@ -138,5 +138,5 @@ public interface ApiService {
      * 获取服务器时间
      */
     @GET("current_time/t.json")
-    Observable<Response<Empty>> get_current_time();
+    Observable<Response<Empty>> getCurrentTime();
 }

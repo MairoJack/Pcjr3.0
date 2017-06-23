@@ -21,6 +21,7 @@ import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BankInfo;
+import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
@@ -128,7 +129,7 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
         bank_id = bankInfo.getId();
         member_id = data.getMember_id();
         txt_mobile.setText(bankInfo.getPhone());
-        txt_bank_card.setText(BankUtils.getBankNameById(bankInfo.getBank())+" "+bankInfo.getCard_top()+" **** **** "+bankInfo.getCard_last());
+        txt_bank_card.setText(BankUtils.getBankById(bankInfo.getBank()).getName()+" "+bankInfo.getCard_top()+" **** **** "+bankInfo.getCard_last());
         presenter = new RechargePresenter();
         presenter.attachView(this);
         presenter.difficult();
@@ -219,6 +220,11 @@ public class RechargeActivity extends BaseToolbarActivity implements RechargeVie
             RBDialog dialog = new RBDialog(this, R.style.RatingBarDialog, data);
             dialog.show();
         }
+    }
+
+    @Override
+    public void onRechargeInfoSuccess(BaseBean<RechargeInfo> data) {
+
     }
 
     @Override

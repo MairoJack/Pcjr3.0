@@ -113,7 +113,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public int getItemCount() {
         return list.size();
     }
-
     @Override
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
@@ -130,6 +129,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         @BindView(R.id.welfare) TextView mIvWelfare;
 
         @BindView(R.id.tqhk) ImageView mIvTqhk;
+        @BindView(R.id.amount_info) TextView mIvAmountInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -168,7 +168,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
             mIvIncome.setText(String.valueOf(object.getYear_income()));
             BigDecimal amount = new BigDecimal(object.getThreshold_amount());
-            BigDecimal tenThousand = new BigDecimal(10000);
+            BigDecimal tenThousand = new BigDecimal("10000");
+            if(amount.compareTo(tenThousand) >= 0){
+                amount = amount.divide(tenThousand,2,BigDecimal.ROUND_DOWN);
+                mIvAmountInfo.setText(R.string.total_amount_wan);
+            }else{
+                mIvAmountInfo.setText(R.string.total_amount);
+            }
             mIvAmount.setText(String.valueOf(amount.intValue()));
             mIvMonth.setText(object.getMonth());
 

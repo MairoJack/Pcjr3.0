@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+      <item
+          android:id="@+id/cancel"
+          android:title="提现取消"
+          android:orderInCategory="80"
+          app:showAsAction="ifRoom"/>
+
+</menu>

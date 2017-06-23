@@ -22,6 +22,7 @@ public class Constant {
     public static final int TYPE_COMING = 2;        //即将开始
     public static final int TYPE_COUNTDOWN = 3;     //倒计时
 
+
     //手势密码点的状态
     public static final int POINT_STATE_NORMAL = 0;     // 正常状态
     public static final int POINT_STATE_SELECTED = 1;   // 按下状态

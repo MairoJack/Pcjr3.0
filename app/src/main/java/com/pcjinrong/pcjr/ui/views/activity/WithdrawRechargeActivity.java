@@ -52,10 +52,8 @@ public class WithdrawRechargeActivity extends BaseToolbarActivity {
         setTitle("提现/充值");
 
         fragmentList = new ArrayList<>();
-        Intent intent = getIntent();
-        Withdraw withdraw = (Withdraw) intent.getSerializableExtra("data");
-        fragmentList.add(WithdrawFragment.newInstance(withdraw));
-        fragmentList.add(RechargeFragment.newInstance(withdraw));
+        fragmentList.add(WithdrawFragment.newInstance());
+        fragmentList.add(RechargeFragment.newInstance());
 
         titleList = new ArrayList<>();
         titleList.add("提现");
@@ -68,27 +66,6 @@ public class WithdrawRechargeActivity extends BaseToolbarActivity {
         viewPager.setAdapter(fragmentPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
-
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 1){
-                    Toast.makeText(WithdrawRechargeActivity.this, "您还没有登录", Toast.LENGTH_SHORT).show();
-                    viewPager.setCurrentItem(1);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
     }
 
@@ -108,5 +85,28 @@ public class WithdrawRechargeActivity extends BaseToolbarActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK ) finish();
         return false;
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_withdraw, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.cancel) {
+            Intent intent = new Intent(WithdrawRechargeActivity.this, WithdrawCancelActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void select(){
+        tabLayout.getTabAt(0).select();
     }
 }
