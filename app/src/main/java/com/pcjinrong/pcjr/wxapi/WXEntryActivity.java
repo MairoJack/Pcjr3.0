@@ -42,6 +42,7 @@ public class WXEntryActivity extends WechatHandlerActivity {
 	 * 本Demo只是将信息展示出来，但你可做点其他的事情，而不仅仅只是Toast
 	 */
 	public void onShowMessageFromWXReq(WXMediaMessage msg) {
+		//zhehai daociyiyou!
 		if (msg != null && msg.mediaObject != null
 				&& (msg.mediaObject instanceof WXAppExtendObject)) {
 			WXAppExtendObject obj = (WXAppExtendObject) msg.mediaObject;

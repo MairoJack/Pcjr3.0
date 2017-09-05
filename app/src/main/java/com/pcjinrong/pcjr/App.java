@@ -23,6 +23,7 @@ public class App extends Application {
     }
 
     @Override public void onCreate() {
+
         super.onCreate();
         mInstance = this;
         Logger.init();
@@ -31,6 +32,7 @@ public class App extends Application {
     public static Context getContext(){
         return context;
     }
+
 
 
 
