@@ -43,6 +43,7 @@ public class WXEntryActivity extends WechatHandlerActivity {
 	 */
 	public void onShowMessageFromWXReq(WXMediaMessage msg) {
 		//zhehai daociyiyou!!!
+		//zhai3
 		if (msg != null && msg.mediaObject != null
 				&& (msg.mediaObject instanceof WXAppExtendObject)) {
 			WXAppExtendObject obj = (WXAppExtendObject) msg.mediaObject;
