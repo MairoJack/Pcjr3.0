@@ -11,11 +11,9 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +29,6 @@ import com.pcjinrong.pcjr.ui.presenter.WithdrawPresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.WithdrawView;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
-import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.utils.Bank;
 import com.pcjinrong.pcjr.utils.BankUtils;
 import com.pcjinrong.pcjr.utils.DateUtils;
@@ -41,7 +38,9 @@ import com.pcjinrong.pcjr.widget.Dialog;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
@@ -80,7 +79,6 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
     private WithdrawPresenter presenter;
     private ProgressDialog dialog;
 
-    private List<BankCard> bankCards;
     private String bank_id;
     private BigDecimal free_withdraw;
     private BigDecimal available_balance;
@@ -96,10 +94,14 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
     private TextView dialog_txt_actual_amount;
     private Button dialog_btn_apply;
     private String fee_amount;
+
+    private String estimate_date;
+
+    Map<String,String> maxWithDrawMap;
     @Override
     protected int getLayoutId() {
 
-        return R.layout.member_withdraw_new;
+        return R.layout.member_withdraw;
     }
 
     @Override
@@ -152,11 +154,12 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
             @Override
             public void afterTextChanged(Editable s) {
                 fee_amount = "0.00";
-                if (s != null && !s.toString().equals("") && ValidatorUtils.isCorrectTwoDecimalNumber(s.toString())) {
+                BigDecimal max = new BigDecimal(maxWithDrawMap.get("amount"));
+                if (available_balance!=null && free_withdraw !=null && s != null && !s.toString().equals("") && ValidatorUtils.isCorrectTwoDecimalNumber(s.toString())) {
                     BigDecimal amount = new BigDecimal(s.toString());
-                    if(amount.compareTo(available_balance) > 0){
-                        txt_mention_amount.setText(String.valueOf(available_balance));
-                        amount = available_balance;
+                    if(amount.compareTo(max) > 0){
+                        txt_mention_amount.setText(String.valueOf(max));
+                        amount = max;
                     }
                     if (amount.compareTo(free_withdraw) > 0 ) {
                         BigDecimal fee = (amount.subtract(free_withdraw)).multiply(new BigDecimal("0.15")).divide(new BigDecimal("100"),2,RoundingMode.HALF_UP);
@@ -215,38 +218,12 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
         btn_all.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
-            //可用 <= 免费可提
-            if(available_balance.compareTo(free_withdraw) <= 0){
-                txt_mention_amount.setText(String.valueOf(available_balance));
-                txt_fee.setText("提现费用：0.00元");
-                return;
+            if(maxWithDrawMap.get("amount").equals("0")){
+                Dialog.show("余额不足，无法提现",getContext());
+            }else{
+                txt_mention_amount.setText(maxWithDrawMap.get("amount"));
+                txt_fee.setText("提现费用："+maxWithDrawMap.get("fee")+"元");
             }
-            BigDecimal no_free = available_balance.subtract(free_withdraw);
-            if(no_free.compareTo(BigDecimal.ZERO) > 0
-                    && no_free.compareTo(new BigDecimal("10")) <= 0){
-                if(available_balance.subtract(new BigDecimal("0.01")).compareTo(BigDecimal.ZERO) <= 0){
-                    Dialog.show("余额不足，无法提现",getContext());
-                } else if(available_balance.subtract(free_withdraw).compareTo(new BigDecimal("0.01")) == 0){
-                    txt_mention_amount.setText(String.valueOf(free_withdraw));
-                    txt_fee.setText("提现费用：0.00元");
-                } else {
-                    txt_mention_amount.setText(String.valueOf(available_balance.subtract(new BigDecimal("0.01"))));
-                    txt_fee.setText("提现费用：0.01元");
-                }
-                return;
-            }
-            BigDecimal fee = new BigDecimal("0.15").multiply(free_withdraw);
-            BigDecimal amount = (new BigDecimal("100").multiply(available_balance).add(fee))
-                    .divide(new BigDecimal("100.15"),2,RoundingMode.HALF_UP);
-
-            BigDecimal fee_result = available_balance.subtract(amount);
-            BigDecimal act_result = (amount.subtract(free_withdraw)).multiply(new BigDecimal("0.0015")).setScale(2,RoundingMode.HALF_UP);
-
-            if(fee_result.compareTo(act_result) < 0){
-                amount = amount.subtract(new BigDecimal("0.01")).setScale(2,RoundingMode.HALF_UP);
-            }
-            txt_mention_amount.setText(String.valueOf(amount));
-            txt_fee.setText("提现费用："+String.valueOf(fee_result)+"元");
         });
     }
 
@@ -349,12 +326,15 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
             Bank bank = BankUtils.getBankById(Integer.parseInt(bankCard.getBank_code()));
             txt_bank_card.setText(bankCard.getBank());
             img_bank.setImageResource(bank.getIcon());
+        }else {
+            setBackData("未绑定银行卡");
         }
     }
 
     @Override
     public void onWithdrawInfoSuccess(BaseBean<Withdraw> data) {
         mHasLoadedOnce = true;
+        if(dialog.isShowing())dialog.dismiss();
         if(data.isSuccess()){
             Withdraw withdraw = data.getData();
 
@@ -363,17 +343,19 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
             available_balance = new BigDecimal(balance);
             free_withdraw = new BigDecimal(withdraw.getFree_withdraw());
-
+            estimate_date = withdraw.getEstimate_date();
             txt_balance_prefix.setText(array[0]+".");
             txt_balance_suffix.setText(array[1]+"元");
 
             txt_free.setHint("免费可提" + withdraw.getFree_withdraw() + "元");
             txt_realname.setText(withdraw.getRealname());
             txt_verify.setHint("手机号"+withdraw.getMobile());
-        }else{
-            Dialog.show(data.getMessage(),getContext());
+
+            maxWithDrawMap = getMaxWithdraw();
+        }else {
+            setBackData(data.getMessage());
         }
-        if(dialog.isShowing())dialog.dismiss();
+
     }
 
     @Override
@@ -399,7 +381,7 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            btn_verify.setText(millisUntilFinished / 1000 + "秒后可重新获取");
+            btn_verify.setText(millisUntilFinished / 1000 + "秒后重发");
         }
     }
 
@@ -421,13 +403,49 @@ public class WithdrawFragment extends BaseFragment implements WithdrawView {
     }
 
     private void buildDialog(String amount,String fee_amount,String verify){
-        dialog_txt_amount.setText(amount);
-        dialog_txt_fee.setText(fee_amount);
-        dialog_txt_date.setText(DateUtils.getNDayAfterCurrentDate(1,1));
-        dialog_txt_actual_amount.setText(String.valueOf(new BigDecimal(amount).subtract(new BigDecimal(fee_amount))));
-        dialog_btn_apply.setOnClickListener(v->{
-            apply(amount,verify);
-        });
+        dialog_txt_amount.setText(String.valueOf(new BigDecimal(amount).add(new BigDecimal(fee_amount)))+"元");
+        dialog_txt_fee.setText(fee_amount+"元");
+        dialog_txt_date.setText(estimate_date);
+        dialog_txt_actual_amount.setText(amount+"元");
+        dialog_btn_apply.setOnClickListener(v-> apply(amount,verify));
         bottomSheetDialog.show();
+    }
+
+    private Map<String,String> getMaxWithdraw(){
+        Map<String,String> map  = new HashMap<>();
+        if(available_balance.compareTo(free_withdraw) <= 0){
+            map.put("amount",String.valueOf(available_balance));
+            map.put("fee","0.00");
+            return map;
+        }
+        BigDecimal no_free = available_balance.subtract(free_withdraw);
+        if(no_free.compareTo(BigDecimal.ZERO) > 0
+                && no_free.compareTo(new BigDecimal("10")) <= 0){
+            if(available_balance.subtract(new BigDecimal("0.01")).compareTo(BigDecimal.ZERO) <= 0){
+                map.put("amount","0");
+            } else if(available_balance.subtract(free_withdraw).compareTo(new BigDecimal("0.01")) == 0){
+                map.put("amount",String.valueOf(free_withdraw));
+                map.put("fee","0.00");
+            } else {
+                map.put("amount",String.valueOf(available_balance.subtract(new BigDecimal("0.01"))));
+                map.put("fee","0.01");
+            }
+            return map;
+        }
+        BigDecimal fee = new BigDecimal("0.15").multiply(free_withdraw);
+        BigDecimal amount = (new BigDecimal("100").multiply(available_balance).add(fee))
+                .divide(new BigDecimal("100.15"),2,RoundingMode.HALF_UP);
+
+        BigDecimal fee_result = available_balance.subtract(amount);
+        BigDecimal act_result = (amount.subtract(free_withdraw)).multiply(new BigDecimal("0.0015")).setScale(2,RoundingMode.HALF_UP);
+
+        if(fee_result.compareTo(act_result) < 0){
+            amount = amount.subtract(new BigDecimal("0.01")).setScale(2,RoundingMode.HALF_UP);
+        }
+
+        map.put("amount",String.valueOf(amount));
+        map.put("fee",String.valueOf(fee_result));
+
+        return map;
     }
 }

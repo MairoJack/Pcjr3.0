@@ -331,7 +331,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             ShareSDK.initSDK(this);
             OnekeyShare oks = new OnekeyShare();
             oks.disableSSOWhenAuthorize();
-            oks.setTitle(product.getName()+"，年化收益"+product.getYear_income()+"%，"+product.getMonth());
+            oks.setTitle(product.getName()+"，预期年化收益"+product.getYear_income()+"%，"+product.getMonth());
             oks.setTitleUrl(Constant.SHARE_URL);
             oks.setImageUrl(Constant.SHARE_IMG_URL);
             oks.setUrl(Constant.SHARE_DETAIL_URL+product.getId());

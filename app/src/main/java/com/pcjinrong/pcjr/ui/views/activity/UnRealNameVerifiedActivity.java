@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.BaseBean;
+import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseToolbarActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.presenter.RealNamePresenter;
@@ -27,6 +30,9 @@ public class UnRealNameVerifiedActivity extends BaseToolbarActivity implements M
     @BindView(R.id.btn_save) Button btn_save;
     @BindView(R.id.txt_realname) EditText txt_realname;
     @BindView(R.id.txt_idcard) EditText txt_idcard;
+
+    @BindView(R.id.agree) CheckBox agree;
+    @BindView(R.id.service_agreement) TextView service_agreement;
 
     private ProgressDialog dialog;
     private RealNamePresenter presenter;
@@ -51,6 +57,14 @@ public class UnRealNameVerifiedActivity extends BaseToolbarActivity implements M
             if (ViewUtil.isFastDoubleClick()) return;
             verify();
         });
+
+        service_agreement.setOnClickListener(v -> {
+            if (ViewUtil.isFastDoubleClick()) return;
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("title", Constant.CREDIT);
+            intent.putExtra("url", Constant.CREDIT_URL);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -72,6 +86,12 @@ public class UnRealNameVerifiedActivity extends BaseToolbarActivity implements M
             Dialog.show("身份证号码不能为空", this);
             return;
         }
+
+        if(!agree.isChecked()){
+            Dialog.show("请先阅读并同意《征信查询授权书》",this);
+            return;
+        }
+
         dialog.setMessage("正在提交...");
         dialog.show();
         presenter.verifyIdentity(realname, idcard);

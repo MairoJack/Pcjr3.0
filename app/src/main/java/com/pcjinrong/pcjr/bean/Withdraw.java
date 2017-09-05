@@ -14,6 +14,8 @@ public class Withdraw implements Serializable{
     @Expose
     private String free_withdraw;
     @Expose
+    private String estimate_date;
+    @Expose
     private String realname;
     @Expose
     private String mobile;
@@ -48,5 +50,13 @@ public class Withdraw implements Serializable{
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getEstimate_date() {
+        return estimate_date;
+    }
+
+    public void setEstimate_date(String estimate_date) {
+        this.estimate_date = estimate_date;
     }
 }

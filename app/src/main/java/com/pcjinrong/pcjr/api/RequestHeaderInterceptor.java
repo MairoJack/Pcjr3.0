@@ -21,6 +21,8 @@ public class RequestHeaderInterceptor implements Interceptor {
                 .header("Content-Type", "application/json; charset=UTF-8")
                 .header("User-Agent", "Android-" + currentApiVersion)
                 .build();
-        return chain.proceed(authorised);
+
+        Response response = chain.proceed(authorised);
+        return response;
     }
 }

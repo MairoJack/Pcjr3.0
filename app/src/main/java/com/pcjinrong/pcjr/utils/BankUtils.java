@@ -25,7 +25,7 @@ public class BankUtils {
                 break;
             case 103:
                 bank.setName("中国农业银行");
-                bank.setInfo("单笔限额5万，单日限额5万");
+                bank.setInfo("单笔限额20万，单日限额20万");
                 bank.setIcon(R.mipmap.icon_bank_103);
                 break;
             case 104:

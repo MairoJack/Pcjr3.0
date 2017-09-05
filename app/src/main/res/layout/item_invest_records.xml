@@ -93,7 +93,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text="年化收益(%)"
+                android:text="预期年化(%)"
                 android:textColor="@color/color_text"
                 android:textSize="@dimen/text_size_14sp" />
         </RelativeLayout>

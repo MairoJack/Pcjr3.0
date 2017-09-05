@@ -68,29 +68,6 @@ public class MemberPresenter extends BasePresenter<MemberView> {
                 }));
     }
 
-    public void getWithdrawInvestInfo() {
-        this.mCompositeSubscription.add(this.mDataManager.getWithdrawInvestInfo()
-                .subscribe(new Subscriber<BaseBean<Withdraw>>() {
-                    @Override
-                    public void onCompleted() {
-                        if (MemberPresenter.this.mCompositeSubscription != null) {
-                            MemberPresenter.this.mCompositeSubscription.remove(this);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Logger.e(e.getMessage());
-                        MemberPresenter.this.getMvpView().onFailure(e);
-                    }
-
-                    @Override
-                    public void onNext(BaseBean<Withdraw> data) {
-                        if (MemberPresenter.this.getMvpView() != null)
-                            MemberPresenter.this.getMvpView().onWithdrawInfoSuccess(data);
-                    }
-                }));
-    }
 
     public void getUnusedCouponsNum() {
         this.mCompositeSubscription.add(this.mDataManager.getUnusedCouponsNum()

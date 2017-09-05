@@ -62,7 +62,7 @@ public class MoreFragment extends BaseFragment {
             startActivity(intent);
         });
         kefu.setOnClickListener(v-> {
-            new AlertView("皮城金融竭诚为您服务", "服务时间：9:00-20:00", "取消", null,
+            new AlertView("皮城金融竭诚为您服务", "服务时间：8:30-20:00", "取消", null,
                     new String[]{"拨打电话 400-101-3339"},
                     getContext(), AlertView.Style.ActionSheet, (o,position)->{
                         if (position == 0) {

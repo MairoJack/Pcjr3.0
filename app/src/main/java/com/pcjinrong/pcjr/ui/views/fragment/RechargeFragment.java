@@ -6,36 +6,25 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.pcjinrong.pcjr.R;
-import com.pcjinrong.pcjr.bean.BankCard;
 import com.pcjinrong.pcjr.bean.BankInfo;
 import com.pcjinrong.pcjr.bean.BaseBean;
 import com.pcjinrong.pcjr.bean.PayBean;
 import com.pcjinrong.pcjr.bean.RechargeDifficult;
 import com.pcjinrong.pcjr.bean.RechargeInfo;
-import com.pcjinrong.pcjr.bean.Withdraw;
 import com.pcjinrong.pcjr.constant.Constant;
 import com.pcjinrong.pcjr.core.BaseFragment;
 import com.pcjinrong.pcjr.ui.presenter.RechargePresenter;
 import com.pcjinrong.pcjr.ui.presenter.ivview.RechargeView;
 import com.pcjinrong.pcjr.ui.views.activity.LoginActivity;
-import com.pcjinrong.pcjr.ui.views.activity.RechargeActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WebViewActivity;
-import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
-import com.pcjinrong.pcjr.ui.views.activity.WithdrawCancelActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawRechargeActivity;
 import com.pcjinrong.pcjr.utils.Bank;
 import com.pcjinrong.pcjr.utils.BankUtils;
@@ -43,9 +32,6 @@ import com.pcjinrong.pcjr.utils.ValidatorUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
 import com.pcjinrong.pcjr.widget.Dialog;
 import com.pcjinrong.pcjr.widget.RBDialog;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
@@ -93,7 +79,7 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.member_recharge_new;
+        return R.layout.member_recharge;
     }
 
     @Override
@@ -244,11 +230,9 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
     public void onRechargeInfoSuccess(BaseBean<RechargeInfo> data) {
         if(dialog.isShowing())dialog.dismiss();
         if(data.isSuccess()) {
-            if(data.getData().getBank_info() == null){
-                Dialog.show("未绑定银行卡", getContext());
-                return;
-            }
-            if(data.getData().isFinish_assessment()==0){
+            RechargeInfo rechargeInfo = data.getData();
+
+            if(rechargeInfo.isFinish_assessment()==0){
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("title", Constant.RISK_ASSESS);
                 intent.putExtra("url", Constant.RISK_ASSESS_URL);
@@ -257,14 +241,19 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
                 new Handler().postDelayed(()->((WithdrawRechargeActivity)getActivity()).select(),500);
                 return;
             }
-            presenter.difficult();
-            mHasLoadedOnce = true;
-            RechargeInfo rechargeInfo = data.getData();
+
             String balance = rechargeInfo.getAvailable_balance();
             String[] array = balance.split("\\.");
 
             txt_balance_prefix.setText(array[0]+".");
             txt_balance_suffix.setText(array[1]+"元");
+
+            mHasLoadedOnce = true;
+            if(rechargeInfo.getBank_info() == null){
+                setBackData("未绑定银行卡");
+                return;
+            }
+            presenter.difficult();
 
             txt_realname.setText(rechargeInfo.getRealname());
             BankInfo bankInfo = rechargeInfo.getBank_info();
@@ -306,14 +295,14 @@ public class RechargeFragment extends BaseFragment implements RechargeView {
 
         @Override
         public void onFinish() {
-            btn_verify.setText("发生验证码");
+            btn_verify.setText("发送验证码");
             btn_verify.setClickable(true);
             btn_verify.setBackgroundResource(R.drawable.btn_primary);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            btn_verify.setText(millisUntilFinished / 1000 + "秒后可重新获取");
+            btn_verify.setText(millisUntilFinished / 1000 + "秒后重发");
         }
     }
 

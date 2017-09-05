@@ -92,7 +92,7 @@ public class OAuthModel implements IOAuthModel {
 
     @Override
     public Observable<BaseBean> unBindMobileVerify() {
-        return RetrofitManager.getInstance().getAuthService().unBindMobileVerify();
+        return RetrofitManager.getInstance().getAuthService().unBindMobileVerify(0);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class OAuthModel implements IOAuthModel {
 
     @Override
     public Observable<BaseBean> withdrawVerify() {
-        return RetrofitManager.getInstance().getAuthService().withdrawVerify();
+        return RetrofitManager.getInstance().getAuthService().withdrawVerify(0);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class OAuthModel implements IOAuthModel {
 
     @Override
     public Observable<BaseBean> revoke_access_token() {
-        return RetrofitManager.getInstance().getAuthService().revoke_access_token();
+        return RetrofitManager.getInstance().getAuthService().revoke_access_token(0);
     }
 
     @Override

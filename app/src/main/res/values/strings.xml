@@ -21,7 +21,7 @@
     <string name="setting_customer_service">客服热线</string>
 
     <!--item product-->
-    <string name="annual_earnings">年化收益</string>
+    <string name="annual_earnings">预期年化</string>
     <string name="project_duration">项目期限</string>
     <string name="total_amount">起投(元)</string>
     <string name="total_amount_wan">起投(万元)</string>

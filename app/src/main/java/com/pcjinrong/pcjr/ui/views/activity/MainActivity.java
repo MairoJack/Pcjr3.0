@@ -14,6 +14,7 @@ import com.pcjinrong.pcjr.core.BaseAppCompatActivity;
 import com.pcjinrong.pcjr.ui.adapter.FragmentAdapter;
 import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.UpdateManager;
+import com.pcjinrong.pcjr.widget.Dialog;
 import com.pcjinrong.pcjr.widget.FragmentNavigator;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
@@ -124,6 +125,8 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
         }else if(requestCode == Constant.REQUSET && resultCode == RESULT_CANCELED){
             bottomNavigationBar.selectTab(0);
             mNavigator.showFragment(0);
+        }else if(requestCode == Constant.WITHDRAW && resultCode == RESULT_OK){
+            Dialog.show(data.getStringExtra("msg"),this);
         }
     }
 

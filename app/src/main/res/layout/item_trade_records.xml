@@ -6,23 +6,7 @@
     android:background="@color/color_content_background"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F0F0F3"
-        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/header_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="2017年4月"
-            android:textColor="#8787BA"
-            android:textSize="@dimen/text_size_14sp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,15 +19,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="2dp"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             tools:src="@mipmap/icon_income" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_weight="6"
+            android:layout_weight="5.5"
             android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -52,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#595959"
                 android:textSize="@dimen/text_size_14sp"
-                tools:text="申请提现申请提现请提现申请提请提现申请提申" />
+                tools:text="申请提现提现请提现提" />
 
             <TextView
                 android:id="@+id/date"
@@ -67,9 +52,10 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="5.2"
             android:gravity="center_vertical|right"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/amount"

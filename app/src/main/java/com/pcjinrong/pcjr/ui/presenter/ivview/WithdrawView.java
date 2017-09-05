@@ -17,7 +17,7 @@ public interface WithdrawView extends MvpView {
 
     void onWithdrawSuccess(BaseBean data);
 
-    void onBankCardListSuccess(List<BankCard> list);
+    void onBankCardListSuccess(List<BankCard> data);
 
     void onRechargeInfoSuccess(BaseBean<RechargeInfo> data);
 

@@ -16,6 +16,7 @@ public class Constant {
 
     public static final int REQUSET = 0;
     public static final int LOGOUT = 1;
+    public static final int WITHDRAW = 2;
 
     public static final int TYPE_ONGOING = 0;       //正在募集
     public static final int TYPE_SUCCESS = 1;       //募集成功
@@ -61,12 +62,18 @@ public class Constant {
     public static final String SERVICE_AGREEMENT = "服务协议";
     public static final String SERVICE_AGREEMENT_URL = "https://m.pcjr.com/appdeal/rechargeag";
 
+    public static final String CREDIT = "征信查询授权书";
+    public static final String CREDIT_URL = "https://m.pcjr.com/appdeal/credit";
+
+
     public static final String CARD_EXPLAIN = "绑卡说明";
     public static final String CARD_EXPLAIN_URL = "https://m.pcjr.com/appdeal/bankintro";
 
     public static final String RISK_ASSESS = "风险评估";
     public static final String RISK_ASSESS_URL = "https://m.pcjr.com/riskassess";
     public static final String RISK_ASSESS_RESULST_URL = "https://m.pcjr.com/riskassess/result?score=";
+
+
 
     public static final String SHARE_URL = " https://m.pcjr.com";
     public static final String SHARE_LIST_URL = "https://m.pcjr.com/invest";

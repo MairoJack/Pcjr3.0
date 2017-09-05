@@ -1,5 +1,6 @@
 package com.pcjinrong.pcjr.core;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -128,5 +129,12 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void lazyLoad();
 
 
+    protected void setBackData(String msg){
+        Intent intent = new Intent();
+        intent.putExtra("msg",msg);
+        getActivity().setResult(Activity.RESULT_OK,intent);
+        getActivity().finish();
+        getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 }
 

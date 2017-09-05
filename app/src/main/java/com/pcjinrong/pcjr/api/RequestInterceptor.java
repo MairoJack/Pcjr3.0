@@ -21,11 +21,12 @@ public class RequestInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         Request authorised = originalRequest.newBuilder()
-                .header("Content-Type", "application/json; charset=UTF-8")
+                .header("Content-Type", "application/json;charset=UTF-8")
                 .header("User-Agent", "Android-" + currentApiVersion)
                 .header("Authorization", "Bearer " + token.getAccess_token())
                 .build();
 
-        return chain.proceed(authorised);
+        Response response = chain.proceed(authorised);
+        return response;
     }
 }

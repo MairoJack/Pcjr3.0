@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.ui.views.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import com.pcjinrong.pcjr.core.BaseSwipeActivity;
 import com.pcjinrong.pcjr.core.mvp.MvpView;
 import com.pcjinrong.pcjr.ui.adapter.TradeRecordsListAdapter;
 import com.pcjinrong.pcjr.ui.presenter.TradeRecordsPresenter;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
+
 import java.util.List;
 
 import retrofit2.adapter.rxjava.HttpException;
@@ -28,6 +31,7 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
 
     private TradeRecordsPresenter presenter;
     private TradeRecordsListAdapter adapter;
+    private StickyRecyclerHeadersDecoration sticky;
     private int type = 0;
 
     @Override
@@ -55,7 +59,15 @@ public class TradeRecordsActivity extends BaseSwipeActivity implements MvpView<B
         this.presenter.attachView(this);
         this.adapter = new TradeRecordsListAdapter();
         rv_list.setAdapter(this.adapter);
+        sticky = new StickyRecyclerHeadersDecoration(this.adapter);
+        rv_list.addItemDecoration(sticky);
 
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                sticky.invalidateHeaders();
+            }
+        });
         mPtrFrame.post(()->mPtrFrame.autoRefresh());
     }
 

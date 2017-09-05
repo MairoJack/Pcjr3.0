@@ -159,5 +159,5 @@
         android:layout_marginTop="10dp"
         android:textSize="@dimen/text_size_12sp"
         android:visibility="gone"
-        android:text="本平台只支持取消当天提现申请，当日提现取消" />
+        android:text="本平台只支持取消当天提现申请" />
 </LinearLayout>

@@ -61,7 +61,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
-        android:text="如需更换银行卡,请联系在线客服,提供相关资料,处理时间在 1-2 个工作日左右,请耐心等待。"
+        android:text="如需更换银行卡，请联系在线客服，提供相关资料，详情请仔细阅读绑卡说明；若银行卡为Ⅱ、Ⅲ类账户，将会影响充值或提现，具体账户类型可咨询发卡行。"
         android:textSize="@dimen/text_size_14sp" />
 
 </LinearLayout>

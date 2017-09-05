@@ -28,7 +28,6 @@ import com.pcjinrong.pcjr.ui.views.activity.MsgCenterActivity;
 import com.pcjinrong.pcjr.ui.views.activity.PaymentPlanActivity;
 import com.pcjinrong.pcjr.ui.views.activity.SafeSettingActivity;
 import com.pcjinrong.pcjr.ui.views.activity.TradeRecordsActivity;
-import com.pcjinrong.pcjr.ui.views.activity.WithdrawActivity;
 import com.pcjinrong.pcjr.ui.views.activity.WithdrawRechargeActivity;
 import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.ViewUtil;
@@ -102,10 +101,7 @@ public class MemberFragment extends BaseFragment implements MemberView{
         msg_center.setOnClickListener(v->startActivity(new Intent(getActivity(), MsgCenterActivity.class)));
         payment_plan.setOnClickListener(v->startActivity(new Intent(getActivity(), PaymentPlanActivity.class)));
         withdraw_recharge.setOnClickListener(v->{
-            startActivity(new Intent(getActivity(), WithdrawRechargeActivity.class));
-//            dialog.setMessage("正在加载...");
-//            dialog.show();
-//            presenter.getWithdrawInvestInfo();
+            startActivityForResult(new Intent(getActivity(), WithdrawRechargeActivity.class),Constant.WITHDRAW);
         });
         coupon.setOnClickListener(v->{
             dialog.setMessage("正在加载...");
@@ -210,19 +206,6 @@ public class MemberFragment extends BaseFragment implements MemberView{
         startActivity(intent);
     }
 
-    @Override
-    public void onWithdrawInfoSuccess(BaseBean<Withdraw> data) {
-        dialog.dismiss();
-        if(data.isSuccess()) {
-            Intent intent = new Intent(getActivity(), WithdrawActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data", data.getData());
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }else{
-            Dialog.show(data.getMessage(),getContext());
-        }
-    }
 
     @Override
     public void onCouponNumSuccess(Coupon data) {

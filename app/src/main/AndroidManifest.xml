@@ -70,9 +70,7 @@
         <activity android:name=".ui.views.activity.GestureVerifyActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WebViewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.views.activity.WithdrawRechargeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
-        <activity android:name=".ui.views.activity.WithdrawActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".ui.views.activity.WithdrawCancelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
-        <activity android:name=".ui.views.activity.RechargeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".ui.views.activity.IntroActivity" android:screenOrientation="portrait"/>
 
         <activity

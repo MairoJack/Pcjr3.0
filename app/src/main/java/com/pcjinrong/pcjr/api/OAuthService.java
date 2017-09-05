@@ -41,8 +41,9 @@ public interface OAuthService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("oauth/revoke_access_token")
-    Observable<BaseBean> revoke_access_token();
+    Observable<BaseBean> revoke_access_token(@Field("type") int type);
 
     /**
      * 获取用户中心首页数据
@@ -155,8 +156,9 @@ public interface OAuthService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("api/unbind_mobile_verify")
-    Observable<BaseBean> unBindMobileVerify();
+    Observable<BaseBean> unBindMobileVerify(@Field("type") int type);
 
     /**
      * 绑定手机
@@ -277,8 +279,9 @@ public interface OAuthService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("api/withdraw_verify")
-    Observable<BaseBean> withdrawVerify();
+    Observable<BaseBean> withdrawVerify(@Field("type") int type);
 
     /**
      * 投资
@@ -365,7 +368,7 @@ public interface OAuthService {
      * @param id
      * @return
      */
-    @GET("member/invest_product_repayment_info")
+        @GET("member/invest_product_repayment_info")
     Observable<BaseBean<List<InvestProductRepaymentInfo>>> getInvestProductRepaymentInfo(@Query("id") String id);
 
 

@@ -66,13 +66,37 @@
             android:textSize="@dimen/text_size_14sp" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <CheckBox
+            android:id="@+id/agree"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:checked="true"
+            android:text=" 同意"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <TextView
+            android:id="@+id/service_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《征信查询授权书》"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:text="温馨提示："
         android:textColor="@color/color_text"
         android:textSize="@dimen/text_size_14sp" />
