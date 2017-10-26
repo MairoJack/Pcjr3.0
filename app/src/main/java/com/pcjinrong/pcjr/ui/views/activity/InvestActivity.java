@@ -222,7 +222,6 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         });
 
         btn_allin.setOnClickListener(v -> {
-            if (ViewUtil.isFastDoubleClick()) return;
             BigDecimal bd_amount;
             BigDecimal bd_min;
             BigDecimal bd_multiple;
