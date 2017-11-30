@@ -238,6 +238,9 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
                 btn_status.setText("立即投资");
                 btn_status.setClickable(true);
             }
+            btn_status.setBackgroundResource(R.drawable.btn_primary);
+            btn_status.setText("立即投资");
+            btn_status.setClickable(true);
 
         } else if (product.getStatus() == 2 || product.getStatus() == 3) {
             btn_status.setBackgroundResource(R.drawable.btn_disable);
