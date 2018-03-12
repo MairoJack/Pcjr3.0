@@ -3,6 +3,7 @@ package com.pcjinrong.pcjr.ui.views.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.orhanobut.logger.Logger;
+import com.pcjinrong.pcjr.App;
 import com.pcjinrong.pcjr.R;
 import com.pcjinrong.pcjr.bean.IndexFocusInfo;
 import com.pcjinrong.pcjr.bean.Token;
@@ -45,7 +46,10 @@ public class SplashActivity extends BaseAppCompatActivity implements SplashView{
         presenter = new SplashPresenter();
         presenter.attachView(this);
         presenter.getIndexFocusInfo();
-        presenter.refreshToken();
+        Token token = SPUtils.getToken(this);
+        if(token != null && !token.getRefresh_token().equals("")){
+            presenter.refreshToken();
+        }
     }
 
 

@@ -143,7 +143,6 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
 
         btn_invest.setOnClickListener(v -> {
-            if (ViewUtil.isFastDoubleClick()) return;
             BigDecimal can_invest_amount = new BigDecimal(product.getAmount()).subtract(new BigDecimal(product.getProduct_amount()));
             final String amount = txt_invest_amount.getText().toString().trim();
             if (amount.equals("")) {

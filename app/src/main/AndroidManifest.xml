@@ -155,6 +155,16 @@
             android:name="com.tencent.android.tpush.service.XGDaemonService"
             android:process=":xg_service_v3" />
 
+        <!-- 【必须】 通知service，其中android:name部分要改为当前包名 -->
+        <service
+            android:name="com.tencent.android.tpush.rpc.XGRemoteService"
+            android:exported="true" >
+            <intent-filter>
+                <!-- 【必须】 请修改为当前APP名包.PUSH_ACTION，如demo的包名为：com.qq.xgdemo -->
+                <action android:name="com.pcjinrong.pcjr.PUSH_ACTION" />
+            </intent-filter>
+        </service>
+
         <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo-->
         <provider
             android:name="com.tencent.android.tpush.XGPushProvider"

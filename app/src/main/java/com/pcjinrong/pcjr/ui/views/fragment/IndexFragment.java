@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,7 +64,7 @@ public class IndexFragment extends BaseFragment implements MainView {
     @BindView(R.id.slider) ConvenientBanner sliderLayout;
     @BindView(R.id.slider_small) ConvenientBanner sliderLayoutSmall;
     @BindView(R.id.ptr_frame) PtrClassicFrameLayout mPtrFrame;
-    @BindView(R.id.scroll_view) ScrollView scrollView;
+    @BindView(R.id.scroll_view) NestedScrollView scrollView;
     @BindView(R.id.text_switcher) TextSwitcher textSwitcher;
     private MainPresenter presenter;
     private ProductListAdapter adapter;
@@ -139,6 +140,7 @@ public class IndexFragment extends BaseFragment implements MainView {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(manager);
         rv_list.addItemDecoration(new RecycleViewDivider(self.getContext(), LinearLayoutManager.HORIZONTAL, (int) getResources().getDimension(R.dimen.list_divider_height), ContextCompat.getColor(self.getContext(), R.color.color_background)));
+        rv_list.setNestedScrollingEnabled(false);
         textSwitcher.setFactory(() -> new TextView(getContext()));
 
         this.presenter = new MainPresenter();

@@ -1,7 +1,9 @@
 package com.pcjinrong.pcjr.ui.views.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
@@ -16,6 +18,7 @@ import com.pcjinrong.pcjr.utils.SPUtils;
 import com.pcjinrong.pcjr.utils.UpdateManager;
 import com.pcjinrong.pcjr.widget.Dialog;
 import com.pcjinrong.pcjr.widget.FragmentNavigator;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
@@ -34,6 +37,8 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
 
     private static final int DEFAULT_POSITION = 0;
     private long exitTime = 0;
+    private RxPermissions rxPermissions;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -55,6 +60,8 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
         mNavigator.onCreate(savedInstanceState);
         mNavigator.setDefaultPosition(DEFAULT_POSITION);
         mNavigator.showFragment(DEFAULT_POSITION);
+
+        rxPermissions = new RxPermissions(this);
     }
 
     @Override
@@ -73,8 +80,19 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
         UpdateManager manager = new UpdateManager(MainActivity.this);
         manager.check();
 
+        //获取权限
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {}
+                    else {
+                        Dialog.show("您可以自行在设置-应用中勾选\"存储数据\"权限",this);
+                    }
+                });
+
         // 信鸽推送
         XGAction();
+
     }
 
     @Override

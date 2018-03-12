@@ -222,22 +222,22 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         this.product = product;
         btn_status.setClickable(false);
         if (product.getStatus() == 1) {
-            Date date = new Date(current_time);
-            Date pub_date = new Date(product.getPub_date() * 1000);
-            if (DateUtils.isStartDateBeforeEndDate(date, pub_date)) {
-                if (DateUtils.getHoursOfTowDiffDate(date, pub_date) > 1) {
-                    btn_status.setBackgroundResource(R.drawable.btn_primary);
-                    btn_status.setText(DateUtils.dateTimeToStr(pub_date, "MM月dd日 HH:mm") + "开抢");
-                } else {
-                    btn_status.setVisibility(View.GONE);
-                    layout_cdv.setVisibility(View.VISIBLE);
-                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date) + 500);
-                }
-            } else {
-                btn_status.setBackgroundResource(R.drawable.btn_primary);
-                btn_status.setText("立即投资");
-                btn_status.setClickable(true);
-            }
+//            Date date = new Date(current_time);
+//            Date pub_date = new Date(product.getPub_date() * 1000);
+//            if (DateUtils.isStartDateBeforeEndDate(date, pub_date)) {
+//                if (DateUtils.getHoursOfTowDiffDate(date, pub_date) > 1) {
+//                    btn_status.setBackgroundResource(R.drawable.btn_primary);
+//                    btn_status.setText(DateUtils.dateTimeToStr(pub_date, "MM月dd日 HH:mm") + "开抢");
+//                } else {
+//                    btn_status.setVisibility(View.GONE);
+//                    layout_cdv.setVisibility(View.VISIBLE);
+//                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date) + 500);
+//                }
+//            } else {
+//                btn_status.setBackgroundResource(R.drawable.btn_primary);
+//                btn_status.setText("立即投资");
+//                btn_status.setClickable(true);
+//            }
             btn_status.setBackgroundResource(R.drawable.btn_primary);
             btn_status.setText("立即投资");
             btn_status.setClickable(true);
