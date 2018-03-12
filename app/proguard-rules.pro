@@ -124,3 +124,4 @@
 -keep class com.sina.**{*;}
 -keep class m.framework.**{*;}
 -keep class com.github.paolorotolo.appintro.**{*;}
+-keep class com.tbruyelle.rxpermissions.**{*;}
