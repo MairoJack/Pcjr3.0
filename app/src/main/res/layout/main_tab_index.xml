@@ -269,7 +269,7 @@
                         android:background="#8F8F8F" />
                 </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -301,28 +301,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/main_bottom_image_width"
-                            android:layout_height="@dimen/main_bottom_image_height"
-                            android:src="@mipmap/icon_xingye" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="兴业银行\n全程存管"
-                            android:textColor="@color/color_text_tag"
-                            android:textSize="@dimen/text_size_16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="right"
                         android:layout_weight="1"
@@ -341,7 +319,7 @@
                             android:textColor="@color/color_text_tag"
                             android:textSize="@dimen/text_size_16sp" />
                     </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
 

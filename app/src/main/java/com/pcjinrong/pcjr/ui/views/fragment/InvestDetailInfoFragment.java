@@ -116,13 +116,21 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         if (product.getIs_preview_repayment() == 1) {
             String html_preview_repayment;
             if (product.getFinish_preview_repayment() == 1) {
-                html_preview_repayment = "* 此为 <font color='#dc4d07'>提前回款</font> 产品，原借款时长为 <font color='#dc4d07'>" + product.getMonth() + "</font> ，现提前至 <font color='#dc4d07'>" + DateUtils.dateTimeToStr(new Date(product.getPreview_repayment_date() * 1000),"yyyy-MM-dd") + "</font> ，故补偿<font color='#dc4d07'>" + product.getPay_interest_day() + "</font>天利息 于投资人,利息计算方法请 点击此处";
+                if(product.getPub_date() <= 1521820800) {
+                    html_preview_repayment = "* 此为 <font color='#dc4d07'>提前回款</font> 产品，原借款时长为 <font color='#dc4d07'>" + product.getMonth() + "</font> ，现提前至 <font color='#dc4d07'>" + DateUtils.dateTimeToStr(new Date(product.getPreview_repayment_date() * 1000), "yyyy-MM-dd") + "</font> ，故补偿<font color='#dc4d07'>" + product.getPay_interest_day() + "</font>天利息 于投资人,利息计算方法请 点击此处";
+                } else {
+                    html_preview_repayment = "* 此为 <font color='#dc4d07'>提前回款</font> 产品";
+                }
             } else {
                 String tqhk = "";
                 if(product.getPub_date() <= 1485100800){
                     tqhk = "平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font>,";
                 }
-                html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人,利息计算方法请 点击此处";
+                if(product.getPub_date() <= 1521820800) {
+                    html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人,利息计算方法请 点击此处";
+                } else {
+                    html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能" + tqhk ;
+                }
             }
             preview_repayment.setVisibility(View.VISIBLE);
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));

@@ -31,6 +31,8 @@ public class InvestProductDetail implements Serializable{
     @Expose
     private String month;
     @Expose
+    private long pub_date;
+    @Expose
     private long value_date;
     @Expose
     private long deadline;
@@ -179,5 +181,13 @@ public class InvestProductDetail implements Serializable{
 
     public void setRepayment(int repayment) {
         this.repayment = repayment;
+    }
+
+    public long getPub_date() {
+        return pub_date;
+    }
+
+    public void setPub_date(long pub_date) {
+        this.pub_date = pub_date;
     }
 }

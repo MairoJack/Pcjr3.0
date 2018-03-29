@@ -90,6 +90,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     private List<InterestTicket> interestTicketList;
     private InterestListAdapter adapter;
     private long server_time;
+
     @Override
     protected int getLayoutId() {
         return R.layout.invest_detail;
@@ -109,7 +110,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         RecyclerView rv_list = (RecyclerView) view.findViewById(R.id.rv_list);
         ImageView btn_close = (ImageView) view.findViewById(R.id.btn_close);
 
-        btn_close.setOnClickListener(v-> bottomSheetDialog.dismiss());
+        btn_close.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -129,11 +130,11 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             if (!Constant.IS_LOGIN) {
                 intent = new Intent(InvestDetailActivity.this, LoginActivity.class);
                 intent.putExtra("tag", "invest");
-                startActivityForResult(intent,Constant.REQUSET);
+                startActivityForResult(intent, Constant.REQUSET);
                 return;
             }
-            if((boolean) SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
-                startActivityForResult(new Intent(InvestDetailActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
+            if ((boolean) SPUtils.get(this, "isOpenGesture", false) && !Constant.IS_GESTURE_LOGIN) {
+                startActivityForResult(new Intent(InvestDetailActivity.this, GestureVerifyActivity.class), Constant.REQUSET);
                 return;
             }
             dialog.setMessage("正在加载...");
@@ -144,12 +145,12 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         btn_jxq.setOnClickListener(v -> {
             if (ViewUtil.isFastDoubleClick()) return;
             if (!Constant.IS_LOGIN) {
-                Dialog.show("请先登录账号后查看加息券",this);
+                Dialog.show("请先登录账号后查看加息券", this);
                 return;
             }
-            if(interestTicketList == null || interestTicketList.size() == 0){
-                Dialog.show("您没有可用的加息券",this);
-            }else {
+            if (interestTicketList == null || interestTicketList.size() == 0) {
+                Dialog.show("您没有可用的加息券", this);
+            } else {
                 bottomSheetDialog.show();
             }
         });
@@ -171,9 +172,9 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         this.presenter = new InvestDetailPresenter();
         this.presenter.attachView(this);
 
-        if(!Constant.IS_LOGIN){
-            Dialog.show("查看项目详情请先【注册】或【登录】",this);
-        }else{
+        if (!Constant.IS_LOGIN) {
+            Dialog.show("查看项目详情请先【注册】或【登录】", this);
+        } else {
             presenter.getIdentityInfo();
         }
 
@@ -215,33 +216,29 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
 
     public void refreshButton(final Product product, long current_time) {
-        if(Constant.IS_LOGIN) {
+        if (Constant.IS_LOGIN) {
             server_time = current_time;
             presenter.getInterestList();
         }
         this.product = product;
         btn_status.setClickable(false);
         if (product.getStatus() == 1) {
-//            Date date = new Date(current_time);
-//            Date pub_date = new Date(product.getPub_date() * 1000);
-//            if (DateUtils.isStartDateBeforeEndDate(date, pub_date)) {
-//                if (DateUtils.getHoursOfTowDiffDate(date, pub_date) > 1) {
-//                    btn_status.setBackgroundResource(R.drawable.btn_primary);
-//                    btn_status.setText(DateUtils.dateTimeToStr(pub_date, "MM月dd日 HH:mm") + "开抢");
-//                } else {
-//                    btn_status.setVisibility(View.GONE);
-//                    layout_cdv.setVisibility(View.VISIBLE);
-//                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date) + 500);
-//                }
-//            } else {
-//                btn_status.setBackgroundResource(R.drawable.btn_primary);
-//                btn_status.setText("立即投资");
-//                btn_status.setClickable(true);
-//            }
-            btn_status.setBackgroundResource(R.drawable.btn_primary);
-            btn_status.setText("立即投资");
-            btn_status.setClickable(true);
-
+            Date date = new Date(current_time);
+            Date pub_date = new Date(product.getPub_date() * 1000);
+            if (DateUtils.isStartDateBeforeEndDate(date, pub_date)) {
+                if (DateUtils.getHoursOfTowDiffDate(date, pub_date) > 1) {
+                    btn_status.setBackgroundResource(R.drawable.btn_primary);
+                    btn_status.setText(DateUtils.dateTimeToStr(pub_date, "MM月dd日 HH:mm") + "开抢");
+                } else {
+                    btn_status.setVisibility(View.GONE);
+                    layout_cdv.setVisibility(View.VISIBLE);
+                    cdv.start(DateUtils.getMinusMillisOfDate(date, pub_date) + 500);
+                }
+            } else {
+                btn_status.setBackgroundResource(R.drawable.btn_primary);
+                btn_status.setText("立即投资");
+                btn_status.setClickable(true);
+            }
         } else if (product.getStatus() == 2 || product.getStatus() == 3) {
             btn_status.setBackgroundResource(R.drawable.btn_disable);
             btn_status.setText("募集成功");
@@ -266,8 +263,8 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
 
 
     @Override
-    public void onProductInfoSuccess(BaseBean<Product> data,long sys_time) {
-        if(Constant.IS_LOGIN) {
+    public void onProductInfoSuccess(BaseBean<Product> data, long sys_time) {
+        if (Constant.IS_LOGIN) {
             presenter.getInterestList();
         }
         if (dialog.isShowing()) dialog.dismiss();
@@ -275,7 +272,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
         buildTabLayout(product);
         //server_time = data.getCurrent_time() * 1000 + System.currentTimeMillis() - sys_time;
         server_time = data.getCurrent_time() * 1000;
-        refreshButton(data.getData(),server_time);
+        refreshButton(data.getData(), server_time);
     }
 
     @Override
@@ -297,15 +294,15 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     @Override
     public void onInterestListSuccess(List<InterestTicket> list) {
         interestTicketList = list;
-        adapter.setData(list,product,server_time);
+        adapter.setData(list, product, server_time);
     }
 
     @Override
     public void onIdentityInfoSuccess(BaseBean<IdentityInfo> data) {
-        if(data.isSuccess()){
+        if (data.isSuccess()) {
             Constant.IS_REALNAME = true;
-        }else{
-            Dialog.show("查看项目详情请先前往【我的】-【安全设置】完成实名认证",this);
+        } else {
+            Dialog.show("查看项目详情请先前往【我的】-【安全设置】完成实名认证", this);
         }
     }
 
@@ -313,9 +310,9 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
-            if(!Constant.IS_LOGIN){
-                Dialog.show("查看项目详情请先【注册】或【登录】",this);
-            }else{
+            if (!Constant.IS_LOGIN) {
+                Dialog.show("查看项目详情请先【注册】或【登录】", this);
+            } else {
                 presenter.getIdentityInfo();
             }
         }
@@ -334,10 +331,10 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
             ShareSDK.initSDK(this);
             OnekeyShare oks = new OnekeyShare();
             oks.disableSSOWhenAuthorize();
-            oks.setTitle(product.getName()+"，预期年化收益"+product.getYear_income()+"%，"+product.getMonth());
+            oks.setTitle(product.getName() + "，约定年化利率" + product.getYear_income() + "%，" + product.getMonth());
             oks.setTitleUrl(Constant.SHARE_URL);
             oks.setImageUrl(Constant.SHARE_IMG_URL);
-            oks.setUrl(Constant.SHARE_DETAIL_URL+product.getId());
+            oks.setUrl(Constant.SHARE_DETAIL_URL + product.getId());
             oks.show(this);
         }
         return super.onOptionsItemSelected(item);
@@ -354,6 +351,7 @@ public class InvestDetailActivity extends BaseToolbarActivity implements InvestD
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
             }
+
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             }

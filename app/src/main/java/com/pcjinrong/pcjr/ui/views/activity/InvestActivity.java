@@ -108,6 +108,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
     private InterestListSelectAdapter adapter;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.invest;
@@ -136,6 +137,11 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
         rv_list.setAdapter(adapter);
         bottomSheetDialog.setContentView(view);
         setBehaviorCallback();
+
+        txt_invest_amount.setEnabled(false);
+        btn_invest.setEnabled(false);
+        btn_allin.setEnabled(false);
+
     }
 
     @Override
@@ -333,6 +339,7 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
     @Override
     protected void initData() {
+
         Intent intent = getIntent();
         Withdraw withdraw = (Withdraw) intent.getSerializableExtra("data");
         product = (Product) intent.getSerializableExtra("product");
@@ -345,7 +352,12 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
             if(product.getPub_date() <= 1485100800){
                 tqhk = "平台确保此产品最短借款时长为 <font color='#dc4d07'>" + product.getMin_repayment_date() + "</font>,";
             }
-            String html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人";
+            String html_preview_repayment;
+            if(product.getPub_date() <= 1521820800) {
+                html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能，" + tqhk + "如提前回款则补偿本产品 <font color='#dc4d07'>" + product.getPay_interest_day() + "天利息</font> 于投资人";
+            } else {
+                html_preview_repayment = "* 本产品具有 <font color='#dc4d07'>提前回款</font> 可能" + tqhk ;
+            }
             preview_repayment.setVisibility(View.VISIBLE);
             txt_preview_repayment.setText(Html.fromHtml(html_preview_repayment));
         }
@@ -444,6 +456,11 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
 
     @Override
     public void onInterestListSuccess(List<InterestTicket> list) {
+        //加息券获取成功，按钮可点击
+        txt_invest_amount.setEnabled(true);
+        btn_invest.setEnabled(true);
+        btn_allin.setEnabled(true);
+
         InterestTicket it = new InterestTicket();
         it.setId("00");
         it.setSelectable(true);

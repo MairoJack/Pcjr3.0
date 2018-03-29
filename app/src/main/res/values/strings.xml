@@ -17,11 +17,11 @@
 
     <!-- setting -->
     <string name="setting_platform_bulletin">平台公告</string>
-    <string name="setting_about_us">关于我们</string>
+    <string name="setting_about_us">信息披露</string>
     <string name="setting_customer_service">客服热线</string>
 
     <!--item product-->
-    <string name="annual_earnings">预期年化</string>
+    <string name="annual_earnings">约定年化</string>
     <string name="project_duration">项目期限</string>
     <string name="total_amount">起投(元)</string>
     <string name="total_amount_wan">起投(万元)</string>
@@ -42,5 +42,5 @@
     <!-- End -->
 
     <!-- other info -->
-    <string name="realname_info">一个身份信息只能绑定一个账号；\n请确保已满16周岁，本平台充值/提现仅支持二代身份证办理的银行卡；\n每账户最多提交三次验证申请,如被锁定,请联系在线客服或拨打400-101-3339。</string>
+    <string name="realname_info">一个身份信息只能绑定一个账号；\n请确保已满18周岁，本平台充值/提现仅支持二代身份证办理的银行卡；\n每账户最多提交三次验证申请,如被锁定,请联系在线客服或拨打400-101-3339。</string>
 </resources>

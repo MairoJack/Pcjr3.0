@@ -183,7 +183,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:text="预期年化收益（%）"
+                        android:text="约定年化利率（%）"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14sp" />
                 </LinearLayout>

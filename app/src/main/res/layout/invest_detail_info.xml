@@ -109,7 +109,7 @@
                         android:layout_below="@+id/year_income"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="预期年化收益"
+                        android:text="约定年化利率"
                         android:textColor="@color/color_text"
                         android:textSize="@dimen/text_size_title" />
 
