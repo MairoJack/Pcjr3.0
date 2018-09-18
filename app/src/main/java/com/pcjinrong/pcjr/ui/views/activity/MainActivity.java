@@ -30,9 +30,10 @@ import butterknife.BindView;
  * 主Activity
  * Created by Mario on 2016/7/21.
  */
-public class MainActivity extends BaseAppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class MainActivity extends BaseAppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    @BindView(R.id.bottom_navigation_bar) BottomNavigationBar bottomNavigationBar;
+    @BindView(R.id.bottom_navigation_bar)
+    BottomNavigationBar bottomNavigationBar;
     private FragmentNavigator mNavigator;
 
     private static final int DEFAULT_POSITION = 0;
@@ -84,9 +85,9 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
         rxPermissions
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
-                    if (granted) {}
-                    else {
-                        Dialog.show("您可以自行在设置-应用中勾选\"存储数据\"权限",this);
+                    if (granted) {
+                    } else {
+                        Dialog.show("您可以自行在设置-应用中勾选\"存储数据\"权限", this);
                     }
                 });
 
@@ -103,13 +104,13 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
 
     @Override
     public void onTabSelected(int position) {
-        if(position == 2){
-            if(!Constant.IS_LOGIN){
-                startActivityForResult(new Intent(MainActivity.this,LoginActivity.class),Constant.REQUSET);
+        if (position == 2) {
+            if (!Constant.IS_LOGIN) {
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Constant.REQUSET);
                 return;
             }
-            if((boolean)SPUtils.get(this,"isOpenGesture",false) && !Constant.IS_GESTURE_LOGIN){
-                startActivityForResult(new Intent(MainActivity.this,GestureVerifyActivity.class),Constant.REQUSET);
+            if ((boolean) SPUtils.get(this, "isOpenGesture", false) && !Constant.IS_GESTURE_LOGIN) {
+                startActivityForResult(new Intent(MainActivity.this, GestureVerifyActivity.class), Constant.REQUSET);
                 return;
             }
         }
@@ -126,7 +127,7 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
 
     }
 
-    public void tabSelect(int position){
+    public void tabSelect(int position) {
         bottomNavigationBar.selectTab(position);
     }
 
@@ -137,14 +138,14 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
         if (requestCode == Constant.REQUSET && resultCode == RESULT_OK) {
             bottomNavigationBar.selectTab(2);
             mNavigator.showFragment(2);
-        }else if(requestCode == Constant.LOGOUT && resultCode == RESULT_OK){
+        } else if (requestCode == Constant.LOGOUT && resultCode == RESULT_OK) {
             bottomNavigationBar.selectTab(0);
             mNavigator.showFragment(0);
-        }else if(requestCode == Constant.REQUSET && resultCode == RESULT_CANCELED){
+        } else if (requestCode == Constant.REQUSET && resultCode == RESULT_CANCELED) {
             bottomNavigationBar.selectTab(0);
             mNavigator.showFragment(0);
-        }else if(requestCode == Constant.WITHDRAW && resultCode == RESULT_OK){
-            Dialog.show(data.getStringExtra("msg"),this);
+        } else if (requestCode == Constant.WITHDRAW && resultCode == RESULT_OK) {
+            Dialog.show(data.getStringExtra("msg"), this);
         }
     }
 
@@ -167,23 +168,24 @@ public class MainActivity extends BaseAppCompatActivity implements BottomNavigat
      */
     public void XGAction() {
         Context context = getApplicationContext();
-        XGPushManager.registerPush(context,new XGIOperateCallback(){
+        XGPushManager.registerPush(context, new XGIOperateCallback() {
 
             @Override
-            public void onSuccess(Object o, int i) {
-                Logger.i("XGAction:onSuccess: "+i);
+            public void onSuccess(Object data, int flag) {
+                Constant.DEVICE_TOKEN = data.toString();
+                Logger.i("DEVICE_TOKEN:" + data.toString());
             }
 
             @Override
-            public void onFail(Object o, int i, String s) {
-                Logger.e(i+":"+s);
+            public void onFail(Object data, int errCode, String msg) {
+                Logger.e("register push fail. token:" + data
+                        + ", errCode:" + errCode + ",msg:"
+                        + msg);
             }
         });
 
         Intent service = new Intent(context, XGPushServiceV3.class);
         context.startService(service);
 
-        Constant.DEVICE_TOKEN = XGPushConfig.getToken(context);
-        Logger.i("DEVICE_TOKEN:"+XGPushConfig.getToken(context));
     }
 }

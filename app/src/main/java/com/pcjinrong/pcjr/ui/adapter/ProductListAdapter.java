@@ -148,8 +148,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             switch (repayment) {
                 case 0:mIvRepayment.setText("一次还本付息");break;
                 case 1:mIvRepayment.setText("先息后本(月)");break;
-                case 2:mIvRepayment.setText("等额本息");break;
+                case 2:mIvRepayment.setText("等额本息(月)");break;
                 case 3:mIvRepayment.setText("先息后本(季)");break;
+                case 4:mIvRepayment.setText("等额本息(季)");break;
             }
             if (object.getFinish_preview_repayment() == 1) {
                 mIvTqhk.setImageResource(R.mipmap.ic_tqhk);

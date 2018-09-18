@@ -141,8 +141,13 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
                 startActivity(intent);
             });
         }
-        if (product.getRepayment() == 2) {
-            String html_debx = "* 本产品为 <font color='#dc4d07'>等额本息</font> 产品，每投资1000元预期收益为 <font color='#dc4d07'>" + product.getEstimate_interest() + "</font> 元，按月还本付息，资金更灵活，理财更安心,具体收益计算公式请 点击此处";
+        if(product.getRepayment() == 2 || product.getRepayment() == 4) {
+            String html_debx;
+            if (product.getRepayment() == 2) {
+                html_debx = "* 本产品为 <font color='#dc4d07'>等额本息</font> 产品，每投资1000元预期收益为 <font color='#dc4d07'>" + product.getEstimate_interest() + "</font> 元，按月还本付息，资金更灵活，理财更安心,具体收益计算公式请 点击此处";
+            } else {
+                html_debx = "* 本产品为 <font color='#dc4d07'>等额本息</font> 产品，每投资1000元预期收益为 <font color='#dc4d07'>" + product.getEstimate_interest() + "</font> 元，按季还本付息，资金更灵活，理财更安心,具体收益计算公式请 点击此处";
+            }
             debx.setVisibility(View.VISIBLE);
             txt_debx.setText(Html.fromHtml(html_debx));
             debx.setOnClickListener(v -> {
@@ -163,8 +168,9 @@ public class InvestDetailInfoFragment extends BaseFragment implements InvestDeta
         switch (repayment) {
             case 0:txt_repayment.setText("一次还本付息");break;
             case 1:txt_repayment.setText("先息后本(按月付息)");break;
-            case 2:txt_repayment.setText("等额本息");break;
+            case 2:txt_repayment.setText("等额本息(按月付款)");break;
             case 3:txt_repayment.setText("先息后本(按季付息)");break;
+            case 4:txt_repayment.setText("等额本息(按季付款)");break;
         }
 
         year_income.setText(product.getYear_income() + "%");

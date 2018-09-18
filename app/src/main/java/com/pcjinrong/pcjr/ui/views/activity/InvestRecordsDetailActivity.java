@@ -123,8 +123,9 @@ public class InvestRecordsDetailActivity extends BaseToolbarActivity {
         switch (repayment) {
             case 0:txt_repayment_type.setText("一次还本付息");break;
             case 1:txt_repayment_type.setText("先息后本(按月付息)");break;
-            case 2:txt_repayment_type.setText("等额本息");break;
+            case 2:txt_repayment_type.setText("等额本息(按月付款)");break;
             case 3:txt_repayment_type.setText("先息后本(按季付息)");break;
+            case 4:txt_repayment_type.setText("等额本息(按季付款)");break;
         }
 
         switch (status) {

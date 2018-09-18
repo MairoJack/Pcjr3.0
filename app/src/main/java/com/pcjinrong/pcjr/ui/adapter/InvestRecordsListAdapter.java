@@ -90,10 +90,13 @@ public class InvestRecordsListAdapter extends RecyclerView.Adapter<InvestRecords
                     mIvRepayment.setText("先息后本(按月付息)");
                     break;
                 case 2:
-                    mIvRepayment.setText("等额本息");
+                    mIvRepayment.setText("等额本息(按月付款)");
                     break;
                 case 3:
                     mIvRepayment.setText("先息后本(按季付息)");
+                    break;
+                case 4:
+                    mIvRepayment.setText("等额本息(按季付款)");
                     break;
             }
 

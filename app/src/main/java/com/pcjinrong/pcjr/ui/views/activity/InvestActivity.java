@@ -377,10 +377,13 @@ public class InvestActivity extends BaseToolbarActivity implements InvestView {
                 txt_repayment.setText("先息后本(按月付息)");
                 break;
             case 2:
-                txt_repayment.setText("等额本息");
+                txt_repayment.setText("等额本息(按月付款)");
                 break;
             case 3:
                 txt_repayment.setText("先息后本(按季付息)");
+                break;
+            case 4:
+                txt_repayment.setText("等额本息(按季付款)");
                 break;
         }
         txt_month.setText(product.getMonth());
